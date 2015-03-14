@@ -1,0 +1,27 @@
+
+
+角色：
+     User Client: UC
+     Server:     Server
+     Screen Client: SC
+
+Case 1:     UC登陆
+     1. UC POST用户信息到Server，Server处理完数据之后，传给SC
+     2. 返回信息到UC
+
+Case 2:     SC登陆
+     1. SC POST屏幕信息到Server，Server处理完数据，给予SC响应表示已经建立连接
+     2. 返回给SC一个二维码信息，编码URL信息
+
+Case2：     游戏进行
+     1. 不需要与UC建立连接，UC不断向Server发送消息（形式？数据流？）
+     2. 每个UC请求的数据处理完之后，塞入消息队列
+     3. 与SC建立长连接，不断从消息队列读取一定量的数据，返回给SC
+
+
+方案：
+加入redis，redis具备消息队列的功能
+对于nodejs来说，可以使用node_redis直接调用redis的命令
+这个demo模拟了Case2，访问http://localhost:8888模拟UC，网消息队列加入一条消息
+访问http://localhost:8888/run模拟SC，能够不断地将消息队列里地数据pop出来
+
