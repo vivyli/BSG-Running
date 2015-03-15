@@ -17,4 +17,6 @@ var Runner = cc.Node.extend({
     }
 
 
+
+
 });

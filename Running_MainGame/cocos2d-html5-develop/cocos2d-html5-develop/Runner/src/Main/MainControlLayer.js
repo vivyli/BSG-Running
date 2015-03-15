@@ -9,8 +9,8 @@ var MainControlLayer = cc.Layer.extend({
     },
 
     finish:function(){
-
-            var nextScene = new MainScene();
+            cc.log("finish game move to awards");
+            var nextScene = new AwardScene();
             cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
 
     },
@@ -19,11 +19,7 @@ var MainControlLayer = cc.Layer.extend({
 
         if (this._super()) {
             var size = cc.director.getWinSize();
-            this.backgroundLabel = new cc.LabelTTF("Game\nBackground", "Impact", 38);
-            // position the label on the center of the screen
-            this.backgroundLabel.setPosition(size.width / 2, size.height - 40);
-            // add the label as a child to this layer
-            this.addChild(this.backgroundLabel, 5,203);
+
             var startItem = new cc.MenuItemImage(
                 s_CloseNormal,
                 s_CloseSelected,
