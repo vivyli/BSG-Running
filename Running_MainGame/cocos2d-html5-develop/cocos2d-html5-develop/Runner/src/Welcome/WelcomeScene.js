@@ -5,7 +5,7 @@ var WelcomeScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
 
-        gGameData.initData();
+        //gGameData.initData();
 
         //var spriteFrameCache = cc.SpriteFrameCache.getInstance();
         //spriteFrameCache.addSpriteFrames("res/baseResource.plist","res/baseResource.png");

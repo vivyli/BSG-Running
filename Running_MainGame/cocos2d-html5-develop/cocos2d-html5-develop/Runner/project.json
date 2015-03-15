@@ -11,6 +11,18 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/myApp.js"
+        "src/myApp.js",
+        "src/Welcome/WelcomeScene.js",
+        "src/Welcome/WelcomeLayer.js",
+        "src/Prepare/PrepareScene.js",
+        "src/Prepare/PrepareLayer.js",
+        "src/Main/MainScene.js",
+        "src/Main/BackgroundLayer.js",
+        "src/Main/MainControlLayer.js",
+        "src/Main/PreEffectsLayer.js",
+        "src/Main/Runner.js",
+        "src/Main/RunnerLayer.js",
+        "src/Award/AwardScene.js",
+        "src/Award/AwardLayer.js"
     ]
 }
