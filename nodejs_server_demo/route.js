@@ -1,3 +1,6 @@
+/**
+ * Created by chunmato on 15/3/15.
+ */
 
 function route(handle, pathname, response)
 {
