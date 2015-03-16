@@ -11,6 +11,12 @@
     "modules" : ["cocos2d"],
 
     "jsList" : [
+        "../common/commonDefs.js",
+
+        "lib/socket.io-1.3.5.js",
+        "src/Config/Defs.js",
+
+        "src/ControlLevel.js",
         "src/resource.js",
         "src/myApp.js",
         "src/Welcome/WelcomeScene.js",

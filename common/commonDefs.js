@@ -3,12 +3,11 @@
  */
 
 var EventNetworkLED = {
-    SC_LOGIN : "SC_LOGIN",
-    SC_GAMEID : "SC_GAMEID",
-    SC_PREPARE_STATE : "SC_PREPARE_STATE",
-    SC_START_GAME : "SC_START_GAME",
-    SC_GAME_STATE : "SC_GAME_STATE",
-    SC_UPDATE_STATE : "SC_UPDATE_STATE",
-    SC_END_GAME : "SC_END_GAME"
+    Login : "SC_login", // led send login to server
+    GameID : "SC_gameid", // server send game id to led
+    PrepareState : "SC_prepare_state", // server send player register to led
+    StartGame : "SC_start_game", // led send game start to server
+    GameState : "SC_game_state", // server send player speed to led
+    EndGame : "SC_end_game" // led send game over to server
 }
 

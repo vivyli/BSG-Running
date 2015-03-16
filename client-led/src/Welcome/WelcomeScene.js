@@ -14,6 +14,7 @@ var WelcomeScene = cc.Scene.extend({
         //layer.init();
         this.addChild(layer);
 
+        ControlLayer._getInstance().updateScene(this, EnumSceneName.eWelcome);
 //        gSharedEngine.setMusicVolume(1);
 //        gSharedEngine.setEffectsVolume(1);
 //        gSharedEngine.playMusic(MUSIC_BACKGROUND,true);
