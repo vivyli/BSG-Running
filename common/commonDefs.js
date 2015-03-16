@@ -2,7 +2,7 @@
  * Created by slamzhzm on 2015/3/16.
  */
 
-var EventNetworkLED = {
+EventNetworkLED = {
     Login : "SC_login", // led send login to server
     GameID : "SC_gameid", // server send game id to led
     PrepareState : "SC_prepare_state", // server send player register to led
