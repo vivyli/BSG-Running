@@ -9,6 +9,8 @@ var PrepareScene = cc.Scene.extend({
         var layer = new PrepareLayer;
         //layer.init();
         this.addChild(layer);
+
+        ControlLayer._getInstance().updateScene(this, EnumSceneName.ePrepare);
         //var spriteFrameCache = cc.SpriteFrameCache.getInstance();
         //spriteFrameCache.addSpriteFrames("res/baseResource.plist","res/baseResource.png");
 

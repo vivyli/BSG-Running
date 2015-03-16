@@ -16,6 +16,8 @@ var MainScene = cc.Scene.extend({
 
         var preEffectsLayer = new PreEffectsLayer();
         this.addChild(preEffectsLayer,3,206);
+
+        ControlLayer._getInstance().updateScene(this, EnumSceneName.eMain);
     }
 
 });

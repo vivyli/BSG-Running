@@ -7,6 +7,8 @@ ControlLayer = cc.Class.extend({
     scene:null,
     sceneName:"",
     socket:null,
+	
+	gameId:"",
     init:function()
     {
         this.socket = io(NETWORK_CONSTANTS.SERVER_HOST);
@@ -47,18 +49,33 @@ ControlLayer = cc.Class.extend({
             this.socket.on(EventNetworkLED.GameID, function(data){
                 cc.log("### event: "+EventNetworkLED.GameID);
                 cc.log(data);
+
+				this.gameId = data;
+
+				// run prepare scene
+				cc.log("### entering prepare scene");
+				var nextScene = new PrepareScene();
+				cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
             });
 
 			// recv prepare state, player register
             this.socket.on(EventNetworkLED.PrepareState, function(data){
                 cc.log("### event: "+EventNetworkLED.PrepareState);
-                cc.log(data);
-            });
+
+				if(this.sceneName == EnumSceneName.ePrepare) {
+					cc.log("### in prepare scene");
+					cc.log(data);
+				}
+			});
 
 			// recv game state, player speed
             this.socket.on(EventNetworkLED.GameState, function(data){
                 cc.log("### event: "+EventNetworkLED.GameState);
-                cc.log(data);
+
+				if(this.sceneName == EnumSceneName.eMain) {
+					cc.log("### in main scene");
+					cc.log(data);
+				}
             });
         }
     },

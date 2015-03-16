@@ -9,6 +9,8 @@ var AwardScene = cc.Scene.extend({
         var layer = new AwardLayer;
         //layer.init();
         this.addChild(layer);
+
+        ControlLayer._getInstance().updateScene(this, EnumSceneName.eAward);
         //var spriteFrameCache = cc.SpriteFrameCache.getInstance();
         //spriteFrameCache.addSpriteFrames("res/baseResource.plist","res/baseResource.png");
 
