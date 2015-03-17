@@ -10,3 +10,11 @@ EventNetworkLED = {
     GameState : "SC_game_state", // server send player speed to led
     EndGame : "SC_end_game" // led send game over to server
 }
+
+EventNetworkLED = {
+    Sensor : "PL_sensor" // player send sensor data to server
+}
+
+NETWORK_CONSTANTS = {
+    SERVER_HOST : "http://192.168.10.108:8888"
+}

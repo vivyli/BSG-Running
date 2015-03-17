@@ -64,8 +64,20 @@ var HelloWorldLayer = cc.Layer.extend({
                 cc.tintTo(2.5,255,125,0)
             )
         );
+		this.sendData();
         return true;
-    }
+    },
+	sendData: function()
+	{
+		var xhr = cc.loader.getXMLHttpRequest();
+		xhr.open("GET", "http://192.168.10.107:7777/hello", true);
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status <= 207)) {
+                cc.log(xhr.response);
+            }
+        };
+        xhr.send();
+	}
 });
 
 var HelloWorldScene = cc.Scene.extend({
