@@ -71,7 +71,7 @@ var HelloWorldLayer = cc.Layer.extend({
 	{
 		if( 'accelerometer' in cc.sys.capabilities ) {
 			// call is called 30 times per second
-			cc.inputManager.setAccelerometerInterval(1/3);
+			cc.inputManager.setAccelerometerInterval(1/4);
 			cc.inputManager.setAccelerometerEnabled(true);
 			cc.eventManager.addListener({
 				event: cc.EventListener.ACCELERATION,
@@ -84,9 +84,11 @@ var HelloWorldLayer = cc.Layer.extend({
                     var z = accelEvent.z;
 
 					// Low pass filter
-					x = x*0.5 + target.prevX*0.5;
-					y = y*0.5 + target.prevY*0.5;
-                    z = z*0.5 + target.prevZ*0.5;
+                    var p1 = 0.8;
+                    var p2 = 0.2;
+					x = x*p1 + target.prevX*p2;
+					y = y*p1 + target.prevY*p2;
+                    z = z*p1 + target.prevZ*p2;
 
 					target.prevX = x;
 					target.prevY = y;

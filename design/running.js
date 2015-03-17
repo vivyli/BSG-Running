@@ -1,0 +1,4 @@
+GameDefinition = {
+    RunwayLength : 100
+};
+
