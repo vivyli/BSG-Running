@@ -64,19 +64,61 @@ var HelloWorldLayer = cc.Layer.extend({
                 cc.tintTo(2.5,255,125,0)
             )
         );
-		this.sendData();
+		this.registerSensorEvent();
         return true;
     },
-	sendData: function()
+	registerSensorEvent: function()
+	{
+		if( 'accelerometer' in cc.sys.capabilities ) {
+			// call is called 30 times per second
+			cc.inputManager.setAccelerometerInterval(1/3);
+			cc.inputManager.setAccelerometerEnabled(true);
+			cc.eventManager.addListener({
+				event: cc.EventListener.ACCELERATION,
+				callback: function(accelEvent, event){
+					var target = event.getCurrentTarget();
+					cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
+
+					var x = accelEvent.x;
+					var y = accelEvent.y;
+                    var z = accelEvent.z;
+
+					// Low pass filter
+					x = x*0.5 + target.prevX*0.5;
+					y = y*0.5 + target.prevY*0.5;
+                    z = z*0.5 + target.prevZ*0.5;
+
+					target.prevX = x;
+					target.prevY = y;
+                    target.prevZ = z;
+
+                    var data = Math.abs(x) + Math.abs(y) + Math.abs(z);
+                    target.sendData(data);
+				}
+			}, this);
+
+			// for low-pass filter
+			this.prevX = 0;
+			this.prevY = 0;
+            this.prevZ = 0;
+		} else {
+			cc.log("ACCELEROMETER not supported");
+		}
+	},
+	sendData: function(data)
 	{
 		var xhr = cc.loader.getXMLHttpRequest();
-		xhr.open("GET", "http://192.168.10.107:7777/hello", true);
+        var url = NETWORK_CONSTANTS.SERVER_HOST+"/"+EventNetworkLED.Sensor;
+        cc.log(url);
+		xhr.open("POST", url);
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status <= 207)) {
+				// debug
                 cc.log(xhr.response);
             }
         };
-        xhr.send();
+        xhr.send("data="+data);
 	}
 });
 

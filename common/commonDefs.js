@@ -16,5 +16,5 @@ EventNetworkLED = {
 }
 
 NETWORK_CONSTANTS = {
-    SERVER_HOST : "http://192.168.10.108:8888"
+    SERVER_HOST : "http://192.168.10.107:7777"
 }

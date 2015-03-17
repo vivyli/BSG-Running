@@ -11,6 +11,8 @@
     "modules" : ["cocos2d"],
 
     "jsList" : [
+        "../common/commonDefs.js",
+
         "src/resource.js",
         "src/app.js"
     ]
