@@ -15,7 +15,7 @@ uc_events.route = function(request, response) {
     if (typeof uc_events.actions[uriComponents[1]] == 'function') {
         console.log('action '+uriComponents[1]+' found');
         request.connection.setTimeout(0);
-        uc_events.actions[uriComponents[1]].apply(uc_events, [request, response, uriComponents[2]]);
+        uc_events.actions[uriComponents[1]].apply(uc_events, [request, response]);
         return true;
     }
 
@@ -23,8 +23,11 @@ uc_events.route = function(request, response) {
 };
 
 // TODO@chunmato - need define the uc events.
-uc_events.actions.hello = function(request, response, module) {
-    console.log('hello '+module);
+uc_events.actions.hello = function(request, response) {
+    console.log('hello in action.hello');
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write('HOHOHO');
+    response.end();
 }
 
 //uc server
@@ -35,8 +38,9 @@ function start(port)
         console.log('received request '+request.url);
         if (!uc_events.route(request, response)) {
             console.log('bad request');
-            response.writeHead(404);
-            response.end();
+            console.log(request.url);
+           // response.writeHead(404);
+           // response.end();
         }
     }).listen(port);
 }
