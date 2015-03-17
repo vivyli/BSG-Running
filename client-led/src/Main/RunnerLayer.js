@@ -29,7 +29,6 @@ var RunnerLayer = cc.Layer.extend({
     },
 
     update: function (dt) {
-        cc.log("in move update()");
         for (var id in this.runners) {
             var runner = this.runners[id];
 

@@ -52,6 +52,7 @@ var Runner = cc.Node.extend({
     {
         this.isFinish = true;
         this.stopFire();
+        this.sprite.stopAllActions();
     },
     setFire: function()
     {
