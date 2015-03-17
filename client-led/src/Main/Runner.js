@@ -7,6 +7,8 @@ var Runner = cc.Node.extend({
     name:"",
     photo:null,
     id:null,
+    isFinish:null,
+    _emitter:null,
     init:function (id, photo,name) {
         var cache = cc.spriteFrameCache;
         cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
@@ -43,9 +45,27 @@ var Runner = cc.Node.extend({
 
         this.sprite.runAction(cc.repeatForever(action));
         //this.sprite.stopAction();
+
+        this.setFire();
+    },
+    setFinish: function()
+    {
+        this.isFinish = true;
+        this.stopFire();
+    },
+    setFire: function()
+    {
+        this._emitter = new cc.ParticleSun();
+        this._emitter.setPosition(cc.p(0,0));
+        this.addChild(this._emitter);
+        this._emitter.texture = cc.textureCache.addImage(s_Fire);
+        if (this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.ParticleSystem.BALL_SHAPE);
+    },
+    stopFire: function()
+    {
+        if(this._emitter.isActive()) {
+            this._emitter.stopSystem();
+        }
     }
-
-
-
-
 });

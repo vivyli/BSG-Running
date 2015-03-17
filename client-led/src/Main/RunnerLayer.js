@@ -29,16 +29,19 @@ var RunnerLayer = cc.Layer.extend({
     },
 
     update: function (dt) {
+        cc.log("in move update()");
         for (var id in this.runners) {
-            cc.log("move");
             var runner = this.runners[id];
 
-            runner.setPosition(cc.pAdd(runner.getPosition(),cc.p(runner.speed,0)));
-
-            if(runner.x > 500)
+            if(runner.getPosition().x >= 500)
             {
-                //TODO: finish running
-                cc.log("finish run!");
+                if(!runner.isFinish) {
+                    //TODO: finish running
+                    cc.log(id+" finish run! ");
+                    runner.setFinish();
+                }
+            } else {
+                runner.setPosition(cc.pAdd(runner.getPosition(),cc.p(runner.speed,0)));
             }
         }
     }
