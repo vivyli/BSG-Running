@@ -11,3 +11,6 @@ EventNetworkLED = {
     EndGame : "SC_end_game" // led send game over to server
 }
 
+GameDefinition = {
+    RunwayLength : 100
+};
