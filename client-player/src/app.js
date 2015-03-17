@@ -2,6 +2,7 @@
 var HelloWorldLayer = cc.Layer.extend({
     sprite:null,
     ctor:function () {
+        cc.log("in ctor of HelloWorldLayer");
         //////////////////////////////
         // 1. super init first
         this._super();
@@ -64,7 +65,64 @@ var HelloWorldLayer = cc.Layer.extend({
                 cc.tintTo(2.5,255,125,0)
             )
         );
+
+        this.sendData("hehehehehehe");
+
         return true;
+    },
+    registerAccelerator: function()
+    {
+        if( 'accelerometer' in cc.sys.capabilities ) {
+            // call is called 30 times per second
+            cc.inputManager.setAccelerometerInterval(1/3);
+            cc.inputManager.setAccelerometerEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.ACCELERATION,
+                callback: function(accelEvent, event){
+                    var target = event.getCurrentTarget();
+                    cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
+
+                    var w = winSize.width;
+                    var h = winSize.height;
+
+                    var x = accelEvent.x;
+                    var y = accelEvent.y;
+                    var z = accelEvent.z;
+
+                    // Low pass filter
+                    x = x*0.5 + target.prevX*0.5;
+                    y = y*0.5 + target.prevY*0.5;
+                    z = z*0.5 + target.prevZ*0.5;
+
+                    target.prevX = x;
+                    target.prevY = y;
+                    target.prevZ = z;
+
+                    var aVal = Math.abs(x) + Math.abs(y) + Math.abs(z);
+                    target.sendData(aVal);
+                }
+            }, this);
+            this.prevX = 0;
+            this.prevY = 0;
+            this.prevZ = 0;
+        } else {
+            cc.log("ACCELEROMETER not supported");
+        }
+    },
+    sendData: function(data)
+    {
+        var xhr = cc.loader.getXMLHttpRequest();
+        xhr.open("GET", "http://192.168.10.107:7777/hello", true);
+
+        xhr.onreadystatechange = function () {
+            cc.log(xhr);
+            cc.log(xhr.status);
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status <= 207)) {
+                var response = xhr.responseText.substring(0, 100) + "...";
+                cc.log(response);
+            }
+        };
+        xhr.send();
     }
 });
 

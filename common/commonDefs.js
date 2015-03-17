@@ -11,3 +11,7 @@ EventNetworkLED = {
     EndGame : "SC_end_game" // led send game over to server
 }
 
+EventNetworkPlayer = {
+    SenserData : "PL_senser_data" // player send senser data to server
+}
+
