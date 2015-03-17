@@ -10,7 +10,3 @@ EventNetworkLED = {
     GameState : "SC_game_state", // server send player speed to led
     EndGame : "SC_end_game" // led send game over to server
 }
-
-GameDefinition = {
-    RunwayLength : 100
-};
