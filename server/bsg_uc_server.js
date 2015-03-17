@@ -3,31 +3,62 @@
  */
 
 var http = require('http');
-//var querystring = require('querystring');
+var url = require("url");
+var querystring = require('querystring');
 
 var uc_events = {};
 uc_events.actions = {};
 
 uc_events.route = function(request, response) {
-    console.log('routing '+request.url);
-    var uriComponents = request.url.split('/');
-    console.log(uriComponents[1]);
-    if (typeof uc_events.actions[uriComponents[1]] == 'function') {
-        console.log('action '+uriComponents[1]+' found');
-        request.connection.setTimeout(0);
-        uc_events.actions[uriComponents[1]].apply(uc_events, [request, response]);
+    var action = url.parse(request.url).pathname.split('/')[1];
+    console.log('action received: ' + action);
+    if (typeof uc_events.actions[action] == 'function') {
+        request.connection.setTimeout(0);   // ?
+        uc_events.actions[action].apply(uc_events, [request, response]);
         return true;
     }
 
     return false;
 };
 
-// TODO@chunmato - need define the uc events.
-uc_events.actions.hello = function(request, response) {
-    console.log('hello in action.hello');
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write('HOHOHO');
-    response.end();
+// PL_sensor event - UC will post data with user info and shake info
+uc_events.actions.PL_sensor = function(request, response) {
+    var post_data = "";
+    if (request.method == "POST")
+    {
+        request.setEncoding("utf-8");
+        // collect all POST data chunk
+        request.addListener("data", function (post_data_chunk) {
+            post_data += post_data_chunk;
+        });
+
+        // deal with POST data
+        request.addListener("end", function () {
+            var object_post_data = querystring.parse(post_data);
+
+            // TODO@chunmato deal with uc data
+
+            // @DEBUG
+            var responseString = "";
+            for (var i in object_post_data) {
+                responseString += i + " => " + object_post_data[i];
+            }
+            console.log(responseString);
+            response.writeHead(200, {"Content-Type": "text/plain",
+                "Access-Control-Allow-Origin": "*"});
+            response.write("Hello, Post");
+            response.end();
+            // @END DEBUG
+        });
+    }
+    else if (request.method == "GET")
+    {
+        response.writeHead(200, {"Content-Type": "text/plain",
+            "Access-Control-Allow-Origin": "*"});
+        response.write("Invalid request, please use POST method!");
+        response.end();
+    }
+
 }
 
 //uc server
@@ -35,12 +66,10 @@ function start(port)
 {
     console.log("uc server started with port " + port);
     http.createServer(function(request, response) {
-        console.log('received request '+request.url);
         if (!uc_events.route(request, response)) {
             console.log('bad request');
-            console.log(request.url);
-           // response.writeHead(404);
-           // response.end();
+            response.writeHead(404);
+            response.end();
         }
     }).listen(port);
 }
