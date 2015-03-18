@@ -11,7 +11,7 @@ EventNetworkLED = {
     EndGame : "SC_end_game" // led send game over to server
 }
 
-EventNetworkLED = {
+EventNetworkPlayer = {
     Sensor : "PL_sensor", // player send sensor data to server
     HeartBeat : "PL_heart_beat" // player send heart beat to server
 }
