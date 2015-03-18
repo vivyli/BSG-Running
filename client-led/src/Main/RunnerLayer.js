@@ -11,12 +11,12 @@ var RunnerLayer = cc.Layer.extend({
 
     init:function () {
         this.runners = new Array();
-        this.schedule(this.update,0);
+
 
 
         //test code:
         this.addRunner("hello","yello","yxsh",s_Photo);
-
+        this.schedule(this.update,0);
     },
 
     addRunner:function(id,color,name,photo){

@@ -6,8 +6,8 @@ var PrepareScene = cc.Scene.extend({
         this._super();
 
         //gGameData.initData();
-        var layer = new PrepareLayer;
-        //layer.init();
+        var layer = new PrepareLayer();
+        layer.init(5,5);
         this.addChild(layer);
 
         ControlLayer._getInstance().updateScene(this, EnumSceneName.ePrepare);
