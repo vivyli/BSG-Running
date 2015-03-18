@@ -13,7 +13,7 @@ EventNetworkLED = {
 
 EventNetworkLED = {
     Sensor : "PL_sensor", // player send sensor data to server
-    HearBeat : "PL_heart_beat" // player send heart beat to server
+    HeartBeat : "PL_heart_beat" // player send heart beat to server
 }
 
 NETWORK_CONSTANTS = {
@@ -31,4 +31,4 @@ GAME_STATE = {
     RUNNING             :   4,
     FINISHED            :   5
 
-};
+}

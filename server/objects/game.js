@@ -2,7 +2,7 @@
  * Created by chunmato on 15/3/17.
  */
 
-require('../common/commonDefs.js');
+require('../../common/commonDefs.js');
 
 /*
 var Game = {
