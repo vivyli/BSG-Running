@@ -2,6 +2,9 @@
  * Created by chunmato on 15/3/18.
  */
 
+var log = require('./log.js');
+
+/*
 function handlePostRequest(request, callback){
     var post_data = "";
     if (request.method == "POST")
@@ -15,6 +18,8 @@ function handlePostRequest(request, callback){
         // deal with POST data
         request.addListener("end", function () {
             var object_post_data = querystring.parse(post_data);
+
+
 
             var shake_data = object_post_data[NETWORK_CONSTANTS.SHAKE_DATA];
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
@@ -33,4 +38,18 @@ function handlePostRequest(request, callback){
             // @END DEBUG
         });
     }
+}*/
+
+function send_text_response(response, text){
+    if (typeof(text) != 'String')
+        return log.error_type_error('text', 'string', typeof(text));
+
+    response.writeHead(200, {"Content-Type": "text/plain",
+        "Access-Control-Allow-Origin": "*"});
+    response.write(text);
+    response.end();
+
+    return true;
 }
+
+exports.send_text_response = send_text_response;
