@@ -2,9 +2,12 @@
  * Created by chunmato on 15/3/16.
  */
 
+require('./util.js');
+
 var http = require('http');
 var url = require("url");
 var querystring = require('querystring');
+var runner_processor = require('./runner_processor');
 
 var uc_events = {};
 uc_events.actions = {};
@@ -36,8 +39,10 @@ uc_events.actions.PL_sensor = function(request, response) {
         request.addListener("end", function () {
             var object_post_data = querystring.parse(post_data);
 
-            // TODO@chunmato deal with uc data
-
+            var shake_data = object_post_data[NETWORK_CONSTANTS.SHAKE_DATA];
+            var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
+            // TODO@chunmato - Should check parameters state
+            runner_processor.process(user_id, shake_data);
             // @DEBUG
             var responseString = "";
             for (var i in object_post_data) {
@@ -53,6 +58,8 @@ uc_events.actions.PL_sensor = function(request, response) {
     }
     else if (request.method == "GET")
     {
+        // TEST
+        runner_processor.process(111, 11);
         response.writeHead(200, {"Content-Type": "text/plain",
             "Access-Control-Allow-Origin": "*"});
         response.write("Invalid request, please use POST method!");

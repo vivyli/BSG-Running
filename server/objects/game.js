@@ -19,8 +19,10 @@ var Game = {
 
 };*/
 
-function Game(){
-    this.runner = [];
+module.exports = function Game(){
+    this.id = 0;
+    this.runners = {};
     this.game_state = GAME_STATE.RESERVED;
 
 }
+
