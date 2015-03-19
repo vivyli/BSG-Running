@@ -13,7 +13,8 @@ EventNetworkLED = {
 
 EventNetworkPlayer = {
     Sensor : "PL_sensor", // player send sensor data to server
-    HeartBeat : "PL_heart_beat" // player send heart beat to server
+    HeartBeat : "PL_heart_beat", // player send heart beat to server
+    Login: "PL_login"
 }
 
 NETWORK_CONSTANTS = {

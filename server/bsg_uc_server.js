@@ -66,6 +66,7 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
 
 }
 
+// PL_heart_beat
 uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
     var post_data = "";
     if (request.method == "POST")
@@ -80,8 +81,9 @@ uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
         request.addListener("end", function () {
             var object_post_data = querystring.parse(post_data);
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
+            runner_processor.heart_beat(user_id);
             console.log('heart beat received: user id = ' + user_id);
-            // TODO@chunmato
+
             var game_state = GAME_STATE.RESERVED;
             if (game_manager.game != null)
                 game_state = game_manager.game.game_state;
@@ -91,11 +93,30 @@ uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
     else if (request.method == "GET")
     {
         // TEST
-        runner_processor.process(111, 11);
-        response.writeHead(200, {"Content-Type": "text/plain",
-            "Access-Control-Allow-Origin": "*"});
-        response.write("Invalid request, please use POST method!");
-        response.end();
+        runner_processor.heart_beat(111);
+        util.send_text_response(response, "heart beat");
+    }
+
+}
+
+// PL_login
+uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
+    if (request.method == "POST")
+    {
+        util.handlePostRequest(request, function(object_post_data){
+            var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
+            runner_processor.register_runner(user_id);
+            var game_state = GAME_STATE.RESERVED;
+            if (game_manager.game != null)
+                game_state = game_manager.game.game_state;
+            util.send_text_response(response, (''+ game_state));
+        });
+    }
+    else if (request.method == "GET")
+    {
+        // TEST
+        runner_processor.register_runner(11);
+        util.send_text_response(response, "login");
     }
 
 }

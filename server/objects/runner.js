@@ -5,7 +5,7 @@
 
 require('../../common/commonDefs.js');
 
-var RUNNER_STATE = {
+RUNNER_STATE = {
     RESERVED    :   0,
     READY       :   1,
     RUNNING     :   2,
@@ -19,11 +19,12 @@ var Runner = {
     runner_state    :   0
 };*/
 
-module.exports = function Runner(){
+module.exports = function Runner(user_id){
+    this.id = user_id;
     this.current_speed = 0;
     this.dis_to_dest = GameDefinition.RunwayLength;
-    this.current_speed = RUNNER_STATE.RESERVED;
-    this.last_updated_time = 0;
+    this.state = RUNNER_STATE.RESERVED;
+    this.last_updated_time = Date.parse(new Date());
 
     this.update_speed = function (speed)
     {

@@ -4,7 +4,7 @@
 
 var log = require('./log.js');
 
-/*
+
 function handlePostRequest(request, callback){
     var post_data = "";
     if (request.method == "POST")
@@ -18,30 +18,13 @@ function handlePostRequest(request, callback){
         // deal with POST data
         request.addListener("end", function () {
             var object_post_data = querystring.parse(post_data);
-
-
-
-            var shake_data = object_post_data[NETWORK_CONSTANTS.SHAKE_DATA];
-            var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
-            // TODO@chunmato - Should check parameters state
-            runner_processor.process(user_id, shake_data);
-            // @DEBUG
-            var responseString = "";
-            for (var i in object_post_data) {
-                responseString += i + " => " + object_post_data[i];
-            }
-            console.log(responseString);
-            response.writeHead(200, {"Content-Type": "text/plain",
-                "Access-Control-Allow-Origin": "*"});
-            response.write("Hello, Post");
-            response.end();
-            // @END DEBUG
+            callback(object_post_data);
         });
     }
-}*/
+}
 
 function send_text_response(response, text){
-    if (typeof(text) != 'String')
+    if (typeof(text) != 'string')
         return log.error_type_error('text', 'string', typeof(text));
 
     response.writeHead(200, {"Content-Type": "text/plain",
@@ -52,4 +35,5 @@ function send_text_response(response, text){
     return true;
 }
 
+exports.handlePostRequest = handlePostRequest;
 exports.send_text_response = send_text_response;

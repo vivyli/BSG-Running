@@ -19,7 +19,7 @@ game_manager = new GameManager();
 // TEST
 var id = 111;
 game_manager.game = new Game();
-game_manager.game.runners[id] = new Runner();
+game_manager.game.runners[id] = new Runner(id);
 game_manager.game.game_state = GAME_STATE.WAITING_FOR_PLAYERS;
 //END TEST
 
