@@ -8,7 +8,7 @@ var Runner = require('./objects/runner.js');
 // Calculate runner's speed via shake_data
 function calculateRunnerSpeed(shake_data)
 {
-    return shake_data / GameDefinition.ShakeData2SpeedFactor;
+    return Math.max(0, ((shake_data - 1) / GameDefinition.ShakeData2SpeedFactor));
 }
 
 function get_runner(user_id)
@@ -23,10 +23,11 @@ function get_runner(user_id)
 
 function process(user_id, shake_data)
 {
+    console.log('[runner_processor:process]: user_id = ' + user_id + ', shake_data = ' + shake_data);
     var runner = get_runner(user_id);
     if (runner != null) {
         runner.update_speed(calculateRunnerSpeed(shake_data));
-        console.log(runner);
+        //console.log(runner);
         return true;
     }
 
@@ -63,7 +64,7 @@ function register_runner(user_id)
 
     game.socket_handler.emit(EventNetworkLED.PrepareState, {user_id : user_id});
     // TEST
-    console.log('[OK] user registered: ' + game.runners[user_id]);
+    console.log('[Player Login] user id: ' + user_id);
 
     return true;
 }

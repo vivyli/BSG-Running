@@ -27,6 +27,7 @@ uc_events.route = function(request, response) {
 
 // PL_sensor event - UC will post data with user info and shake info
 uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
+    //console.log('[Sensor] Request received!');
     if (request.method == 'POST')
     {
         util.handlePostRequest(request, function(object_post_data){
@@ -34,6 +35,7 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             // TODO@chunmato - Should check parameters state
             runner_processor.process(user_id, shake_data);
+            util.send_text_response(response, 'OK');
         });
     }
     else if (request.method == "GET")
@@ -56,6 +58,7 @@ uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
             var game_state = GAME_STATE.RESERVED;
             if (game_manager.game != null)
                 game_state = game_manager.game.game_state;
+            console.log('[HB][GameState]: ' + game_state);
             util.send_text_response(response, (''+ game_state));
         });
     }

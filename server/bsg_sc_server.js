@@ -45,8 +45,9 @@ function start(port)
         // TODO@chunmato
         socket.on(EventNetworkLED.StartGame, function (data){
             var game = game_manager.game;
-            game.state = GAME_STATE.RUNNING;
+            game.game_state = GAME_STATE.READY_TO_START;
             setInterval(led_processor.process, EventNetworkLED.Interval);
+            console.log('======== [START GAME]! =========');
         });
 
         socket.on('disconnect', function (data){

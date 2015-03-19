@@ -7,15 +7,17 @@ function process()
     var game = game_manager.game;
     if (game == null) return false;
 
+    var debug_str = "";
     var runners_status = {};
-    for (var runner in game.runners)
+    for (var runner_id in game.runners)
     {
-        var runner_id = runner.id;
-        var current_speed = runner.current_speed;
+        var current_speed = game.runners[runner_id].current_speed;
 
         runners_status[runner_id] = current_speed;
-        game.socket_handler.emit(EventNetworkLED.GameState, runners_status);
+        debug_str += runner_id + ': ' + current_speed;
     }
+    game.socket_handler.emit(EventNetworkLED.GameState, runners_status);
+   // console.log('[SPEED]: ' + debug_str);
 }
 
 exports.process = process;
