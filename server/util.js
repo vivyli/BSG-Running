@@ -3,7 +3,7 @@
  */
 
 var log = require('./log.js');
-
+var querystring = require('querystring');
 
 function handlePostRequest(request, callback){
     var post_data = "";
@@ -18,6 +18,14 @@ function handlePostRequest(request, callback){
         // deal with POST data
         request.addListener("end", function () {
             var object_post_data = querystring.parse(post_data);
+            // TEST
+            var responseString = "";
+             for (var i in object_post_data) {
+                responseString += i + " => " + object_post_data[i];
+             }
+             console.log('[DEBUG]:' + responseString);
+
+            // TEST
             callback(object_post_data);
         });
     }

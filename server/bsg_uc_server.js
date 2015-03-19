@@ -15,7 +15,7 @@ uc_events.actions = {};
 
 uc_events.route = function(request, response) {
     var action = url.parse(request.url).pathname.split('/')[1];
-    console.log('action received: ' + action);
+    //console.log('action received: ' + action);
     if (typeof uc_events.actions[action] == 'function') {
         request.connection.setTimeout(0);   // ?
         uc_events.actions[action].apply(uc_events, [request, response]);
@@ -27,34 +27,13 @@ uc_events.route = function(request, response) {
 
 // PL_sensor event - UC will post data with user info and shake info
 uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
-    var post_data = "";
-    if (request.method == "POST")
+    if (request.method == 'POST')
     {
-        request.setEncoding("utf-8");
-        // collect all POST data chunk
-        request.addListener("data", function (post_data_chunk) {
-            post_data += post_data_chunk;
-        });
-
-        // deal with POST data
-        request.addListener("end", function () {
-            var object_post_data = querystring.parse(post_data);
-
+        util.handlePostRequest(request, function(object_post_data){
             var shake_data = object_post_data[NETWORK_CONSTANTS.SHAKE_DATA];
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             // TODO@chunmato - Should check parameters state
             runner_processor.process(user_id, shake_data);
-            // @DEBUG
-            var responseString = "";
-            for (var i in object_post_data) {
-                responseString += i + " => " + object_post_data[i];
-            }
-            console.log(responseString);
-            response.writeHead(200, {"Content-Type": "text/plain",
-                "Access-Control-Allow-Origin": "*"});
-            response.write("Hello, Post");
-            response.end();
-            // @END DEBUG
         });
     }
     else if (request.method == "GET")
@@ -68,21 +47,11 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
 
 // PL_heart_beat
 uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
-    var post_data = "";
-    if (request.method == "POST")
+    if (request.method == 'POST')
     {
-        request.setEncoding("utf-8");
-        // collect all POST data chunk
-        request.addListener("data", function (post_data_chunk) {
-            post_data += post_data_chunk;
-        });
-
-        // deal with POST data
-        request.addListener("end", function () {
-            var object_post_data = querystring.parse(post_data);
+        util.handlePostRequest(request, function(object_post_data){
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             runner_processor.heart_beat(user_id);
-            console.log('heart beat received: user id = ' + user_id);
 
             var game_state = GAME_STATE.RESERVED;
             if (game_manager.game != null)
@@ -127,7 +96,7 @@ function start(port)
     console.log("uc server started with port " + port);
     http.createServer(function(request, response) {
         if (!uc_events.route(request, response)) {
-            console.log('bad request');
+            console.log('[ERROR] bad request: ' + request.url);
             response.writeHead(404);
             response.end();
         }

@@ -8,7 +8,9 @@ EventNetworkLED = {
     PrepareState : "SC_prepare_state", // server send player register to led
     StartGame : "SC_start_game", // led send game start to server
     GameState : "SC_game_state", // server send player speed to led
-    EndGame : "SC_end_game" // led send game over to server
+    EndGame : "SC_end_game", // led send game over to server
+
+    Interval : 500
 }
 
 EventNetworkPlayer = {

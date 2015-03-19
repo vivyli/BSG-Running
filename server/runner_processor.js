@@ -41,7 +41,7 @@ function heart_beat(user_id)
 
     runner.last_updated_time = Date.parse(new Date());
     runner.state = RUNNER_STATE.READY;
-    console.log(runner);
+    console.log('[HB] user id = ' + user_id);
 
     return true;
 }
@@ -61,8 +61,9 @@ function register_runner(user_id)
     var runner = new Runner(user_id);
     game.runners[user_id] = runner;
 
+    game.socket_handler.emit(EventNetworkLED.PrepareState, {user_id : user_id});
     // TEST
-    console.log(game.runners[user_id]);
+    console.log('[OK] user registered: ' + game.runners[user_id]);
 
     return true;
 }

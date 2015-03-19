@@ -3,6 +3,8 @@
  */
 
 require('../common/commonDefs.js');
+var Game = require('./objects/game.js');
+var led_processor = require('./led_processor.js');
 
 var http = require('http');
 var socket = require('socket.io');
@@ -31,18 +33,25 @@ function start(port)
     console.log('sc server started with port ' + port);
 
     io.on('connection', function (socket) {
-        console.log('New connection!');
-
-        // TODO@chunmato
+        console.log('[INFO] New connection!');
         socket.on(EventNetworkLED.Login, function (data) {
-            console.log(data);
+            var game = new Game(socket);
+            game.id = 1;
+            game_manager.game = game;
+            socket.emit(EventNetworkLED.GameID, {game_id: game.id});
+            console.log('[LED LOGIN] game id: ' + game.id);
         });
 
         // TODO@chunmato
         socket.on(EventNetworkLED.StartGame, function (data){
-            console.log(data);
+            var game = game_manager.game;
+            game.state = GAME_STATE.RUNNING;
+            setInterval(led_processor.process, EventNetworkLED.Interval);
         });
 
+        socket.on('disconnect', function (data){
+
+        });
     });
 }
 
