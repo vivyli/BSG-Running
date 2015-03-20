@@ -13,19 +13,26 @@ ControlLayer = cc.Class.extend({
     init:function()
     {
         this.players = {};
-
-        cc.log(NETWORK_CONSTANTS.SERVER_HOST_LED);
         this.socket = io(NETWORK_CONSTANTS.SERVER_HOST_LED);
         this.registerSocketEvent();
 
-		this.login();
+        // TODO debug
+        cc.log(NETWORK_CONSTANTS.SERVER_HOST_LED);
     },
-	login: function()
+    ResetGame: function ()
+    {
+        cc.log("### led reset game")
+        this.players = {};
+        this.Login();
+    },
+	Login: function()
 	{
         if(!this.socket) {
             return;
 		} else {
-            this.socket.emit(EventNetworkLED.Login, {key: "led"});
+            cc.log("### led emmit login");
+            var data = {};
+            this.socket.emit(EventNetworkLED.Login, {NETWORK_CONSTANTS: this.gameId});
 		}
 	},
 	StartGame: function()
@@ -33,6 +40,7 @@ ControlLayer = cc.Class.extend({
         if(!this.socket) {
             return;
 		} else {
+            cc.log("### led emmit start game");
             this.socket.emit(EventNetworkLED.StartGame, {key: this.gameId});
             var nextScene = new MainScene();
             cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
@@ -43,7 +51,10 @@ ControlLayer = cc.Class.extend({
         if(!this.socket) {
             return;
 		} else {
+            cc.log("### led emmit end game");
             this.socket.emit(EventNetworkLED.EndGame, {key: this.gameId});
+            var nextScene = new AwardScene();
+            cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
 		}
 	},
     registerSocketEvent: function()
@@ -53,13 +64,10 @@ ControlLayer = cc.Class.extend({
         } else {
 			// recv gameId
             this.socket.on(EventNetworkLED.GameID, function(data){
-                cc.log("### event: "+EventNetworkLED.GameID);
-                cc.log(data);
-
-				this.gameId = data;
+                this.gameId = data;
 
 				// run prepare scene
-				cc.log("### entering prepare scene");
+				cc.log("### server send prepare game");
 				var nextScene = new PrepareScene();
 				cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
             });
@@ -86,7 +94,6 @@ ControlLayer = cc.Class.extend({
 
                     for(var playerId in data)
                     {
-                        cc.log("speed:"+data[playerId]);
                         controlLevel.scene.updateRunnerSpeed(playerId, data[playerId]);
                     }
 				}

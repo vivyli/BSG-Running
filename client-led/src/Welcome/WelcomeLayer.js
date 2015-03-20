@@ -22,11 +22,12 @@ var WelcomeLayer = cc.Layer.extend({
                 s_CloseNormal,
                 s_CloseSelected,
                 function () {
-                        cc.log("begin game");
-
-                        var nextScene = new PrepareScene();
-
-                        cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
+                    // test
+                    var fakeId = "123"
+                    this.gameId = fakeId;
+                    cc.log("### fake gameId, go to prepare scene");
+                    var nextScene = new PrepareScene();
+                    cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
                 },this);
             var menu = new cc.Menu(beginItem);
             menu.setPosition(0, 0);

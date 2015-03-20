@@ -15,6 +15,7 @@ var RunnerLayer = cc.Layer.extend({
 
 
         //test code:
+        // TODO remove test code
         //this.addRunner("hello","yello","yxsh",s_Photo);
 
         var controlLevel = ControlLayer._getInstance();
@@ -37,10 +38,11 @@ var RunnerLayer = cc.Layer.extend({
     },
 
     update: function (dt) {
+        var size = cc.director.getWinSize();
         for (var id in this.runners) {
             var runner = this.runners[id];
 
-            if(runner.getPosition().x >= 800)
+            if(runner.getPosition().x >= size-10)
             {
                 if(!runner.isFinish) {
                     //TODO: finish running
@@ -48,7 +50,7 @@ var RunnerLayer = cc.Layer.extend({
                     runner.setFinish();
                 }
             } else {
-                runner.setPosition(cc.pAdd(runner.getPosition(),cc.p(runner.speed,0)));
+                runner.update();
             }
         }
     },
@@ -57,7 +59,7 @@ var RunnerLayer = cc.Layer.extend({
         var runner = this.runners[runnerId];
         if(runner)
         {
-            runner.speed = speed;
+            runner.setSpeed(speed);
         }
     }
 

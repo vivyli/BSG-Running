@@ -1,15 +1,11 @@
 
 var GameControllerLayer = cc.Layer.extend({
     sprite:null,
+    _sensorDatas: [],
+    _frequency: 30,
+    _valueFrequency: 10,
     ctor:function () {
-        //////////////////////////////
-        // 1. super init first
         this._super();
-
-        /////////////////////////////
-        // 2. add a menu item with "X" image, which is clicked to quit the program
-        //    you may modify it.
-        // ask the window size
         var size = cc.winSize;
 
         // add a "close" icon to exit the progress. it's an autorelease object
@@ -52,32 +48,79 @@ var GameControllerLayer = cc.Layer.extend({
         });
         this.addChild(this.sprite, 0);
 
-        var data = {};
-        data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
-        this.sendData(data, EventNetworkPlayer.Login, function(responseData){
-            cc.log("### login recv");
-            cc.log(responseData);
-        });
+        this.login();
 
-        this.startSendingSensorData();
-        this.schedule(this.startSendingHeartBeatData, 1);
+        // test
+        // TODO
+        //CLIENT_GAME_STATE = 3;
+        //this.startSendingSensorData();
 
         return true;
     },
+    login: function()
+    {
+        var data = {};
+        // TODO, fake player id
+        data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
+        var controller = this;
+        this.sendData(data, EventNetworkPlayer.Login, function(responseData){
+            cc.log("### login recv, start hb");
+            cc.log(responseData);
+
+            controller.startSendingHeartBeatData();
+        });
+    },
     stopSendingSensorData: function()
     {
-        cc.log("### stopSendingSensorData func");
+        cc.log("### stop Sensor Data");
+
+        this.unschedule(this._realSendSensorData);
+
         if( 'accelerometer' in cc.sys.capabilities ) {
             cc.eventManager.removeListeners(cc.EventListener.ACCELERATION);
             cc.inputManager.setAccelerometerEnabled(false);
         }
     },
-	startSendingSensorData: function()
+    startSendingSensorData: function()
+    {
+        this._startSendingSensorData();
+        this.schedule(this._realSendSensorData, 0.3);
+    },
+    _realSendSensorData: function()
+    {
+        if(this._sensorDatas.length < this._valueFrequency)
+        {
+            return;
+        }
+
+        function median(values) {
+            values.sort( function(a,b) {return a - b;} );
+            var half = Math.floor(values.length/2);
+            return values[half];
+        }
+        var sensorData = median(this._sensorDatas);
+
+        var data = {};
+        var ret = sensorData;
+        data[NETWORK_CONSTANTS.SHAKE_DATA] = ret;
+        data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
+        cc.log("### send data: "+ret);
+        this.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
+            cc.log("### senor recv");
+            cc.log(responseData);
+        });
+
+        if(CLIENT_GAME_STATE && (GAME_STATE.READY_TO_START > CLIENT_GAME_STATE || CLIENT_GAME_STATE >= GAME_STATE.FINISHED)) {
+            target.stopSendingSensorData();
+        }
+    },
+	_startSendingSensorData: function()
 	{
-        cc.log("startSendingSensorData");
+        cc.log("### start Sensor Data");
 		if( 'accelerometer' in cc.sys.capabilities ) {
 			// call is called 30 times per second
-			cc.inputManager.setAccelerometerInterval(1/4);
+            var idx = 0;
+			cc.inputManager.setAccelerometerInterval(1/this._frequency);
 			cc.inputManager.setAccelerometerEnabled(true);
 			cc.eventManager.addListener({
 				event: cc.EventListener.ACCELERATION,
@@ -86,40 +129,23 @@ var GameControllerLayer = cc.Layer.extend({
 					var x = accelEvent.x;
 					var y = accelEvent.y;
                     var z = accelEvent.z;
+                    var sData = Math.abs(x)*Math.abs(x) + Math.abs(y)*Math.abs(y) + Math.abs(z)*Math.abs(z);
 
-					// Low pass filter
-                    var p1 = 1;
-                    var p2 = 0;
-					x = x*p1 + target.prevX*p2;
-					y = y*p1 + target.prevY*p2;
-                    z = z*p1 + target.prevZ*p2;
-
-					target.prevX = x;
-					target.prevY = y;
-                    target.prevZ = z;
-
-                    var sData = Math.abs(x) + Math.abs(y) + Math.abs(z);
-                    if(CLIENT_GAME_STATE && GAME_STATE.READY_TO_START <= CLIENT_GAME_STATE && CLIENT_GAME_STATE <= GAME_STATE.FINISHED) {
-                        var data = {};
-                        data[NETWORK_CONSTANTS.SHAKE_DATA] = sData;
-                        data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
-                        target.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
-                            cc.log("### senor recv");
-                            cc.log(responseData);
-                        });
-                    }
+					// for Low pass filter, median
+                    idx = idx % target._valueFrequency;
+                    target._sensorDatas[idx] = sData;
+                    idx = idx + 1;
 				}
 			}, this);
-
-			// for low-pass filter
-			this.prevX = 0;
-			this.prevY = 0;
-            this.prevZ = 0;
 		} else {
 			cc.log("ACCELEROMETER not supported");
 		}
 	},
     startSendingHeartBeatData: function()
+    {
+        this.schedule(this._startSendingHeartBeatData, 1);
+    },
+    _startSendingHeartBeatData: function()
     {
         if(PLAYER_ID==undefined || !PLAYER_ID)  {
             return;
@@ -135,8 +161,9 @@ var GameControllerLayer = cc.Layer.extend({
             if(gameState) {
                 CLIENT_GAME_STATE = gameState;
                 if (gameState >= GAME_STATE.READY_TO_START) {
-                    cc.log("stop hb");
+                    cc.log("### stop hb, start sensor data");
                     controller.stopSendingHeartBeatData();
+                    controller.startSendingSensorData();
                 }
             }
         });

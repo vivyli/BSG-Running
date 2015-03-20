@@ -15,6 +15,17 @@ var AwardLayer = cc.Layer.extend({
         this.backgroundLabel.setPosition(size.width / 2, size.height - 40);
         // add the label as a child to this layer
         this.addChild(this.backgroundLabel, 5,204);
+
+        var startItem = new cc.MenuItemImage(
+            s_CloseNormal,
+            s_CloseSelected,
+            function () {
+                cc.director.runScene(new WelcomeScene());
+            },this);
+        var menu = new cc.Menu(startItem);
+        menu.setPosition(0, 0);
+        this.addChild(menu, 1,104);
+        startItem.setPosition(size.width - 20, 20);
     }
 
 });
