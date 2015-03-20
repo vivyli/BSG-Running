@@ -9,10 +9,8 @@ var MainControlLayer = cc.Layer.extend({
     },
 
     finish:function(){
-            cc.log("finish game move to awards");
-            var nextScene = new AwardScene();
-            cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
-
+        cc.log("### finish of mainControlLayer");
+        ControlLayer._getInstance().EndGame();
     },
     init:function () {
         var bRet = false;
@@ -30,7 +28,7 @@ var MainControlLayer = cc.Layer.extend({
             var menu = new cc.Menu(startItem);
             menu.setPosition(0, 0);
             this.addChild(menu, 1,103);
-            startItem.setPosition(30, 30);
+            startItem.setPosition(size.width - 20, 20);
         }
 
     }

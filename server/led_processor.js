@@ -17,7 +17,7 @@ function process()
         debug_str += runner_id + ': ' + current_speed;
     }
     game.socket_handler.emit(EventNetworkLED.GameState, runners_status);
-    
+
     //console.log('[SPEED]: ' + debug_str);
 }
 

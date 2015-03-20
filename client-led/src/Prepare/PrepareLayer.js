@@ -32,14 +32,12 @@ var PrepareLayer = cc.Layer.extend({
                 s_CloseNormal,
                 s_CloseSelected,
                 function () {
-                    cc.log("replace scene to main");
-                    var nextScene = new MainScene();
-                    cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
+                    ControlLayer._getInstance().StartGame();
                 },this);
             var menu = new cc.Menu(startItem);
             menu.setPosition(0, 0);
             this.addChild(menu, 1,102);
-            startItem.setPosition(30, 30);
+            startItem.setPosition(size.width - 20, 20);
 
             this.waiterArr = new Array();
             this.hasWaiter = new Array();
@@ -84,6 +82,7 @@ var PrepareLayer = cc.Layer.extend({
             delMenu.setPosition(100, 70);
             this.addChild(delMenu);
             addItem.setPosition(100,200);
+
 
             this.xGap = size.width/this.widthIdx;
             this.yGap = size.height/this.heightIdx;

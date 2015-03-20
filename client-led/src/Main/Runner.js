@@ -46,6 +46,18 @@ var Runner = cc.Node.extend({
         this.sprite.runAction(cc.repeatForever(action));
         //this.sprite.stopAction();
     },
+    update: function()
+    {
+        var runner = this;
+        runner.setPosition(cc.pAdd(runner.getPosition(),cc.p(runner.speed,0)));
+
+        var speed = this.speed;
+        if(speed >= 1) {
+            this.startFire();
+        } else {
+            this.stopFire();
+        }
+    },
     setFinish: function()
     {
         this.isFinish = true;
@@ -55,15 +67,15 @@ var Runner = cc.Node.extend({
     setSpeed: function(speed)
     {
         this.speed = speed;
-        if(speed > 4) {
-            this.setFire();
+        if(speed >= 2) {
+            this.startFire();
         } else {
             this.stopFire();
         }
-
     },
-    setFire: function()
+    startFire: function()
     {
+        if(this._emitter && this._emitter.isActive()) return 0;
         //this._emitter = new cc.ParticleSun();
         this._emitter = new cc.ParticleGalaxy();
         //this._emitter = new cc.ParticleSystem("comet.plist");
