@@ -11,13 +11,14 @@ function process()
     var runners_status = {};
     for (var runner_id in game.runners)
     {
-        var current_speed = game.runners[runner_id].current_speed;
+        var current_speed = game.runners[runner_id].get_and_reset_speed();
 
         runners_status[runner_id] = current_speed;
         debug_str += runner_id + ': ' + current_speed;
     }
     game.socket_handler.emit(EventNetworkLED.GameState, runners_status);
-   // console.log('[SPEED]: ' + debug_str);
+    
+    //console.log('[SPEED]: ' + debug_str);
 }
 
 exports.process = process;

@@ -10,6 +10,8 @@ var http = require('http');
 var socket = require('socket.io');
 var fs = require('fs');
 
+var log = require('./log.js');
+
 // TEST
 function handler (req, res) {
     fs.readFile(__dirname + '/index.html',
@@ -30,28 +32,46 @@ function start(port)
     var io =  socket(app);
     app.listen(port);
 
-    console.log('sc server started with port ' + port);
+    log.log_with_color('sc server started with port ' + port, 'white');
 
     io.on('connection', function (socket) {
-        console.log('[INFO] New connection!');
+        log.log_with_color('[INFO] New connection!', 'white');
         socket.on(EventNetworkLED.Login, function (data) {
-            var game = new Game(socket);
+            var game = game_manager.game;
+            if (game == null) {
+                game = new Game(socket);
+                game_manager.game = game;
+            }
             game.id = 1;
-            game_manager.game = game;
             socket.emit(EventNetworkLED.GameID, {game_id: game.id});
-            console.log('[LED LOGIN] game id: ' + game.id);
+            log.log_with_color('[LED LOGIN] game id: ' + game.id, 'white');
         });
 
-        // TODO@chunmato
+        var interval_id = 0;
         socket.on(EventNetworkLED.StartGame, function (data){
             var game = game_manager.game;
             game.game_state = GAME_STATE.READY_TO_START;
-            setInterval(led_processor.process, EventNetworkLED.Interval);
-            console.log('======== [START GAME]! =========');
+            interval_id = setInterval(led_processor.process, EventNetworkLED.Interval);
+            log.log_with_color('======== [START GAME]! =========', 'bgGreen');
+           // console.log('======== [START GAME]! =========');
+        });
+
+        socket.on(EventNetworkLED.EndGame, function (data){
+            var game = game_manager.game;
+           // game.socket_handler.disconnect();
+            clearInterval(interval_id);
+            //game = null;
+            if (game != null)
+                game.reset();
+            log.log_with_color('======== [End GAME]! =========', 'byRed');
+           // console.log('======== [End GAME]! =========');
         });
 
         socket.on('disconnect', function (data){
-
+            var game = game_manager.game;
+            game = null;
+            log.log_with_color('[INFO] Disconnected!', 'white');
+           // console.log('[INFO] Disconnected!');
         });
     });
 }

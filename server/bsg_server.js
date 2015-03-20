@@ -3,6 +3,8 @@
  */
 
 require('../common/commonDefs.js'); // Load common event name definition.
+var http = require('http');
+
 var Game = require('./objects/game.js');
 var GameManager = require('./objects/game_manager.js');
 var Runner = require('./objects/runner.js');

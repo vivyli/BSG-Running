@@ -4,11 +4,14 @@
 
 require("../design/running.js");
 var Runner = require('./objects/runner.js');
+var log = require('./log.js');
+var colors = require('colors');
 
 // Calculate runner's speed via shake_data
 function calculateRunnerSpeed(shake_data)
 {
-    return Math.max(0, ((shake_data - 1) / GameDefinition.ShakeData2SpeedFactor));
+    var data = Math.sqrt(shake_data);
+    return Math.max(0, ((data - 1) / GameDefinition.ShakeData2SpeedFactor));
 }
 
 function get_runner(user_id)
@@ -23,7 +26,8 @@ function get_runner(user_id)
 
 function process(user_id, shake_data)
 {
-    console.log('[runner_processor:process]: user_id = ' + user_id + ', shake_data = ' + shake_data);
+    console.log(('[runner_processor:process]: user_id = ' + user_id + ', shake_data = ' + Math.sqrt(shake_data)).yellow);
+    //log.log_to_file('./sample_data/shake_data.log', shake_data + '\n');
     var runner = get_runner(user_id);
     if (runner != null) {
         runner.update_speed(calculateRunnerSpeed(shake_data));
