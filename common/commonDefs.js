@@ -24,7 +24,8 @@ NETWORK_CONSTANTS = {
     SERVER_HOST_PL : "http://192.168.10.102:9999",
 
     SHAKE_DATA : "data",
-    USER_ID : "user_id"
+    USER_ID : "user_id",
+    GAME_ID : "game_id"
 }
 
 GAME_STATE = {
