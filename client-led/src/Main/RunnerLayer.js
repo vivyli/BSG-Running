@@ -15,7 +15,15 @@ var RunnerLayer = cc.Layer.extend({
 
 
         //test code:
-        this.addRunner("hello","yello","yxsh",s_Photo);
+        //this.addRunner("hello","yello","yxsh",s_Photo);
+
+        var controlLevel = ControlLayer._getInstance();
+        var players = controlLevel.players;
+        for(var playerId in players)
+        {
+            this.addRunner(playerId.toString(),"yello",playerId.toString(),s_Photo);
+        }
+
         this.schedule(this.update,0);
     },
 
@@ -32,7 +40,7 @@ var RunnerLayer = cc.Layer.extend({
         for (var id in this.runners) {
             var runner = this.runners[id];
 
-            if(runner.getPosition().x >= 500)
+            if(runner.getPosition().x >= 800)
             {
                 if(!runner.isFinish) {
                     //TODO: finish running
@@ -42,6 +50,14 @@ var RunnerLayer = cc.Layer.extend({
             } else {
                 runner.setPosition(cc.pAdd(runner.getPosition(),cc.p(runner.speed,0)));
             }
+        }
+    },
+
+    updateRunnerSpeed: function(runnerId, speed){
+        var runner = this.runners[runnerId];
+        if(runner)
+        {
+            runner.speed = speed;
         }
     }
 

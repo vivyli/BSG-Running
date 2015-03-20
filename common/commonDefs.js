@@ -20,7 +20,8 @@ EventNetworkPlayer = {
 }
 
 NETWORK_CONSTANTS = {
-    SERVER_HOST : "http://192.168.10.105:7777",
+    SERVER_HOST_LED : "http://192.168.10.102:7777",
+    SERVER_HOST_PL : "http://192.168.10.102:9999",
 
     SHAKE_DATA : "data",
     USER_ID : "user_id"

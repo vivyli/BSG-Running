@@ -2,6 +2,7 @@
  * Created by Xinsheng Yang on 2015/3/14.
  */
 var MainScene = cc.Scene.extend({
+    runnerLayer:null,
     onEnter:function () {
         this._super();
 
@@ -11,13 +12,18 @@ var MainScene = cc.Scene.extend({
         var mainControlLayer = new MainControlLayer();
         this.addChild(mainControlLayer,1,204);
 
-        var runnerLayer = new RunnerLayer();
-        this.addChild(runnerLayer,3,205);
+        this.runnerLayer = new RunnerLayer();
+        this.addChild(this.runnerLayer,3,205);
 
         var preEffectsLayer = new PreEffectsLayer();
         this.addChild(preEffectsLayer,3,206);
 
         ControlLayer._getInstance().updateScene(this, EnumSceneName.eMain);
+    },
+    updateRunnerSpeed: function(runnerId, speed)
+    {
+        if(this.runnerLayer) {
+            this.runnerLayer.updateRunnerSpeed(runnerId, speed);
+        }
     }
-
 });

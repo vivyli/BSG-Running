@@ -9,9 +9,13 @@ ControlLayer = cc.Class.extend({
     socket:null,
 	
 	gameId:"",
+    players:{},
     init:function()
     {
-        this.socket = io(NETWORK_CONSTANTS.SERVER_HOST);
+        this.players = {};
+
+        cc.log(NETWORK_CONSTANTS.SERVER_HOST_LED);
+        this.socket = io(NETWORK_CONSTANTS.SERVER_HOST_LED);
         this.registerSocketEvent();
 
 		this.login();
@@ -29,7 +33,9 @@ ControlLayer = cc.Class.extend({
         if(!this.socket) {
             return;
 		} else {
-            this.socket.emit(EventNetworkLED.StartGame, {key: "led"});
+            this.socket.emit(EventNetworkLED.StartGame, {key: this.gameId});
+            var nextScene = new MainScene();
+            cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
 		}
 	},
 	EndGame: function()
@@ -37,7 +43,7 @@ ControlLayer = cc.Class.extend({
         if(!this.socket) {
             return;
 		} else {
-            this.socket.emit(EventNetworkLED.EndGame, {key: "led"});
+            this.socket.emit(EventNetworkLED.EndGame, {key: this.gameId});
 		}
 	},
     registerSocketEvent: function()
@@ -62,19 +68,27 @@ ControlLayer = cc.Class.extend({
             this.socket.on(EventNetworkLED.PrepareState, function(data){
                 cc.log("### event: "+EventNetworkLED.PrepareState);
 
-				if(this.sceneName == EnumSceneName.ePrepare) {
-					cc.log("### in prepare scene");
-					cc.log(data);
+                var controlLevel = ControlLayer._getInstance();
+                var playerId = data[NETWORK_CONSTANTS.USER_ID];
+                var playerObj = data;
+                controlLevel.players[playerId] = playerObj;
+
+				if(controlLevel.sceneName == EnumSceneName.ePrepare) {
+					controlLevel.scene.registerPlayer(playerId, playerObj);
 				}
 			});
 
 			// recv game state, player speed
             this.socket.on(EventNetworkLED.GameState, function(data){
-                cc.log("### event: "+EventNetworkLED.GameState);
+                var controlLevel = ControlLayer._getInstance();
+				if(controlLevel.sceneName == EnumSceneName.eMain) {
+                    cc.log(data);
 
-				if(this.sceneName == EnumSceneName.eMain) {
-					cc.log("### in main scene");
-					cc.log(data);
+                    for(var playerId in data)
+                    {
+                        cc.log("speed:"+data[playerId]);
+                        controlLevel.scene.updateRunnerSpeed(playerId, data[playerId]);
+                    }
 				}
             });
         }

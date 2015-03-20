@@ -1,5 +1,5 @@
 
-var HelloWorldLayer = cc.Layer.extend({
+var GameControllerLayer = cc.Layer.extend({
     sprite:null,
     ctor:function () {
         //////////////////////////////
@@ -48,27 +48,33 @@ var HelloWorldLayer = cc.Layer.extend({
             x: size.width / 2,
             y: size.height / 2,
             scale: 0.5,
-            rotation: 180
+            rotation: 0
         });
         this.addChild(this.sprite, 0);
 
-        this.sprite.runAction(
-            cc.sequence(
-                cc.rotateTo(2, 0),
-                cc.scaleTo(2, 1, 1)
-            )
-        );
-        helloLabel.runAction(
-            cc.spawn(
-                cc.moveBy(2.5, cc.p(0, size.height - 40)),
-                cc.tintTo(2.5,255,125,0)
-            )
-        );
-		this.registerSensorEvent();
+        var data = {};
+        data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
+        this.sendData(data, EventNetworkPlayer.Login, function(responseData){
+            cc.log("### login recv");
+            cc.log(responseData);
+        });
+
+        this.startSendingSensorData();
+        this.schedule(this.startSendingHeartBeatData, 1);
+
         return true;
     },
-	registerSensorEvent: function()
+    stopSendingSensorData: function()
+    {
+        cc.log("### stopSendingSensorData func");
+        if( 'accelerometer' in cc.sys.capabilities ) {
+            cc.eventManager.removeListeners(cc.EventListener.ACCELERATION);
+            cc.inputManager.setAccelerometerEnabled(false);
+        }
+    },
+	startSendingSensorData: function()
 	{
+        cc.log("startSendingSensorData");
 		if( 'accelerometer' in cc.sys.capabilities ) {
 			// call is called 30 times per second
 			cc.inputManager.setAccelerometerInterval(1/4);
@@ -77,15 +83,13 @@ var HelloWorldLayer = cc.Layer.extend({
 				event: cc.EventListener.ACCELERATION,
 				callback: function(accelEvent, event){
 					var target = event.getCurrentTarget();
-					cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
-
 					var x = accelEvent.x;
 					var y = accelEvent.y;
                     var z = accelEvent.z;
 
 					// Low pass filter
-                    var p1 = 0.8;
-                    var p2 = 0.2;
+                    var p1 = 1;
+                    var p2 = 0;
 					x = x*p1 + target.prevX*p2;
 					y = y*p1 + target.prevY*p2;
                     z = z*p1 + target.prevZ*p2;
@@ -94,8 +98,16 @@ var HelloWorldLayer = cc.Layer.extend({
 					target.prevY = y;
                     target.prevZ = z;
 
-                    var data = Math.abs(x) + Math.abs(y) + Math.abs(z);
-                    target.sendData(data);
+                    var sData = Math.abs(x) + Math.abs(y) + Math.abs(z);
+                    if(CLIENT_GAME_STATE && GAME_STATE.READY_TO_START <= CLIENT_GAME_STATE && CLIENT_GAME_STATE <= GAME_STATE.FINISHED) {
+                        var data = {};
+                        data[NETWORK_CONSTANTS.SHAKE_DATA] = sData;
+                        data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
+                        target.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
+                            cc.log("### senor recv");
+                            cc.log(responseData);
+                        });
+                    }
 				}
 			}, this);
 
@@ -107,27 +119,64 @@ var HelloWorldLayer = cc.Layer.extend({
 			cc.log("ACCELEROMETER not supported");
 		}
 	},
-	sendData: function(data)
+    startSendingHeartBeatData: function()
+    {
+        if(PLAYER_ID==undefined || !PLAYER_ID)  {
+            return;
+        }
+        var controller = this;
+        var data = {};
+        data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
+        this.sendData(data, EventNetworkPlayer.HeartBeat, function(responseData){
+            cc.log("### heartbeat recv");
+            cc.log(responseData);
+
+            var gameState = parseInt(responseData);
+            if(gameState) {
+                CLIENT_GAME_STATE = gameState;
+                if (gameState >= GAME_STATE.READY_TO_START) {
+                    cc.log("stop hb");
+                    controller.stopSendingHeartBeatData();
+                }
+            }
+        });
+    },
+    stopSendingHeartBeatData: function()
+    {
+        cc.log("### stop hb func");
+        this.unschedule(this.startSendingHeartBeatData);
+    },
+	sendData: function(data, serverEvent, callback)
 	{
 		var xhr = cc.loader.getXMLHttpRequest();
-        var url = NETWORK_CONSTANTS.SERVER_HOST+"/"+EventNetworkLED.Sensor;
+        var url = NETWORK_CONSTANTS.SERVER_HOST_PL+"/"+serverEvent;
         cc.log(url);
 		xhr.open("POST", url);
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status <= 207)) {
-				// debug
-                cc.log(xhr.response);
+                callback(xhr.response);
             }
         };
-        xhr.send("data="+data);
+        var dataString = "";
+        var isFirst = true;
+        for(var key in data)
+        {
+            if(!isFirst){
+                dataString += "&";
+            } else {
+                isFirst = false;
+            }
+            dataString += key+"="+data[key];
+        }
+        xhr.send(dataString);
 	}
 });
 
-var HelloWorldScene = cc.Scene.extend({
+var GameControllerScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new HelloWorldLayer();
+        var layer = new GameControllerLayer();
         this.addChild(layer);
     }
 });

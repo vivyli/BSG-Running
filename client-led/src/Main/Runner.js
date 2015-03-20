@@ -3,7 +3,7 @@
  */
 var Runner = cc.Node.extend({
     sprite:null,
-    speed:1,
+    speed:0,
     name:"",
     photo:null,
     id:null,
@@ -45,8 +45,6 @@ var Runner = cc.Node.extend({
 
         this.sprite.runAction(cc.repeatForever(action));
         //this.sprite.stopAction();
-
-        this.setFire();
     },
     setFinish: function()
     {
@@ -54,10 +52,22 @@ var Runner = cc.Node.extend({
         this.stopFire();
         this.sprite.stopAllActions();
     },
+    setSpeed: function(speed)
+    {
+        this.speed = speed;
+        if(speed > 4) {
+            this.setFire();
+        } else {
+            this.stopFire();
+        }
+
+    },
     setFire: function()
     {
-        this._emitter = new cc.ParticleSun();
-        this._emitter.setPosition(cc.p(0,0));
+        //this._emitter = new cc.ParticleSun();
+        this._emitter = new cc.ParticleGalaxy();
+        //this._emitter = new cc.ParticleSystem("comet.plist");
+        this._emitter.setPosition(cc.p(-30,-10));
         this.addChild(this._emitter);
         this._emitter.texture = cc.textureCache.addImage(s_Fire);
         if (this._emitter.setShapeType)
@@ -65,7 +75,7 @@ var Runner = cc.Node.extend({
     },
     stopFire: function()
     {
-        if(this._emitter.isActive()) {
+        if(this._emitter && this._emitter.isActive && this._emitter.isActive()) {
             this._emitter.stopSystem();
         }
     }
