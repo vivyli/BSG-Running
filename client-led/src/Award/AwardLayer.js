@@ -16,6 +16,21 @@ var AwardLayer = cc.Layer.extend({
         // add the label as a child to this layer
         this.addChild(this.backgroundLabel, 5,204);
 
+        var awardBackgroup = new cc.Sprite("ljt.jpg");
+        var xScale = size.width / awardBackgroup.width;
+        var yScale = size.height / awardBackgroup.height;
+
+        cc.log(xScale.toString());
+        cc.log(yScale.toString());
+        cc.log(awardBackgroup.getTexture().height.toString());
+        cc.log(awardBackgroup.height.toString());
+
+        awardBackgroup.setAnchorPoint(0,0);
+        awardBackgroup.setPosition(0,0);
+        //awardBackgroup.setScale(xScale,yScale);
+
+
+        this.addChild(awardBackgroup);
         var startItem = new cc.MenuItemImage(
             s_CloseNormal,
             s_CloseSelected,

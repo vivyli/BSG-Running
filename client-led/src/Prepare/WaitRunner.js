@@ -8,6 +8,7 @@ var WaitRunner = cc.Node.extend({
     name:"",
     photo:null,
     id:null,
+    color:"",
     xIdx:0,
     yIdx:0,
     init:function (id, photo,name) {
