@@ -4,13 +4,6 @@
 
 require('../../common/commonDefs.js');
 
-/*
-var Game = {
-    runners : [],
-    game_state : GAME_STATE.RESERVED
-
-};*/
-
 module.exports = function Game(socket_handler){
     this.id = 0;
     this.runners = {};

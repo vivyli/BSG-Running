@@ -10,12 +10,14 @@ var url = require("url");
 var querystring = require('querystring');
 var runner_processor = require('./runner_processor');
 
+var log = require('./log.js');
+var config = require('./config.js');
+
 var uc_events = {};
 uc_events.actions = {};
 
 uc_events.route = function(request, response) {
     var action = url.parse(request.url).pathname.split('/')[1];
-    //console.log('action received: ' + action);
     if (typeof uc_events.actions[action] == 'function') {
         request.connection.setTimeout(0);   // ?
         uc_events.actions[action].apply(uc_events, [request, response]);
@@ -55,11 +57,20 @@ uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             runner_processor.heart_beat(user_id);
 
-            var game_state = GAME_STATE.RESERVED;
-            if (game_manager.game != null)
-                game_state = game_manager.game.game_state;
-            console.log('[HB][GameState]: ' + game_state);
-            util.send_text_response(response, (''+ game_state));
+            var game = game_manager.get_game_by_user_id(user_id);
+            if (game != null && game != undefined)
+            {
+                var game_state = GAME_STATE.RESERVED;
+                game_state = game.game_state;
+
+                if (__DEBUG__ == 1)
+                    log.log_with_color('[HB][GameState]: ' + game_state, Log_Config.uc_log_default_color);
+                util.send_text_response(response, (''+ game_state));
+            }
+            else
+            {
+                log.log_with_color('[Error] No game instance in HB!', Log_Config.error_color);
+            }
         });
     }
     else if (request.method == "GET")
@@ -77,10 +88,12 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
     {
         util.handlePostRequest(request, function(object_post_data){
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
-            runner_processor.register_runner(user_id);
+            var game_id = object_post_data[NETWORK_CONSTANTS.GAME_ID];
+            runner_processor.register_runner(user_id, game_id);
             var game_state = GAME_STATE.RESERVED;
-            if (game_manager.game != null)
-                game_state = game_manager.game.game_state;
+            var game = game_manager.get_game_by_user_id(user_id);
+            if (game != null)
+                game_state = game.game_state;
             util.send_text_response(response, (''+ game_state));
         });
     }
@@ -96,10 +109,10 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
 //uc server
 function start(port)
 {
-    console.log("uc server started with port " + port);
+    log.log_with_color("uc server started with port " + port, Log_Config.uc_log_default_color);
     http.createServer(function(request, response) {
         if (!uc_events.route(request, response)) {
-            console.log('[ERROR] bad request: ' + request.url);
+            log.log_with_color('[ERROR] bad request: ' + request.url, Log_Config.error_color);
             response.writeHead(404);
             response.end();
         }

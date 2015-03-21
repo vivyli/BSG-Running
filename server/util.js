@@ -23,7 +23,7 @@ function handlePostRequest(request, callback){
              for (var i in object_post_data) {
                 responseString += i + " => " + object_post_data[i];
              }
-             console.log('[DEBUG]:' + responseString);
+            log.log_with_color('[DEBUG]:' + responseString, 'green');
 
             // TEST
             callback(object_post_data);
@@ -43,5 +43,21 @@ function send_text_response(response, text){
     return true;
 }
 
+function average(arr)
+{
+    var len = arr.length;
+    if (len == 0)
+        return 0;
+
+    var sum = 0;
+    for (var i = 0; i < len; i ++)
+    {
+        sum = sum + arr[i];
+    }
+
+    return sum / len;
+}
+
 exports.handlePostRequest = handlePostRequest;
 exports.send_text_response = send_text_response;
+exports.average = average;

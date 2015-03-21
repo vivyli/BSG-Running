@@ -11,6 +11,7 @@ var socket = require('socket.io');
 var fs = require('fs');
 
 var log = require('./log.js');
+var config = require('./config.js');
 
 // TEST
 function handler (req, res) {
@@ -26,52 +27,64 @@ function handler (req, res) {
         });
 }
 
+// This function is to pass parameters to process function
+function process_with_game_id(game_id)
+{
+    return function()
+    {
+        led_processor.process(game_id);
+    }
+}
+
 function start(port)
 {
     var app = http.createServer(handler);
     var io =  socket(app);
     app.listen(port);
 
-    log.log_with_color('sc server started with port ' + port, 'white');
+    log.log_with_color('sc server started with port ' + port, Log_Config.sc_log_default_color);
 
     io.on('connection', function (socket) {
-        log.log_with_color('[INFO] New connection!', 'white');
+        log.log_with_color('[INFO] New connection!', Log_Config.sc_log_default_color);
+
+        var game = null;
         socket.on(EventNetworkLED.Login, function (data) {
-            var game = game_manager.game;
-            if (game == null) {
-                game = new Game(socket);
-                game_manager.game = game;
-            }
-            game.id = 1;
+            if (game != null)
+                game_manager.update_game(game);
+            else
+                game = game_manager.new_game(socket);
             socket.emit(EventNetworkLED.GameID, {game_id: game.id});
-            log.log_with_color('[LED LOGIN] game id: ' + game.id, 'white');
+            log.log_with_color('[LED LOGIN] game id: ' + game.id, Log_Config.sc_log_default_color);
         });
 
         var interval_id = 0;
         socket.on(EventNetworkLED.StartGame, function (data){
-            var game = game_manager.game;
-            game.game_state = GAME_STATE.READY_TO_START;
-            interval_id = setInterval(led_processor.process, EventNetworkLED.Interval);
-            log.log_with_color('======== [START GAME]! =========', 'bgGreen');
-           // console.log('======== [START GAME]! =========');
+            //var game = game_manager.game;
+            if (game != null)
+            {
+                game.game_state = GAME_STATE.READY_TO_START;
+                interval_id = setInterval(process_with_game_id(game.id), EventNetworkLED.Interval);
+                log.log_with_color('======== [START GAME]! =========', Log_Config.sc_log_default_color);
+            }
+            else
+            {
+                log.log_with_color('[Error] No Game instance', Log_Config.error_color);
+            }
         });
 
         socket.on(EventNetworkLED.EndGame, function (data){
-            var game = game_manager.game;
-           // game.socket_handler.disconnect();
+            //var game = game_manager.game;
             clearInterval(interval_id);
             //game = null;
             if (game != null)
                 game.reset();
-            log.log_with_color('======== [End GAME]! =========', 'byRed');
-           // console.log('======== [End GAME]! =========');
+            log.log_with_color('======== [End GAME]! =========', Log_Config.sc_log_default_color);
         });
 
         socket.on('disconnect', function (data){
             var game = game_manager.game;
             game = null;
-            log.log_with_color('[INFO] Disconnected!', 'white');
-           // console.log('[INFO] Disconnected!');
+            log.log_with_color('[INFO] Disconnected!', Log_Config.sc_log_default_color);
         });
     });
 }
