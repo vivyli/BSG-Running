@@ -4,6 +4,7 @@
 
 var log = require('./log.js');
 var querystring = require('querystring');
+var config = require('./config.js');
 
 function handlePostRequest(request, callback){
     var post_data = "";
@@ -23,7 +24,9 @@ function handlePostRequest(request, callback){
              for (var i in object_post_data) {
                 responseString += i + " => " + object_post_data[i];
              }
-            log.log_with_color('[DEBUG]:' + responseString, 'green');
+
+            if (__DEBUG__ == 1)
+                log.log_with_color('[DEBUG]:' + responseString, 'green');
 
             // TEST
             callback(object_post_data);
