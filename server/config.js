@@ -8,5 +8,5 @@ Log_Config = {
     error_color : 'red'
 };
 
-__DEBUG__ = 1;
+__DEBUG__ = 0;
 __TEST__ = 1;

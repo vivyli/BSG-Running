@@ -2,13 +2,20 @@
  * Created by chunmato on 15/3/19.
  */
 
+require('../common/commonDefs.js');
+
 var config = require('./config.js');
 var log = require('./log.js');
+
 
 function process(game_id)
 {
     var game = game_manager.get_game(game_id);
     if (game == null) return false;
+
+    var game_state = game.game_state;
+    if (game_state != GAME_STATE.READY_TO_START)
+        return false;
 
     var debug_str = "";
     var runners_status = {};

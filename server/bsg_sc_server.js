@@ -82,7 +82,6 @@ function start(port)
         });
 
         socket.on('disconnect', function (data){
-            var game = game_manager.game;
             game = null;
             log.log_with_color('[INFO] Disconnected!', Log_Config.sc_log_default_color);
         });
