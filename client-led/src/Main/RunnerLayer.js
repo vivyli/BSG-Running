@@ -3,7 +3,7 @@
  */
 var RunnerLayer = cc.Layer.extend({
     runners:null,
-    gap:50,
+    gap:80,
     ctor:function () {
         this._super();
         this.init();
@@ -20,18 +20,20 @@ var RunnerLayer = cc.Layer.extend({
 
         var controlLevel = ControlLayer._getInstance();
         var players = controlLevel.players;
+        var idx = 0;
         for(var playerId in players)
         {
-            this.addRunner(playerId.toString(),"yello",playerId.toString(),s_Photo);
+            this.addRunner(playerId.toString(),"yello",playerId.toString(),s_Photo, idx);
+            idx = idx + 1;
         }
 
         this.schedule(this.update,0);
     },
 
-    addRunner:function(id,color,name,photo){
+    addRunner:function(id,color,name,photo,idx){
         var nextRunner = new Runner();
         nextRunner.init(id,photo,name);
-        var idx = this.runners.length+1;
+        //var idx = this.runners.length+1;
         nextRunner.setPosition(cc.p(50,idx*this.gap+20));
         this.runners[id] = nextRunner;
         this.addChild(nextRunner);
@@ -42,7 +44,7 @@ var RunnerLayer = cc.Layer.extend({
         for (var id in this.runners) {
             var runner = this.runners[id];
 
-            if(runner.getPosition().x >= size-10)
+            if(runner.getPosition().x >= size.width-20)
             {
                 if(!runner.isFinish) {
                     //TODO: finish running

@@ -3,7 +3,7 @@ var GameControllerLayer = cc.Layer.extend({
     sprite:null,
     _sensorDatas: [],
     _frequency: 30,
-    _valueFrequency: 10,
+    _valueFrequency: 7,
     ctor:function () {
         this._super();
         var size = cc.winSize;
@@ -62,6 +62,7 @@ var GameControllerLayer = cc.Layer.extend({
         var data = {};
         // TODO, fake player id
         data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
+        data[NETWORK_CONSTANTS.GAME_ID] = CLIENT_GAME_ID;
         var controller = this;
         this.sendData(data, EventNetworkPlayer.Login, function(responseData){
             cc.log("### login recv, start hb");
