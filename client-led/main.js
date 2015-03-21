@@ -3,13 +3,13 @@ cc.game.onStart = function(){
     var screenSize = cc.view.getFrameSize();
     var designSize = screenSize;
     if(!cc.sys.isNative && screenSize.height < 800){
-        //designSize = cc.size(320, 480);
-        designSize = screenSize;
+        designSize = cc.size(1024, 768);
+        //designSize = screenSize;
         cc.loader.resPath = "res/Normal";
     }else{
         cc.loader.resPath = "res/HD";
     }
-    cc.view.setDesignResolutionSize(designSize.width, designSize.height, cc.ResolutionPolicy.SHOW_ALL);
+    cc.view.setDesignResolutionSize(designSize.width, designSize.height, cc.ResolutionPolicy.EXACT_FIT);
 
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
