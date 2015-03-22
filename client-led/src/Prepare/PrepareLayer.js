@@ -23,6 +23,10 @@ var PrepareLayer = cc.Layer.extend({
         this.heightIdx = height;
         if (this._super()) {
             var size = cc.director.getWinSize();
+
+            var background = new cc.Sprite(s_prepareBackground);
+            background.setPosition(cc.p(size.width/2,size.height/2));
+            this.addChild(background);
             this.prepareLabel = new cc.LabelTTF("Prepare", "Impact", 38);
             // position the label on the center of the screen
             this.prepareLabel.setPosition(size.width / 2, size.height - 40);

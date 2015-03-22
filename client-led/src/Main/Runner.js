@@ -12,10 +12,19 @@ var Runner = cc.Node.extend({
     runnerRole:null,
     init:function (id, photo,name,runnerRole) {
         var cache = cc.spriteFrameCache;
-        cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
-        this.sprite = new cc.Sprite(cache.getSpriteFrame("qk_7_001.png"));
+        cache.addSpriteFrames("runner_"+"bird"+".plist","runner_"+"bird"+".png");
+        this.sprite = new cc.Sprite(cache.getSpriteFrame("1.png"));
         this.addChild(this.sprite);
         this.name = name;
+
+
+        cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
+        var frameStr = "waitFrame_1.png";
+        var photoFrame = new cc.Sprite(cache.getSpriteFrame(frameStr));
+        photoFrame.setScale(0.5);
+        photoFrame.setPosition(cc.p(0,90));
+        this.addChild(photoFrame);
+
 
         photo = new cc.Sprite(s_Photo);
         photo.setPosition(cc.p(0,90));
@@ -28,20 +37,18 @@ var Runner = cc.Node.extend({
         var animation = animationCache.getAnimation("runner");
         if (animation == null) {
             animation = new cc.Animation;
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_001.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_002.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_003.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_004.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_005.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_006.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_007.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_008.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("1.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("2.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("3.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("4.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("5.png"));
+
             animation.setDelayPerUnit(0.1);
             animation.setRestoreOriginalFrame(false);
             animationCache.addAnimation(animation, "runner");
         }
         this.nameLabel = new cc.LabelTTF(name, "Impact", 20);
-        this.nameLabel.setPosition(cc.p(100, 100));
+        this.nameLabel.setPosition(cc.p(70,90));
         this.addChild(this.nameLabel);
         var action = cc.animate(animation);
         var speedAnimation = new cc.Speed(cc.repeatForever(action),1);
@@ -58,7 +65,7 @@ var Runner = cc.Node.extend({
 
         var speed = this.speed;
         var speedAnimation = this.sprite.getActionByTag(10);
-        speedAnimation.setSpeed(3);
+        speedAnimation.setSpeed(2);
         if(speed >= 1) {
             this.startFire();
         } else {
