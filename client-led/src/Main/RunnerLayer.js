@@ -11,12 +11,24 @@ var RunnerLayer = cc.Layer.extend({
 
     init:function () {
         this.runners = new Array();
+        var size = cc.director.getWinSize();
 
 
 
         //test code:
         // TODO remove test code
-        //this.addRunner("hello","yello","yxsh",s_Photo);
+        //test code:
+        // TODO remove test code
+        runnersCount = 4;
+
+        this.gap = size.height / runnersCount;
+
+        this.addRunner("hello","yello","yxsh",s_Photo);
+        this.addRunner("hello1","yello","yxsh1",s_Photo);
+        this.addRunner("hello2","yello","yxsh2",s_Photo);
+        this.addRunner("hello3","yello","yxsh3",s_Photo);
+
+        //end
 
         var controlLevel = ControlLayer._getInstance();
         var players = controlLevel.players;
@@ -34,6 +46,10 @@ var RunnerLayer = cc.Layer.extend({
         var nextRunner = new Runner();
         nextRunner.init(id,photo,name);
         //var idx = this.runners.length+1;
+        var idx = 0;
+        for (var runner in this.runners) {
+            idx++;
+        }
         nextRunner.setPosition(cc.p(50,idx*this.gap+20));
         this.runners[id] = nextRunner;
         this.addChild(nextRunner);
