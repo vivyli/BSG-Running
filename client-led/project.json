@@ -35,6 +35,7 @@
         "src/Main/RunnerLayer.js",
 
         "src/Award/AwardScene.js",
-        "src/Award/AwardLayer.js"
+        "src/Award/AwardLayer.js",
+        "src/Award/Winner.js"
     ]
 }
