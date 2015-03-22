@@ -69,7 +69,7 @@ ControlLayer = cc.Class.extend({
 				// run prepare scene
 				cc.log("### server send prepare game");
 				var nextScene = new PrepareScene();
-				cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
+				//cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
             });
 
 			// recv prepare state, player register
@@ -90,7 +90,7 @@ ControlLayer = cc.Class.extend({
             this.socket.on(EventNetworkLED.GameState, function(data){
                 var controlLevel = ControlLayer._getInstance();
 				if(controlLevel.sceneName == EnumSceneName.eMain) {
-                    cc.log(data);
+                    //cc.log(data);
 
                     for(var playerId in data)
                     {

@@ -30,7 +30,7 @@ var WaitRunner = cc.Node.extend({
 
         this.photo = photo;
         this.photo.setPosition(cc.p(3,3));
-        this.photo.setScale(0.5,0.5)
+        //this.photo.setScale(0.5,0.5)
         this.addChild(this.photo);
 
 
