@@ -23,5 +23,5 @@ module.exports = function Game(socket_handler){
         // Reset game state.
         this.game_state = GAME_STATE.RESERVED;
     }
-}
+};
 

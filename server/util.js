@@ -8,8 +8,7 @@ var config = require('./config.js');
 
 function handlePostRequest(request, callback){
     var post_data = "";
-    if (request.method == "POST")
-    {
+    if (request.method == "POST") {
         request.setEncoding("utf-8");
         // collect all POST data chunk
         request.addListener("data", function (post_data_chunk) {
@@ -45,15 +44,13 @@ function send_text_response(response, text){
     return true;
 }
 
-function average(arr)
-{
+function average(arr) {
     var len = arr.length;
     if (len == 0)
         return 0;
 
     var sum = 0;
-    for (var i = 0; i < len; i ++)
-    {
+    for (var i = 0; i < len; i ++) {
         sum = sum + arr[i];
     }
 

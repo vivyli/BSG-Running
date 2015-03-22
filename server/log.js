@@ -5,20 +5,17 @@
 var fs = require('fs');
 var colors = require('colors');
 
-function error_type_error(paramname, exp_type, cur_type)
-{
+function error_type_error(paramname, exp_type, cur_type) {
     console.error('parameter \'' + paramname +'\' is invalid. The type should be \'' + exp_type +
     '\' rather than \'' + cur_type + '\'');
     return false;
 }
 
-function log_with_color(text, color)
-{
+function log_with_color(text, color) {
     console.log(text[color]);
 }
 
-function log_to_file(filename, text)
-{
+function log_to_file(filename, text) {
     fs.open(filename, "wa", 0644, function(e, fd){
         if (e) throw  e;
         fs.write(filename, text, function(e){

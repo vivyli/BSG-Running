@@ -63,8 +63,7 @@ function start(port) {
 
                 log.log_with_color('[LED LOGIN] game id: ' + game.id, Log_Config.sc_log_default_color);
             }
-            else
-            {
+            else {
                 // TODO Notify didn't accept this event for now.
             }
         });

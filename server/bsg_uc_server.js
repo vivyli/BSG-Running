@@ -51,7 +51,7 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
         util.send_text_response(response, "hello");
     }
 
-}
+};
 
 // PL_heart_beat: Need parameters {user_id: uid}
 // Indicate this user is alive. If we didn't receive the specified user's heart beat for a while.
@@ -87,7 +87,7 @@ uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
         util.send_text_response(response, "heart beat");
     }
 
-}
+};
 
 // PL_login: Need parameters {user_id: uid, game_id: gid}
 // When received a new user's login request, register this user to the game.
@@ -115,7 +115,7 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
         util.send_text_response(response, "login");
     }
 
-}
+};
 
 //uc server
 function start(port) {

@@ -24,8 +24,7 @@ module.exports = function Runner(user_id){
     this.last_updated_time = Date.parse(new Date());
     this.speed_buffer = new Array();
 
-    this.update_speed = function (speed)
-    {
+    this.update_speed = function (speed) {
         this.speed_sum = this.speed_sum + speed;
         this.update_times = this.update_times + 1;
         this.last_updated_time = Date.parse(new Date());
@@ -42,23 +41,19 @@ module.exports = function Runner(user_id){
     this.reset_speed = function() {
         this.speed_sum = 0;
         this.update_times = 0;
-    }
+    };
 
-    this.update_speed_buffer = function (speed)
-    {
-        if (this.speed_buffer.length >= GameDefinition.SpeedBufferSize)
-        {
+    this.update_speed_buffer = function (speed) {
+        if (this.speed_buffer.length >= GameDefinition.SpeedBufferSize) {
             this.speed_buffer.shift();
             this.speed_buffer.push(speed);
         }
-        else
-        {
+        else {
             this.speed_buffer.push(speed);
         }
     };
 
-    this.get_speed_from_speed_buffer = function ()
-    {
+    this.get_speed_from_speed_buffer = function () {
         /*var dup_speed_buffer = this.speed_buffer.slice();
         dup_speed_buffer.sort(function(a, b){
             if (a > b) return 1;
@@ -85,8 +80,7 @@ module.exports = function Runner(user_id){
         return util.average(this.speed_buffer);
     };
 
-    this.is_alive = function ()
-    {
+    this.is_alive = function () {
         var now_t = Date.parse(new Date());
         var cap = now_t - this.last_updated_time;
         // TODO

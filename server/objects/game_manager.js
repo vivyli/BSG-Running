@@ -21,8 +21,7 @@ module.exports = function GameManager() {
         }
     };
 
-    this.new_game = function(socket)
-    {
+    this.new_game = function(socket) {
         var ng_id = this.new_game_id();
         var ng = new Game(socket);
         ng.id = ng_id;
@@ -31,25 +30,21 @@ module.exports = function GameManager() {
         return ng;
     };
 
-    this.update_game = function (game)
-    {
-        if (game != null)
-        {
+    this.update_game = function (game) {
+        if (game != null) {
             var ng_id = this.new_game_id();
             game.id = ng_id;
         }
     };
 
-    this.get_game = function(game_id)
-    {
+    this.get_game = function(game_id) {
         if (game_id != null && this.games[game_id] != null)
             return this.games[game_id];
         else
             return null;
     };
 
-    this.get_game_by_user_id = function (user_id)
-    {
+    this.get_game_by_user_id = function (user_id) {
         if (user_id == null)
             return null;
 
@@ -65,10 +60,10 @@ module.exports = function GameManager() {
         if (user_id == null || game_id == null)
             return false;
         if (this.runners[user_id] != undefined)
-            return false
+            return false;
         this.runners[user_id] = game_id;
         return true;
-    }
+    };
 
     this.get_runner = function (user_id) {
         var game = get_game_by_user_id(user_id);
