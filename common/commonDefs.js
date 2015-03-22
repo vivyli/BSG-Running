@@ -11,13 +11,13 @@ EventNetworkLED = {
     EndGame : "SC_end_game", // led send game over to server
 
     Interval : 500
-}
+};
 
 EventNetworkPlayer = {
     Sensor : "PL_sensor", // player send sensor data to server
     HeartBeat : "PL_heart_beat", // player send heart beat to server
     Login: "PL_login"
-}
+};
 
 NETWORK_CONSTANTS = {
     SERVER_HOST_LED : "http://192.168.10.105:9999",
@@ -26,7 +26,7 @@ NETWORK_CONSTANTS = {
     SHAKE_DATA : "data",
     USER_ID : "user_id",
     GAME_ID : "game_id"
-}
+};
 
 GAME_STATE = {
     RESERVED            :   0,
@@ -36,4 +36,4 @@ GAME_STATE = {
     RUNNING             :   4,
     FINISHED            :   5
 
-}
+};

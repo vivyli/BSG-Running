@@ -15,13 +15,6 @@ RUNNER_STATE = {
     FINISHED    :   3
 };
 
-/*
-var Runner = {
-    current_speed   :   0,
-    dis_to_dest     :   0,
-    runner_state    :   0
-};*/
-
 module.exports = function Runner(user_id){
     this.id = user_id;
     this.speed_sum = 0;
@@ -36,19 +29,19 @@ module.exports = function Runner(user_id){
         this.speed_sum = this.speed_sum + speed;
         this.update_times = this.update_times + 1;
         this.last_updated_time = Date.parse(new Date());
-    }
+    };
 
-    this.get_and_reset_speed = function () {
+    this.get_speed = function () {
         if (this.update_times == 0)
             return -1;
-        else
-        {
-            var speed = this.speed_sum / this.update_times;
-            this.speed_sum = 0;
-            this.update_times = 0;
-
-            return speed;
+        else {
+            return this.speed_sum / this.update_times;
         }
+    };
+
+    this.reset_speed = function() {
+        this.speed_sum = 0;
+        this.update_times = 0;
     }
 
     this.update_speed_buffer = function (speed)
@@ -62,7 +55,7 @@ module.exports = function Runner(user_id){
         {
             this.speed_buffer.push(speed);
         }
-    }
+    };
 
     this.get_speed_from_speed_buffer = function ()
     {
@@ -90,6 +83,14 @@ module.exports = function Runner(user_id){
         return dup_speed_buffer[mid_idx];
         */
         return util.average(this.speed_buffer);
-    }
-}
+    };
+
+    this.is_alive = function ()
+    {
+        var now_t = Date.parse(new Date());
+        var cap = now_t - this.last_updated_time;
+        // TODO
+        return true;
+    };
+};
 

@@ -28,7 +28,6 @@ function handlePostRequest(request, callback){
             if (__DEBUG__ == 1)
                 log.log_with_color('[DEBUG]:' + responseString, 'green');
 
-            // TEST
             callback(object_post_data);
         });
     }
