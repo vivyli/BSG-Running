@@ -54,6 +54,9 @@ var PrepareLayer = cc.Layer.extend({
                 }
             }
 
+            var countDown = new CountDown();
+            countDown.init(120);
+            this.addChild(countDown);
 
 
 

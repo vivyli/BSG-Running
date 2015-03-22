@@ -26,6 +26,7 @@
         "src/Prepare/PrepareScene.js",
         "src/Prepare/PrepareLayer.js",
         "src/Prepare/WaitRunner.js",
+        "src/Prepare/CountDown.js",
 
         "src/Main/MainScene.js",
         "src/Main/BackgroundLayer.js",
