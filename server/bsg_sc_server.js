@@ -14,7 +14,7 @@ var http = require('http');
 var socket = require('socket.io');
 var fs = require('fs');
 
-// TEST
+
 function handler (req, res) {
     fs.readFile(__dirname + '/index.html',
         function (err, data) {
@@ -35,12 +35,14 @@ function process_with_game_id(game_id) {
     }
 }
 
-function start(port) {
-    var app = http.createServer(handler);
-    var io =  socket(app);
-    app.listen(port);
+function start(io) {
+   // var app = http.createServer();
+    //var io =  socket(app);
+    //app.listen(port);
+    //app.addListener('request', handler);
+   // app.listen(handler);
 
-    log.log_with_color('sc server started with port ' + port, Log_Config.sc_log_default_color);
+    log.log_with_color('sc server started with port ' + NETWORK_CONSTANTS.SERVER_PORT, Log_Config.sc_log_default_color);
 
     io.on('connection', function (socket) {
         log.log_with_color('[INFO] New connection!', Log_Config.sc_log_default_color);

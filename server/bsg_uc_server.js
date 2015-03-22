@@ -117,6 +117,15 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
 
 };
 
+
+function route(request, response) {
+    if (!uc_events.route(request, response)) {
+        log.log_with_color('[ERROR] bad request: ' + request.url, Log_Config.error_color);
+        response.writeHead(404);
+        response.end();
+    }
+}
+
 //uc server
 function start(port) {
     log.log_with_color("uc server started with port " + port, Log_Config.uc_log_default_color);
@@ -130,3 +139,4 @@ function start(port) {
 }
 
 exports.start = start;
+exports.route = route;
