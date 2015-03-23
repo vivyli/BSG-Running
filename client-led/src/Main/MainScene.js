@@ -19,6 +19,12 @@ var MainScene = cc.Scene.extend({
         this.addChild(preEffectsLayer,20,206);
 
         ControlLayer._getInstance().updateScene(this, EnumSceneName.eMain);
+
+        var ccAnimation
+    },
+
+    start: function(){
+        ControlLayer._getInstance().updateScene(this, EnumSceneName.eMain);
     },
     updateRunnerSpeed: function(runnerId, speed)
     {
