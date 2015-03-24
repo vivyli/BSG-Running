@@ -42,6 +42,11 @@ var CountDown = cc.Node.extend({
 
     update: function (dt) {
         this.timeCounter -= dt;
+        if(this.timeCounter <= 0)
+        {
+            //TODO: time up to next scene
+            ControlLayer._getInstance().StartGame();
+        }
         cc.log(this.timeCounter.toString());
         var totalSec = Math.floor(this.timeCounter / 1);
 
