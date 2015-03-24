@@ -35,8 +35,8 @@ function process_with_game_id(game_id) {
     }
 }
 
-function start(io) {
-   // var app = http.createServer();
+function start(io/* port*/) {
+    //var app = http.createServer(handler);
     //var io =  socket(app);
     //app.listen(port);
     //app.addListener('request', handler);
@@ -54,14 +54,16 @@ function start(io) {
         var game = null;
         socket.on(EventNetworkLED.Login, function (data) {
             if (workflow.check_accept_event(game == null? null: game.game_state, EventNetworkLED.Login)) {
+                console.log(this==socket);
                 if (game != null)
                     game_manager.update_game(game);
                 else
                     game = game_manager.new_game(socket);
 
+
                 // Notify Led client the created game id.
                 // Format: {game_id: 1}
-                socket.emit(EventNetworkLED.GameID, {game_id: game.id});
+                this.emit(EventNetworkLED.GameID, {game_id: game.id});
 
                 log.log_with_color('[LED LOGIN] game id: ' + game.id, Log_Config.sc_log_default_color);
             }

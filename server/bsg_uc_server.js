@@ -20,6 +20,11 @@ uc_events.actions = {};
 // Route function for the request from user client.
 uc_events.route = function(request, response) {
     var action = url.parse(request.url).pathname.split('/')[1];
+
+    // Ignore socket.io request.
+    if (action == 'socket.io')
+        return true;
+
     if (typeof uc_events.actions[action] == 'function') {
         request.connection.setTimeout(0);
         uc_events.actions[action].apply(uc_events, [request, response]);

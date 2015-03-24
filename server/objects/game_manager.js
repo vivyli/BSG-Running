@@ -19,11 +19,11 @@ module.exports = function GameManager() {
             this.game_id_seed = this.game_id_seed + 1;
             return game_id;
         }
-    };
+    }
 
-    this.new_game = function(socket) {
+    this.new_game = function(socket_handler) {
         var ng_id = this.new_game_id();
-        var ng = new Game(socket);
+        var ng = new Game(socket_handler);
         ng.id = ng_id;
         this.games[ng.id] = ng;
 
