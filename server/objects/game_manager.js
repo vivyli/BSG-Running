@@ -24,6 +24,7 @@ module.exports = function GameManager() {
     this.new_game = function(socket_handler) {
         var ng_id = this.new_game_id();
         var ng = new Game(socket_handler);
+
         ng.id = ng_id;
         this.games[ng.id] = ng;
 
@@ -66,7 +67,7 @@ module.exports = function GameManager() {
     };
 
     this.get_runner = function (user_id) {
-        var game = get_game_by_user_id(user_id);
+        var game = this.get_game_by_user_id(user_id);
         var runner = null;
         if (game != null)
             runner = game.runners[user_id];

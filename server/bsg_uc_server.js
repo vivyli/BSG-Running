@@ -102,6 +102,7 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             var game_id = object_post_data[NETWORK_CONSTANTS.GAME_ID];
             var game = game_manager.get_game(game_id);
+            console.log(game.game_state);
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkPlayer.Login)) {
                 runner_processor.register_runner(user_id, game_id);
                 var game_state = GAME_STATE.RESERVED;
@@ -111,6 +112,7 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
             }
             else{
                 // TODO Notify not accept this event
+                log.log_with_color(EventNetworkPlayer.Login + ' not accept!', Log_Config.error_color);
             }
         });
     }

@@ -54,13 +54,12 @@ function start(io/* port*/) {
         var game = null;
         socket.on(EventNetworkLED.Login, function (data) {
             if (workflow.check_accept_event(game == null? null: game.game_state, EventNetworkLED.Login)) {
-                console.log(this==socket);
                 if (game != null)
                     game_manager.update_game(game);
                 else
                     game = game_manager.new_game(socket);
 
-
+                game.game_state = GAME_STATE.WAITING_FOR_PLAYERS;
                 // Notify Led client the created game id.
                 // Format: {game_id: 1}
                 this.emit(EventNetworkLED.GameID, {game_id: game.id});
