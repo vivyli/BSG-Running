@@ -99,7 +99,8 @@ function start(io/* port*/) {
         // 2. reset game. That is to clear runners and reset game state here.
         socket.on(EventNetworkLED.EndGame, function (data){
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.EndGame)) {
-                clearInterval(interval_id);
+                if (interval_id)
+                    clearInterval(interval_id);
                 if (game != null)
                     game.reset();
                 log.log_with_color('======== [End GAME]! =========', Log_Config.sc_log_default_color);
@@ -111,7 +112,14 @@ function start(io/* port*/) {
 
         // LED client disconnect.
         socket.on('disconnect', function (data){
-            game = null;
+            if (interval_id)
+                clearInterval(interval_id);
+            
+            if (game != null) {
+                game.reset();
+                game = null;
+            }
+
             log.log_with_color('[INFO] Disconnected!', Log_Config.sc_log_default_color);
         });
     });
