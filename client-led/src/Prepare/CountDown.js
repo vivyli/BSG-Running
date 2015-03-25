@@ -47,7 +47,7 @@ var CountDown = cc.Node.extend({
             //TODO: time up to next scene
             ControlLayer._getInstance().StartGame();
         }
-        cc.log(this.timeCounter.toString());
+        //cc.log(this.timeCounter.toString());
         var totalSec = Math.floor(this.timeCounter / 1);
 
         this.minute = Math.floor(totalSec / 60).toString();

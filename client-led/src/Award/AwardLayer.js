@@ -29,12 +29,16 @@ var AwardLayer = cc.Layer.extend({
         //cc.log(awardBackgroup.getTexture().height.toString());
         //cc.log(awardBackgroup.height.toString());
 
-        awardBackgroup.setAnchorPoint(0,0);
-        awardBackgroup.setPosition(0,0);
+        awardBackgroup.attr({
+            anchorX : 0.5,
+            anchorY : 0.5,
+            x: size.width/2,
+            y: size.height/2
+        });
 
 
         //TODO: test add runner del
-        this.addWinner(1,"num1",s_Photo,1,"yello");
+        this.addWinner(1,"num111111111111111111111111111",s_Photo,1,"yello");
         this.addWinner(2,"num2",s_Photo,2,"yello");
         this.addWinner(3,"num3",s_Photo,1,"yello");
         //awardBackgroup.setScale(xScale,yScale);

@@ -9,8 +9,7 @@ var Winner = cc.Node.extend({
     photo:null,
     runnerRole:null,
     init:function(order,name,photo,gender,runnerRole){
-        var xOffset = [30, 280, 345, 390, 580]; // rank, photo, gender, name, sprite
-        var yOffset = 0;
+        var xOffset = [30, 580]; // rank, sprite
         var c = cc.color(cc.color(139, 90, 0, 200));
         if(order>=2){
             c = cc.color(cc.color(39, 64, 139, 200));
@@ -27,32 +26,14 @@ var Winner = cc.Node.extend({
         rank.setPosition(cc.p(xOffset[0],0));
         this.addChild(rank);
 
-        // photo
-        var photoBox = new cc.Sprite(s_PhotoBox);
-        photoBox.setPosition(cc.p(xOffset[1],0));
-        this.addChild(photoBox);
-        //photo = new cc.Sprite(s_Photo);
-        this.photo = ControlLayer._getInstance().getMaskSprite(s_Photo);
-        //photo = this.getMaskSprite(photo);
-        this.photo.setPosition(cc.p(xOffset[1],0));
-        this.addChild(this.photo);
-
-        // gender label
-        var genderIcon = new cc.Sprite("award_head_gender2"+gender+".png");
-        genderIcon.setPosition(cc.p(xOffset[2], yOffset));
-        this.addChild(genderIcon);
-
-        // name label
-        this.nameLabel = new cc.LabelTTF(name, "Impact", 20);
-        this.nameLabel.setPosition(cc.p(xOffset[3], 0));
-        this.nameLabel.setColor(c);
-        this.addChild(this.nameLabel);
+        // photo name gender
+        ControlLayer._getInstance().setPlayerPhotoName(this, name, s_PhotoBox, gender, c, 2);
 
         // sprite
         var cache = cc.spriteFrameCache;
         cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
         this.sprite = new cc.Sprite(cache.getSpriteFrame("qk_7_001.png"));
-        this.sprite.setPosition(cc.p(xOffset[4],0));
+        this.sprite.setPosition(cc.p(xOffset[1],0));
         this.addChild(this.sprite);
         this.name = name;
         var animationCache = cc.animationCache;

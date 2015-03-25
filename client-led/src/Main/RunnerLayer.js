@@ -35,7 +35,7 @@ var RunnerLayer = cc.Layer.extend({
         var idx = 0;
         for(var playerId in players)
         {
-            this.addRunner(playerId.toString(),"yello",playerId.toString(),s_Photo, idx);
+            this.addRunner(playerId.toString(),"yello",playerId.toString(),s_Photo, idx%2+1);
             idx = idx + 1;
         }
 
@@ -50,7 +50,7 @@ var RunnerLayer = cc.Layer.extend({
         for (var runner in this.runners) {
             idx++;
         }
-        nextRunner.setPosition(cc.p(50,idx*this.gap+20));
+        nextRunner.setPosition(cc.p(80,idx*this.gap+20));
         this.runners[id] = nextRunner;
         this.addChild(nextRunner);
     },

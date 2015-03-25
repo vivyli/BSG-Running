@@ -28,6 +28,15 @@ var Runner = cc.Node.extend({
         //photoFrame.setPosition(cc.p(0,90));
         //this.addChild(photoFrame);
 
+        var c = cc.color(cc.color(139, 90, 0, 200));
+        if(gender<=1){
+            c = cc.color(cc.color(39, 64, 139, 200));
+        }
+
+        // photo name gender
+        ControlLayer._getInstance().setPlayerPhotoName(this, name, s_PhotoBox, gender, c, 1);
+
+        /*
         // photo
         var photoBox = new cc.Sprite(s_PhotoBox);
         photoBox.setPosition(cc.p(0,80));
@@ -36,10 +45,6 @@ var Runner = cc.Node.extend({
         this.photo.setPosition(cc.p(0,80));
         this.addChild(this.photo);
 
-        var c = cc.color(cc.color(139, 90, 0, 200));
-        if(gender<=1){
-            c = cc.color(cc.color(39, 64, 139, 200));
-        }
         // gender label
         var genderIcon = new cc.Sprite("award_head_gender2"+gender+".png");
         genderIcon.setPosition(cc.p(66, 80));
@@ -49,11 +54,10 @@ var Runner = cc.Node.extend({
         this.nameLabel = new cc.LabelTTF(name, "Impact", 20);
         this.nameLabel.setPosition(cc.p(110, 80));
         this.nameLabel.setColor(c);
-        this.addChild(this.nameLabel);
+        this.addChild(this.nameLabel);*/
 
+        // animation
         var animationCache = cc.animationCache;
-
-
         var animation = animationCache.getAnimation("runner");
         if (animation == null) {
             animation = new cc.Animation;
@@ -99,8 +103,10 @@ var Runner = cc.Node.extend({
     {
         this.speed = speed;
         var speedAnimation = this.sprite.getActionByTag(10);
-        speedAnimation.setSpeed(3);
-        if(speed >= 2) {
+        if(speedAnimation){
+            speedAnimation.setSpeed(3);
+        }
+        if(speed >= 3) {
             this.startFire();
         } else {
             this.stopFire();

@@ -130,6 +130,41 @@ ControlLayer = cc.Class.extend({
         clipper.addChild(sprite);
 
         return clipper;
+    },
+    setPlayerPhotoName: function(layer, name, sPhoto, gender, c, type)
+    {
+        var x_offset = 0;
+        var y_offset = 80;
+        if(type==2)
+        {
+            x_offset = 280;
+            y_offset = 0;
+        }
+
+        var xOffset = [x_offset, x_offset+65, x_offset+55]; // photo, gender, name
+        var yOffset = -30;
+        var sGender = "award_head_gender2"+gender+".png";
+
+        // photo
+        var photoBox = new cc.Sprite(sPhoto);
+        photoBox.setPosition(cc.p(xOffset[0],y_offset));
+        layer.addChild(photoBox);
+        var photo = this.getMaskSprite(s_Photo);
+        photo.setPosition(cc.p(xOffset[0],y_offset));
+        layer.addChild(photo);
+
+        // gender label
+        var genderIcon = new cc.Sprite(sGender);
+        genderIcon.setPosition(cc.p(xOffset[1], yOffset+y_offset));
+        layer.addChild(genderIcon);
+
+        // name label
+        var nameLabel = new cc.LabelTTF(name, "Impact", 20);
+        nameLabel.setAnchorPoint(cc.p(0,0.5));
+        nameLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
+        nameLabel.setPosition(cc.p(xOffset[2], y_offset));
+        nameLabel.setColor(c);
+        layer.addChild(nameLabel);
     }
 });
 

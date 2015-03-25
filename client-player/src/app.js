@@ -1,6 +1,8 @@
 
 var GameControllerLayer = cc.Layer.extend({
+    background:null,
     sprite:null,
+    shake:null,
     _sensorDatas: [],
     _frequency: 30,
     _valueFrequency: 7,
@@ -8,45 +10,31 @@ var GameControllerLayer = cc.Layer.extend({
         this._super();
         var size = cc.winSize;
 
-        // add a "close" icon to exit the progress. it's an autorelease object
-        var closeItem = new cc.MenuItemImage(
-            res.CloseNormal_png,
-            res.CloseSelected_png,
-            function () {
-                cc.log("Menu is clicked!");
-            }, this);
-        closeItem.attr({
-            x: size.width - 20,
-            y: 20,
-            anchorX: 0.5,
-            anchorY: 0.5
+        // background
+        this.background = new cc.Sprite(res.s_Background2);
+        this.background.attr({
+            anchorX : 0.5,
+            anchorY : 0.5,
+            x: GC_w/2,
+            y: GC_h/2
         });
+        this.addChild(this.background, 0);
 
-        var menu = new cc.Menu(closeItem);
-        menu.x = 0;
-        menu.y = 0;
-        this.addChild(menu, 1);
+        /*
+        // sprite
+        this._initSprite();
 
-        /////////////////////////////
-        // 3. add your codes below...
-        // add a label shows "Hello World"
-        // create and initialize a label
-        var helloLabel = new cc.LabelTTF("Hello World", "Arial", 38);
-        // position the label on the center of the screen
-        helloLabel.x = size.width / 2;
-        helloLabel.y = 0;
-        // add the label as a child to this layer
-        this.addChild(helloLabel, 5);
+        // shake
+        this.shake = new cc.Sprite(res.s_Shake);
+        this.shake.setPosition(cc.p(size.width/2, size.height/2));
+        this.addChild(this.shake, 100);
 
-        // add "HelloWorld" splash screen"
-        this.sprite = new cc.Sprite(res.HelloWorld_png);
-        this.sprite.attr({
-            x: size.width / 2,
-            y: size.height / 2,
-            scale: 0.5,
-            rotation: 0
-        });
-        this.addChild(this.sprite, 0);
+        var pointL = cc.p(this.shake.x-3, this.shake.y);
+        var pointR = cc.p(this.shake.x+3, this.shake.y);
+        var moveLeft = cc.moveTo(0.08, pointL);
+        var moveRight = cc.moveTo(0.08, pointR);
+        var actionShake = cc.sequence(moveLeft, moveRight).repeatForever();
+        this.shake.runAction(actionShake);*/
 
         this.login();
 
@@ -56,6 +44,28 @@ var GameControllerLayer = cc.Layer.extend({
         //this.startSendingSensorData();
 
         return true;
+    },
+    _initSprite : function(){
+        this.sprite = new cc.Sprite(res.s_Sprite);
+        this.addChild(this.sprite);
+        this.sprite.x = Math.random() * GC_w;
+        this.sprite.y = 0;
+
+        this.sprite.runAction(cc.moveBy(3, cc.p(Math.random() * GC_w, this.sprite.y + GC_h + 100)));
+
+        this.schedule(this._updateSprite, 0.1);
+
+    },
+    _updateSprite:function () {
+        if (this.sprite.y > GC_h) {
+            this.sprite.x = Math.random() * GC_w;
+            this.sprite.y = 10;
+            this.sprite.runAction(cc.moveBy(
+                //parseInt(3 * Math.random(), 10),
+                3,
+                cc.p(Math.random() * GC_w, this.sprite.y + GC_h)
+            ));
+        }
     },
     login: function()
     {
