@@ -18,16 +18,33 @@ socket.on ('connect', function() {
         write(data);
     });
 
+    write('SC_login sent!<br>');
     socket.on('SC_gameid', function (data) {
         var game_id = data['game_id'];
-        write('New game id:' + game_id);
+        write('New game id received:' + game_id + '<br>');
 
-        xmlhttp = new XMLHttpRequest();
+        xmlhttp1 = new XMLHttpRequest();
         var url = 'http://127.0.0.1:8888/PL_login';
-        xmlhttp.open('POST', url, true);
-        xmlhttp.onreadystatechange = function () { //Call a function when the state changes.
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                alert(xmlhttp.responseText);
+        xmlhttp1.open('POST', url, true);
+        xmlhttp1.onreadystatechange = function () { //Call a function when the state changes.
+            if (xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
+                var g_state = xmlhttp1.responseText;
+                write('game_state received: ' + g_state + '<br>');
+
+                xmlhttp2 = new XMLHttpRequest();
+                var url2 = 'http://127.0.0.1:8888/PL_heart_beat';
+                var p2 = "user_id=111";
+                xmlhttp2.open('POST', url2, true);
+                xmlhttp2.onreadystatechange = function() {
+                    if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                        var g_state2 = xmlhttp2.responseText;
+                        write('[HB]game_state received: ' + g_state2 + '<br>');
+
+                        //socket.emit('SC_start_game', {});
+                    }
+                }
+                write('Heart Beat Sent!<br>');
+                xmlhttp2.send(p2);
             }
         }
         var parameters = {
@@ -36,7 +53,8 @@ socket.on ('connect', function() {
         };
         var p = "game_id=1&user_id=111"
 // Neither was accepted when I set with parameters="username=myname"+"&password=mypass" as the server may not accept that
-        xmlhttp.send(p);
+        xmlhttp1.send(p);
+        write('PL_login sent!<br>');
     });
 });
 
