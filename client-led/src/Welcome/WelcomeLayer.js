@@ -48,7 +48,6 @@ var WelcomeLayer = cc.Layer.extend({
             this.addChild(menu, 10, 101);
             beginItem.setPosition(size.width - 20, 20);
         }
-
     }
 
 });

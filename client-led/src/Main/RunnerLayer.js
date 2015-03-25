@@ -23,10 +23,10 @@ var RunnerLayer = cc.Layer.extend({
 
         this.gap = size.height / runnersCount;
 
-        this.addRunner("hello","yello","yxsh",s_Photo);
-        this.addRunner("hello1","yello","yxsh1",s_Photo);
-        this.addRunner("hello2","yello","yxsh2",s_Photo);
-        this.addRunner("hello3","yello","yxsh3",s_Photo);
+        this.addRunner("hello","yello","yxsh",s_Photo,1);
+        this.addRunner("hello1","yello","yxsh1",s_Photo,2);
+        this.addRunner("hello2","yello","yxsh2",s_Photo,1);
+        this.addRunner("hello3","yello","yxsh3",s_Photo,2);
 
         //end
 
@@ -42,9 +42,9 @@ var RunnerLayer = cc.Layer.extend({
         this.schedule(this.update,0);
     },
 
-    addRunner:function(id,color,name,photo,idx){
+    addRunner:function(id,color,name,photo,gender){
         var nextRunner = new Runner();
-        nextRunner.init(id,photo,name);
+        nextRunner.init(id,photo,name,gender);
         //var idx = this.runners.length+1;
         var idx = 0;
         for (var runner in this.runners) {

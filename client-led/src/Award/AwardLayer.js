@@ -11,29 +11,32 @@ var AwardLayer = cc.Layer.extend({
     init:function () {
         var size = cc.director.getWinSize();
         this.winners = new Array();
-        this.backgroundLabel = new cc.LabelTTF("Award", "Impact", 38);
+        //this.backgroundLabel = new cc.LabelTTF("Award", "Impact", 38);
         // position the label on the center of the screen
-        this.backgroundLabel.setPosition(size.width / 2, size.height - 40);
+        //this.backgroundLabel.setPosition(size.width / 2, size.height - 40);
         // add the label as a child to this layer
-        this.addChild(this.backgroundLabel, 5,204);
+        //this.addChild(this.backgroundLabel, 5,204);
 
-        var awardBackgroup = new cc.Sprite("ljt.jpg");
+        var awardBackgroup = new cc.Sprite(s_awardBackground);
         var xScale = size.width / awardBackgroup.width;
         var yScale = size.height / awardBackgroup.height;
 
-        cc.log(xScale.toString());
-        cc.log(yScale.toString());
-        cc.log(awardBackgroup.getTexture().height.toString());
-        cc.log(awardBackgroup.height.toString());
+        cc.log(size.width, size.height, awardBackgroup.width, awardBackgroup.height);
+        cc.log(awardBackgroup.getContentSize());
+
+        //cc.log(xScale.toString());
+        //cc.log(yScale.toString());
+        //cc.log(awardBackgroup.getTexture().height.toString());
+        //cc.log(awardBackgroup.height.toString());
 
         awardBackgroup.setAnchorPoint(0,0);
         awardBackgroup.setPosition(0,0);
 
 
         //TODO: test add runner del
-        this.addWinner(1,"num1",s_Photo,"yello");
-        this.addWinner(2,"num2",s_Photo,"yello");
-        this.addWinner(3,"num3",s_Photo,"yello");
+        this.addWinner(1,"num1",s_Photo,1,"yello");
+        this.addWinner(2,"num2",s_Photo,2,"yello");
+        this.addWinner(3,"num3",s_Photo,1,"yello");
         //awardBackgroup.setScale(xScale,yScale);
 
 
@@ -50,23 +53,15 @@ var AwardLayer = cc.Layer.extend({
         startItem.setPosition(size.width - 20, 20);
     },
 
-    addWinner:function(order,name,photo,color)
+    addWinner:function(order,name,photo,gender,color)
     {
         var newWinner = new Winner();
-        newWinner.init(order,name,photo,color);
+        newWinner.init(order,name,photo,gender,color);
         this.winners[order] = newWinner;
-        if(order == 1)
-        {
-            newWinner.setPosition(cc.p(230,130));
-        }
-        else if(order == 2)
-        {
-            newWinner.setPosition(cc.p(420,130));
-        }
-        else if(order == 3)
-        {
-            newWinner.setPosition(cc.p(740,130));
-        }
+        var baseX = 205;
+        var baseY = 500;
+        var y = baseY - (order-1)*170;
+        newWinner.setPosition(cc.p(baseX,y));
         this.addChild(newWinner,5);
     }
 });

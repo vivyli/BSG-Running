@@ -1,12 +1,14 @@
 var s_HelloWorld = "HelloWorld.jpg";
 var s_CloseNormal = "CloseNormal.png";
 var s_CloseSelected = "CloseSelected.png";
-var s_Photo = "64.jpg";
+var s_Photo = "96.jpg";
+var s_PhotoBox = "head_box.png"
 var s_RunnerPlist ="runner.plist";
 var s_RunnerPng = "runner.png";
 var s_Fire = "fire.png";
 
 var s_prepareBackground = "BG_Bottom06.jpg";
+var s_awardBackground = "award_bg.jpg";
 
 var s_MainBackground = "road1.png";
 var s_MainBackground_water = "water.png";

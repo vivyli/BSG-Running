@@ -6,11 +6,12 @@ var Runner = cc.Node.extend({
     speed:0,
     name:"",
     photo:null,
+    gender:1,
     id:null,
     isFinish:null,
     _emitter:null,
     runnerRole:null,
-    init:function (id, photo,name,runnerRole) {
+    init:function (id, photo,name,gender,runnerRole) {
         var cache = cc.spriteFrameCache;
         cache.addSpriteFrames("runner_"+"bird"+".plist","runner_"+"bird"+".png");
         this.sprite = new cc.Sprite(cache.getSpriteFrame("1.png"));
@@ -19,17 +20,36 @@ var Runner = cc.Node.extend({
 
 
         cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
-        var frameStr = "waitFrame_1.png";
-        var photoFrame = new cc.Sprite(cache.getSpriteFrame(frameStr));
-        photoFrame.setScale(0.5);
-        photoFrame.setPosition(cc.p(0,90));
-        this.addChild(photoFrame);
 
+        // photo frame
+        //var frameStr = "waitFrame_1.png";
+        //var photoFrame = new cc.Sprite(cache.getSpriteFrame(frameStr));
+        //photoFrame.setScale(0.5);
+        //photoFrame.setPosition(cc.p(0,90));
+        //this.addChild(photoFrame);
 
-        photo = new cc.Sprite(s_Photo);
-        photo.setPosition(cc.p(0,90));
-        this.addChild(photo);
+        // photo
+        var photoBox = new cc.Sprite(s_PhotoBox);
+        photoBox.setPosition(cc.p(0,80));
+        this.addChild(photoBox);
+        this.photo = ControlLayer._getInstance().getMaskSprite(s_Photo);
+        this.photo.setPosition(cc.p(0,80));
+        this.addChild(this.photo);
 
+        var c = cc.color(cc.color(139, 90, 0, 200));
+        if(gender<=1){
+            c = cc.color(cc.color(39, 64, 139, 200));
+        }
+        // gender label
+        var genderIcon = new cc.Sprite("award_head_gender2"+gender+".png");
+        genderIcon.setPosition(cc.p(66, 80));
+        this.addChild(genderIcon);
+
+        // name label
+        this.nameLabel = new cc.LabelTTF(name, "Impact", 20);
+        this.nameLabel.setPosition(cc.p(110, 80));
+        this.nameLabel.setColor(c);
+        this.addChild(this.nameLabel);
 
         var animationCache = cc.animationCache;
 
@@ -47,9 +67,6 @@ var Runner = cc.Node.extend({
             animation.setRestoreOriginalFrame(false);
             animationCache.addAnimation(animation, "runner");
         }
-        this.nameLabel = new cc.LabelTTF(name, "Impact", 20);
-        this.nameLabel.setPosition(cc.p(70,90));
-        this.addChild(this.nameLabel);
         var action = cc.animate(animation);
         var speedAnimation = new cc.Speed(cc.repeatForever(action),1);
         speedAnimation.tag = 10;

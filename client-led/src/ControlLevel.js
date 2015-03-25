@@ -104,6 +104,32 @@ ControlLayer = cc.Class.extend({
     {
         this.scene = scene;
         this.sceneName = sceneName;
+    },
+    // utilities
+    getMaskSprite: function(spriteRes)
+    {
+        var stencil = new cc.Sprite("head_mask.png");   //sprite or DrawNode
+
+        //1.create clipping node
+        var clipper = new cc.ClippingNode();
+        clipper.setInverted(false);
+
+        //2.set template
+        clipper.setStencil(stencil);
+
+        // alpha threshold：pixel transparency
+        // if alpha of pixel in template(stencil) > Threshold, pixel will be rendered
+        // alpha threshold: [0,1]. default 1
+        // default 1, alpha test is closed, all pixels will be rendered
+        // if not 1, alpha > threshold, pixel will be rendered
+        clipper.setAlphaThreshold(0.1);
+
+        //3. create sprite
+        var sprite = new cc.Sprite(spriteRes);
+        // add template
+        clipper.addChild(sprite);
+
+        return clipper;
     }
 });
 
