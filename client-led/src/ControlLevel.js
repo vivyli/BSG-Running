@@ -13,11 +13,10 @@ ControlLayer = cc.Class.extend({
     init:function()
     {
         this.players = {};
-        this.socket = io(NETWORK_CONSTANTS.SERVER_HOST_LED);
+        this.socket = io(NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT);
         this.registerSocketEvent();
 
-        // TODO debug
-        cc.log(NETWORK_CONSTANTS.SERVER_HOST_LED);
+        cc.log("server:", NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT);
     },
     ResetGame: function ()
     {
@@ -69,7 +68,7 @@ ControlLayer = cc.Class.extend({
 				// run prepare scene
 				cc.log("### server send prepare game");
 				var nextScene = new PrepareScene();
-				//cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
+				cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
             });
 
 			// recv prepare state, player register

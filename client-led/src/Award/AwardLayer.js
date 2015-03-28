@@ -43,7 +43,6 @@ var AwardLayer = cc.Layer.extend({
         this.addWinner(3,"num3",s_Photo,1,"yello");
         //awardBackgroup.setScale(xScale,yScale);
 
-
         this.addChild(awardBackgroup);
         var startItem = new cc.MenuItemImage(
             s_CloseNormal,

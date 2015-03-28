@@ -20,8 +20,8 @@ EventNetworkPlayer = {
 };
 
 NETWORK_CONSTANTS = {
-    SERVER_HOST_LED : "http://120.26.48.137:9999",
-    SERVER_HOST_PL : "http://120.26.48.137:7777",
+    //SERVER_HOST : "http://120.26.48.137:8888",
+    SERVER_HOST : "http://192.168.10.108",
 
     SERVER_PORT : 8888,
 

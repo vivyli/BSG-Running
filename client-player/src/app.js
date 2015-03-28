@@ -94,6 +94,7 @@ var GameControllerLayer = cc.Layer.extend({
     },
     startSendingSensorData: function()
     {
+        cc.log("startSendingSensorData");
         this._startSendingSensorData();
         this.schedule(this._realSendSensorData, 0.3);
     },
@@ -121,7 +122,7 @@ var GameControllerLayer = cc.Layer.extend({
             cc.log(responseData);
         });
 
-        if(CLIENT_GAME_STATE && (GAME_STATE.READY_TO_START > CLIENT_GAME_STATE || CLIENT_GAME_STATE >= GAME_STATE.FINISHED)) {
+        if(CLIENT_GAME_STATE && (GAME_STATE.RUNNING > CLIENT_GAME_STATE || CLIENT_GAME_STATE >= GAME_STATE.FINISHED)) {
             target.stopSendingSensorData();
         }
     },
@@ -171,7 +172,7 @@ var GameControllerLayer = cc.Layer.extend({
             var gameState = parseInt(responseData);
             if(gameState) {
                 CLIENT_GAME_STATE = gameState;
-                if (gameState >= GAME_STATE.READY_TO_START) {
+                if (gameState >= GAME_STATE.RUNNING) {
                     cc.log("### stop hb, start sensor data");
                     controller.stopSendingHeartBeatData();
                     controller.startSendingSensorData();
@@ -187,7 +188,7 @@ var GameControllerLayer = cc.Layer.extend({
 	sendData: function(data, serverEvent, callback)
 	{
 		var xhr = cc.loader.getXMLHttpRequest();
-        var url = NETWORK_CONSTANTS.SERVER_HOST_PL+"/"+serverEvent;
+        var url = NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT+"/"+serverEvent;
         cc.log(url);
 		xhr.open("POST", url);
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");

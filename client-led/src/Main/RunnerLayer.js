@@ -3,7 +3,7 @@
  */
 var RunnerLayer = cc.Layer.extend({
     runners:null,
-    gap:80,
+    gap:60,
     ctor:function () {
         this._super();
         this.init();
@@ -23,10 +23,10 @@ var RunnerLayer = cc.Layer.extend({
 
         this.gap = size.height / runnersCount;
 
-        this.addRunner("hello","yello","yxsh",s_Photo,1);
-        this.addRunner("hello1","yello","yxsh1",s_Photo,2);
-        this.addRunner("hello2","yello","yxsh2",s_Photo,1);
-        this.addRunner("hello3","yello","yxsh3",s_Photo,2);
+        //this.addRunner("hello","yello","yxsh",s_Photo,1);
+        //this.addRunner("hello1","yello","yxsh1",s_Photo,2);
+        //this.addRunner("hello2","yello","yxsh2",s_Photo,1);
+        //this.addRunner("hello3","yello","yxsh3",s_Photo,2);
 
         //end
 
@@ -50,7 +50,8 @@ var RunnerLayer = cc.Layer.extend({
         for (var runner in this.runners) {
             idx++;
         }
-        nextRunner.setPosition(cc.p(80,idx*this.gap+20));
+        var xOffset = 50;
+        nextRunner.setPosition(cc.p(xOffset,idx*this.gap+20));
         this.runners[id] = nextRunner;
         this.addChild(nextRunner);
     },
