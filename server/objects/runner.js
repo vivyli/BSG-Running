@@ -83,7 +83,8 @@ module.exports = function Runner(user_id){
     this.is_alive = function () {
         var now_t = Date.parse(new Date());
         var cap = now_t - this.last_updated_time;
-        // TODO
+        if (cap >= 5000)
+            return false;
         return true;
     };
 };

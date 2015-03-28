@@ -35,6 +35,12 @@ function process_with_game_id(game_id) {
     }
 }
 
+function check_runners_alive(game_id) {
+    return function () {
+        led_processor.check_runners_alive(game_id);
+    }
+}
+
 function start(io/* port*/) {
     //var app = http.createServer(handler);
     //var io =  socket(app);
@@ -51,6 +57,7 @@ function start(io/* port*/) {
         // If game is null means that we can reuse game instance.
         // Only need to update game status, incl. reset and set new game id
         // But if it is the first time receive new connection, we should create a new game instance.
+        var check_alive_interval_id = 0;
         var game = null;
         socket.on(EventNetworkLED.Login, function (data) {
             if (workflow.check_accept_event(game == null? null: game.game_state, EventNetworkLED.Login)) {
@@ -59,11 +66,12 @@ function start(io/* port*/) {
                 else
                     game = game_manager.new_game(socket);
 
-                game.game_state = GAME_STATE.WAITING_FOR_PLAYERS;
+                game.game_state = GAME_STATE.READY_TO_START;//GAME_STATE.WAITING_FOR_PLAYERS;
                 // Notify Led client the created game id.
                 // Format: {game_id: 1}
                 this.emit(EventNetworkLED.GameID, {game_id: game.id});
 
+                check_alive_interval_id = setInterval(check_runners_alive(game.id), EventNetworkLED.Interval);
                 log.log_with_color('[LED LOGIN] game id: ' + game.id, Log_Config.sc_log_default_color);
             }
             else {
@@ -76,9 +84,12 @@ function start(io/* port*/) {
         // 2. Start sent runners' speed to LED client per Interval time.
         var interval_id = 0;
         socket.on(EventNetworkLED.StartGame, function (data){
+            log.log_with_color('start received', 'yellow');
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.StartGame)) {
                 if (game != null) {
-                    game.game_state = GAME_STATE.READY_TO_START;
+                    game.game_state = GAME_STATE.RUNNING;//GAME_STATE.READY_TO_START;
+                    if (check_alive_interval_id)
+                        clearInterval(check_alive_interval_id);
                     interval_id = setInterval(process_with_game_id(game.id), EventNetworkLED.Interval);
                     log.log_with_color('======== [START GAME]! =========', Log_Config.sc_log_default_color);
                 }
@@ -114,7 +125,7 @@ function start(io/* port*/) {
         socket.on('disconnect', function (data){
             if (interval_id)
                 clearInterval(interval_id);
-            
+
             if (game != null) {
                 game.reset();
                 game = null;

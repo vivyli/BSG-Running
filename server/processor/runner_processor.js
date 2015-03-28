@@ -55,7 +55,6 @@ function register_runner(user_id, game_id) {
 
     if (game_manager.register_runner(user_id, game_id) == false)
         log.log_with_color('[Error] Register user failed', Log_Config.error_color);
-        log.log_with_color('[Error] Register user failed', 'red');
     log.log_with_color('[DEBUG] game id in register_runner is :' + game_manager.get_game_by_user_id(user_id).id, 'yellow')
 
     var runner = new Runner(user_id);

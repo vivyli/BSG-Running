@@ -31,7 +31,7 @@ function process(game_id) {
     var game = game_manager.get_game(game_id);
 
     if (game == null) return false;
-    if (game.game_state != GAME_STATE.READY_TO_START)
+    if (game.game_state != GAME_STATE.READY_TO_START && game.game_state != GAME_STATE.RUNNING)
         return false;
 
     var debug_str = "";
@@ -51,5 +51,25 @@ function process(game_id) {
         log.log_with_color('[SPEED]: ' + debug_str, Log_Config.sc_log_default_color);
 }
 
+function check_runners_alive(game_id){
+    // TODO
+    var game = game_manager.get_game(game_id);
+
+    if (game == null) return false;
+    if (game.game_state != GAME_STATE.READY_TO_START)
+        return false;
+
+    for (var runner_id in game.runners) {
+        var runner = game.runners[runner_id];
+        if (runner == null)
+            continue;
+
+        if (runner.is_alive() == false)
+            game.socket_handler.emit(EventNetworkLED.UnPrepareState, {user_id: runner_id});
+    }
+
+
+}
 
 exports.process = process;
+exports.check_runners_alive = check_runners_alive;

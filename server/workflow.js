@@ -23,11 +23,11 @@ function check_accept_event(game_state, event) {
                 return true;
             break;
         case GAME_STATE.READY_TO_START:
-            if (event == EventNetworkLED.StartGame || event == EventNetworkPlayer.Sensor)
+            if (event == EventNetworkLED.StartGame || event == EventNetworkPlayer.Sensor || event == EventNetworkPlayer.Login || event == EventNetworkPlayer.HeartBeat)
                 return true;
             break;
         case GAME_STATE.RUNNING:
-            if (event == EventNetworkPlayer.Sensor)
+            if (event == EventNetworkPlayer.Sensor || event == EventNetworkPlayer.HeartBeat)
                 return true;
             break;
         case GAME_STATE.FINISHED:
