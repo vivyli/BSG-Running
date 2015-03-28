@@ -3,6 +3,8 @@
  */
 
 require('../../common/commonDefs.js');
+require('../../design/running.js');
+util = require('../util.js');
 
 module.exports = function Game(socket_handler){
     this.id = 0;
@@ -21,6 +23,15 @@ module.exports = function Game(socket_handler){
         this.runners = {};
         // Reset game state.
         this.game_state = GAME_STATE.RESERVED;
+    }
+
+    this.can_join = function(){
+        var map_len = util.map_length(this.runners) + 1;
+        console.log('[Can_Join] lengh = ' + map_len);
+        if (map_len <= GameDefinition.HeadCountLimit)
+            return true;
+        else
+            return false;
     }
 }
 

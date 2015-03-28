@@ -34,7 +34,7 @@ function heart_beat(user_id) {
 
     runner.last_updated_time = Date.parse(new Date());
     runner.state = RUNNER_STATE.READY;
-    console.log('[HB] user id = ' + user_id);
+    log.log_with_color('[HB] user id = ' + user_id, Log_Config.uc_log_default_color);
 
     return true;
 }
@@ -49,12 +49,16 @@ function register_runner(user_id, game_id) {
     }
 
     if (game_manager.get_runner(user_id, game) != null) {
-        console.log('\'' + user_id + '\' is already registered');
+        log.log_with_color('[RR]\'' + user_id + '\' is already registered', Log_Config.uc_log_default_color);
         return false;
     }
 
     if (game_manager.register_runner(user_id, game_id) == false)
+    {
         log.log_with_color('[Error] Register user failed', Log_Config.error_color);
+        return false;
+    }
+
     log.log_with_color('[DEBUG] game id in register_runner is :' + game_manager.get_game_by_user_id(user_id).id, 'yellow')
 
     var runner = new Runner(user_id);
@@ -63,7 +67,7 @@ function register_runner(user_id, game_id) {
     game.socket_handler.emit(EventNetworkLED.PrepareState, {user_id : user_id});
 
     if (__DEBUG__ == 1)
-        console.log('[Player Login] user id: ' + user_id);
+        log.log_with_color('[Player Login] user id: ' + user_id, Log_Config.uc_log_default_color);
 
     return true;
 }

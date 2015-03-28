@@ -11,6 +11,8 @@ require('../common/commonDefs.js');
 // FINISHED             ->  LED.Login
 function check_accept_event(game_state, event) {
 
+   // return true;
+
     if (game_state == null || game_state == undefined){
         if (event == EventNetworkLED.Login)
             return true;
@@ -18,6 +20,10 @@ function check_accept_event(game_state, event) {
     }
 
     switch (game_state) {
+        case GAME_STATE.RESERVED:
+            if (event == EventNetworkLED.Login)
+                return true;
+            break;
         case GAME_STATE.WAITING_FOR_PLAYERS:
             if (event == EventNetworkPlayer.Login || event == EventNetworkPlayer.HeartBeat)
                 return true;
@@ -27,7 +33,7 @@ function check_accept_event(game_state, event) {
                 return true;
             break;
         case GAME_STATE.RUNNING:
-            if (event == EventNetworkPlayer.Sensor || event == EventNetworkPlayer.HeartBeat)
+            if (event == EventNetworkPlayer.Sensor || event == EventNetworkPlayer.HeartBeat || event == EventNetworkLED.EndGame)
                 return true;
             break;
         case GAME_STATE.FINISHED:

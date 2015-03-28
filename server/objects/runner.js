@@ -7,6 +7,7 @@ require('../../common/commonDefs.js');
 require('../../design/running.js');
 var log = require('../log.js');
 var util = require('../util.js');
+var config = require('../config.js');
 
 RUNNER_STATE = {
     RESERVED    :   0,
@@ -83,7 +84,7 @@ module.exports = function Runner(user_id){
     this.is_alive = function () {
         var now_t = Date.parse(new Date());
         var cap = now_t - this.last_updated_time;
-        if (cap >= 5000)
+        if (cap >= _Heart_Beat_Time_Out)
             return false;
         return true;
     };

@@ -59,15 +59,31 @@ function check_runners_alive(game_id){
     if (game.game_state != GAME_STATE.READY_TO_START)
         return false;
 
+    var dead_runners = [];
+    var idx = 0;
     for (var runner_id in game.runners) {
         var runner = game.runners[runner_id];
         if (runner == null)
             continue;
 
         if (runner.is_alive() == false)
-            game.socket_handler.emit(EventNetworkLED.UnPrepareState, {user_id: runner_id});
+        {
+            log.log_with_color('[DEAD1] user_id = ' + runner_id, Log_Config.error_color);
+            dead_runners[idx] = runner_id;
+            idx ++;
+            //game_manager.runners[runner_id] = null;
+            //game.runners[runner_id] == null;
+
+        }
+
     }
 
+    for (var i = 0; i < dead_runners.length; i ++) {
+        log.log_with_color('[DEAD2] user_id = ' + dead_runners[i], Log_Config.error_color);
+        delete game_manager.runners[dead_runners[i]];
+        delete game.runners[dead_runners[i]];
+        game.socket_handler.emit(EventNetworkLED.UnPrepareState, {user_id: dead_runners[i]});
+    }
 
 }
 

@@ -41,7 +41,7 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
             var shake_data = object_post_data[NETWORK_CONSTANTS.SHAKE_DATA];
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             var game = game_manager.get_game_by_user_id(user_id);
-            log.log_with_color('sensor data received! shake_data=' + shake_data + ' user_id=' + user_id + 'yellow');
+            log.log_with_color('sensor data received! shake_data=' + shake_data + ' user_id=' + user_id, 'yellow');
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkPlayer.Sensor)) {
                 runner_processor.process(user_id, shake_data);
                 util.send_text_response(response, 'OK');
@@ -104,8 +104,8 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             var game_id = object_post_data[NETWORK_CONSTANTS.GAME_ID];
             var game = game_manager.get_game(game_id);
-            console.log(game.game_state);
-            if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkPlayer.Login)) {
+            //console.log('[Login][game_state]' + game.game_state);
+            if (game != null && workflow.check_accept_event(game.game_state, EventNetworkPlayer.Login) && game.can_join()) {
                 runner_processor.register_runner(user_id, game_id);
                 var game_state = GAME_STATE.RESERVED;
                 if (game != null)

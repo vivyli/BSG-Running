@@ -57,6 +57,16 @@ function average(arr) {
     return sum / len;
 }
 
+function map_length(mp) {
+    var cnt = 0;
+
+    for (var k in mp) {
+        cnt ++;
+    }
+    return cnt;
+}
+
 exports.handlePostRequest = handlePostRequest;
 exports.send_text_response = send_text_response;
 exports.average = average;
+exports.map_length = map_length;

@@ -5,6 +5,8 @@ GameDefinition = {
 
     RunnersHeaderCountLimit : 10,
 
-    SpeedBufferSize : 2
+    SpeedBufferSize : 2,
+
+    HeadCountLimit: 1
 };
 

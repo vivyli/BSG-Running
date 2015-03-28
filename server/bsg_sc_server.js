@@ -84,7 +84,7 @@ function start(io/* port*/) {
         // 2. Start sent runners' speed to LED client per Interval time.
         var interval_id = 0;
         socket.on(EventNetworkLED.StartGame, function (data){
-            log.log_with_color('start received', 'yellow');
+           // log.log_with_color('start received', 'yellow');
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.StartGame)) {
                 if (game != null) {
                     game.game_state = GAME_STATE.RUNNING;//GAME_STATE.READY_TO_START;

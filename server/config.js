@@ -8,5 +8,7 @@ Log_Config = {
     error_color : 'red'
 };
 
+_Heart_Beat_Time_Out = 5000;
+
 __DEBUG__ = 1;
 __TEST__ = 1;
