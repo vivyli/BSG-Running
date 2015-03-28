@@ -83,7 +83,6 @@ uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
                 }
             }
             else {
-                // TODO Notify not accept this event
                 log.log_with_color('[HB]user(' + user_id + ') is not accepted!', Log_Config.error_color);
                 util.send_text_response(response, ('' + GAME_STATE.RESERVED));
             }
