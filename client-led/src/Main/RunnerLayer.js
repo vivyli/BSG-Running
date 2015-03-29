@@ -13,21 +13,24 @@ var RunnerLayer = cc.Layer.extend({
     init:function () {
         this.runners = new Array();
         var size = cc.director.getWinSize();
-
-
+        var runnersCount = 0;
+        for(var playerId in players)
+        {
+            runnersCount++;
+        }
 
         //test code:
         // TODO remove test code
         //test code:
         // TODO remove test code
-        runnersCount = 4;
+         runnersCount = 4;
 
-        this.gap = size.height / runnersCount;
+        this.gap = (size.height - 120) / runnersCount;
 
-        //this.addRunner("hello","yello","yxsh",s_Photo,1);
-        //this.addRunner("hello1","yello","yxsh1",s_Photo,2);
-        //this.addRunner("hello2","yello","yxsh2",s_Photo,1);
-        //this.addRunner("hello3","yello","yxsh3",s_Photo,2);
+        this.addRunner("hello","yello","yxsh",s_Photo,1);
+        this.addRunner("hello1","yello","yxsh1",s_Photo,2);
+        this.addRunner("hello2","yello","yxsh2",s_Photo,1);
+        this.addRunner("hello3","yello","yxsh3",s_Photo,2);
 
         //end
 
@@ -52,7 +55,7 @@ var RunnerLayer = cc.Layer.extend({
             idx++;
         }
         var xOffset = 50;
-        nextRunner.setPosition(cc.p(xOffset,idx*this.gap+20));
+        nextRunner.setPosition(cc.p(xOffset,idx*this.gap+60));
         this.runners[id] = nextRunner;
         this.addChild(nextRunner);
     },
