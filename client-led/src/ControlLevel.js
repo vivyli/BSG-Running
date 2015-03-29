@@ -9,10 +9,10 @@ ControlLayer = cc.Class.extend({
     socket:null,
 	
 	gameId:"",
-    players:{},
+    players:[],
     init:function()
     {
-        this.players = {};
+        this.players = [];
         this.socket = io(NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT);
         this.registerSocketEvent();
 
@@ -21,7 +21,7 @@ ControlLayer = cc.Class.extend({
     ResetGame: function ()
     {
         cc.log("### led reset game")
-        this.players = {};
+        this.players = [];
         this.Login();
     },
 	Login: function()
@@ -84,6 +84,20 @@ ControlLayer = cc.Class.extend({
 					controlLevel.scene.registerPlayer(playerId, playerObj);
 				}
 			});
+
+            // recv unprepare state, player unregister
+            this.socket.on(EventNetworkLED.UnPrepareState, function(data){
+                cc.log("### event: "+EventNetworkLED.UnPrepareState);
+
+                var controlLevel = ControlLayer._getInstance();
+                var playerId = data[NETWORK_CONSTANTS.USER_ID];
+                var playerObj = data;
+                delete controlLevel.players[playerId];
+
+                if(controlLevel.sceneName == EnumSceneName.ePrepare) {
+                    controlLevel.scene.unRegisterPlayer(playerId, playerObj);
+                }
+            });
 
 			// recv game state, player speed
             this.socket.on(EventNetworkLED.GameState, function(data){

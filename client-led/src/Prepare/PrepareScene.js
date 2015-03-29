@@ -3,7 +3,7 @@
  */
 var PrepareScene = cc.Scene.extend({
     controlLayer:null,
-    preparedPlayers: {},
+    preparedPlayers: [],
     onEnter:function () {
         this._super();
 
@@ -34,6 +34,11 @@ var PrepareScene = cc.Scene.extend({
     registerPlayer: function(playerId, playerObj)
     {
         this.preparedPlayers[playerId] = true;
-        this.controlLayer.addWaiter(g_counter,s_Photo,g_counter.toString());
+        this.controlLayer.addWaiter(playerId,s_Photo,g_counter.toString());
+    },
+    unRegisterPlayer: function(playerId, playerObj)
+    {
+        delete this.preparedPlayers[playerId];
+        this.controlLayer.delWaiter(playerId);
     }
 });

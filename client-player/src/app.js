@@ -40,7 +40,7 @@ var GameControllerLayer = cc.Layer.extend({
 
         // test
         // TODO
-        //CLIENT_GAME_STATE = 3;
+        //CLIENT_GAME_STATE = 4;
         //this.startSendingSensorData();
 
         return true;
@@ -100,6 +100,7 @@ var GameControllerLayer = cc.Layer.extend({
     },
     _realSendSensorData: function()
     {
+        cc.log("_realSendSensorData");
         if(this._sensorDatas.length < this._valueFrequency)
         {
             return;
@@ -116,19 +117,17 @@ var GameControllerLayer = cc.Layer.extend({
         var ret = sensorData;
         data[NETWORK_CONSTANTS.SHAKE_DATA] = ret;
         data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
-        cc.log("### send data: "+ret);
         this.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
-            cc.log("### senor recv");
-            cc.log(responseData);
+            //cc.log(responseData);
         });
 
         if(CLIENT_GAME_STATE && (GAME_STATE.RUNNING > CLIENT_GAME_STATE || CLIENT_GAME_STATE >= GAME_STATE.FINISHED)) {
-            target.stopSendingSensorData();
+            this.stopSendingSensorData();
         }
     },
 	_startSendingSensorData: function()
 	{
-        cc.log("### start Sensor Data");
+        cc.log("_startSendingSensorData");
 		if( 'accelerometer' in cc.sys.capabilities ) {
 			// call is called 30 times per second
             var idx = 0;
@@ -183,13 +182,12 @@ var GameControllerLayer = cc.Layer.extend({
     stopSendingHeartBeatData: function()
     {
         cc.log("### stop hb func");
-        this.unschedule(this.startSendingHeartBeatData);
+        this.unschedule(this._startSendingHeartBeatData);
     },
 	sendData: function(data, serverEvent, callback)
 	{
 		var xhr = cc.loader.getXMLHttpRequest();
         var url = NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT+"/"+serverEvent;
-        cc.log(url);
 		xhr.open("POST", url);
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		xhr.onreadystatechange = function () {
