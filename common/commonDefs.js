@@ -28,7 +28,13 @@ NETWORK_CONSTANTS = {
 
     SHAKE_DATA : "data",
     USER_ID : "user_id",
-    GAME_ID : "game_id"
+    GAME_ID : "game_id",
+    USER_NAME : "user_name",
+    USER_PHOTO : "user_photo",
+    USER_GENDER : "user_gender",
+    USER_ROLE : "user_role",
+
+    IMAGE_SIZE : 96
 };
 
 GAME_STATE = {
