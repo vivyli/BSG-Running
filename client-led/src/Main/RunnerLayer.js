@@ -27,29 +27,33 @@ var RunnerLayer = cc.Layer.extend({
 
         this.gap = (size.height - 120) / runnersCount;
 
-        this.addRunner("hello","yello","yxsh",s_Photo,1);
-        this.addRunner("hello1","yello","yxsh1",s_Photo,2);
-        this.addRunner("hello2","yello","yxsh2",s_Photo,1);
-        this.addRunner("hello3","yello","yxsh3",s_Photo,2);
+        //this.addRunner("hello","yello","yxsh",s_Photo,1);
+        //this.addRunner("hello1","yello","yxsh1",s_Photo,2);
+        //this.addRunner("hello2","yello","yxsh2",s_Photo,1);
+        //this.addRunner("hello3","yello","yxsh3",s_Photo,2);
 
         //end
 
         var controlLevel = ControlLayer._getInstance();
         var players = controlLevel.players;
-        var idx = 0;
         for(var playerId in players)
         {
-            this.addRunner(playerId.toString(),"yello",playerId.toString(),s_Photo, idx%2+1);
-            idx = idx + 1;
+            var playerObj = players[playerId];
+            var role = playerObj[NETWORK_CONSTANTS.USER_ROLE];
+            cc.log("runner role", role);
+            var name = playerObj[NETWORK_CONSTANTS.USER_NAME];
+            var photo = playerObj[NETWORK_CONSTANTS.USER_PHOTO];
+            var gender = playerObj[NETWORK_CONSTANTS.USER_GENDER];
+            this.addRunner(playerId, role, name, photo, gender);
         }
 
         this.schedule(this.update,0);
     },
 
-    addRunner:function(id,color,name,photo,gender){
+    addRunner:function(id,role,name,photo,gender){
         var nextRunner = new Runner();
-        nextRunner.init(id,photo,name,gender);
-        //var idx = this.runners.length+1;
+        nextRunner.init(id,photo,name,gender,role);
+        cc.log("runner init role", role)
         var idx = 0;
         for (var runner in this.runners) {
             idx++;

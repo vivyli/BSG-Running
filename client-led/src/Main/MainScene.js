@@ -24,8 +24,7 @@ var MainScene = cc.Scene.extend({
     },
 
     start: function(){
-        //cc.log really start
-        cc.log("start game");
+        ControlLayer._getInstance().StartGameToServer();
     },
     updateRunnerSpeed: function(runnerId, speed)
     {

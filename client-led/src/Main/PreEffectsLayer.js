@@ -32,7 +32,7 @@ var PreEffectsLayer = cc.Layer.extend({
         var finishFunction = new cc.CallFunc(startFinishCallBack);
        // startSprite.setVisible(false);
         var invisible = new cc.CallFunc(this.deleteSprite,startSprite,false);
-        var sequenceAnimation =new cc.Sequence(bigger,rev ,bigger,rev,bigger,rev,bigger,invisible);
+        var sequenceAnimation =new cc.Sequence(bigger,rev ,bigger,rev,bigger,rev,bigger,invisible,finishFunction);
 
         this.addChild(startSprite,500,333);
         startSprite.runAction(action);

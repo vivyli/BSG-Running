@@ -12,8 +12,9 @@ var Runner = cc.Node.extend({
     _emitter:null,
     runnerRole:null,
     init:function (id, photo,name,gender,runnerRole) {
+        cc.log("init of runner", runnerRole);
         var cache = cc.spriteFrameCache;
-        cache.addSpriteFrames("runner_"+"bird"+".plist","runner_"+"bird"+".png");
+        cache.addSpriteFrames("runner_"+runnerRole+".plist","runner_"+runnerRole+".png");
         this.sprite = new cc.Sprite(cache.getSpriteFrame("1.png"));
         this.addChild(this.sprite);
         this.name = name;
@@ -34,27 +35,7 @@ var Runner = cc.Node.extend({
         }
 
         // photo name gender
-        ControlLayer._getInstance().setPlayerPhotoName(this, name, s_PhotoBox, gender, c, 1);
-
-        /*
-        // photo
-        var photoBox = new cc.Sprite(s_PhotoBox);
-        photoBox.setPosition(cc.p(0,80));
-        this.addChild(photoBox);
-        this.photo = ControlLayer._getInstance().getMaskSprite(s_Photo);
-        this.photo.setPosition(cc.p(0,80));
-        this.addChild(this.photo);
-
-        // gender label
-        var genderIcon = new cc.Sprite("award_head_gender2"+gender+".png");
-        genderIcon.setPosition(cc.p(66, 80));
-        this.addChild(genderIcon);
-
-        // name label
-        this.nameLabel = new cc.LabelTTF(name, "Impact", 20);
-        this.nameLabel.setPosition(cc.p(110, 80));
-        this.nameLabel.setColor(c);
-        this.addChild(this.nameLabel);*/
+        ControlLayer._getInstance().setPlayerPhotoName(this, name, photo, gender, c, 1);
 
         // animation
         var animationCache = cc.animationCache;

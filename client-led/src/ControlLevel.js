@@ -25,6 +25,7 @@ ControlLayer = cc.Class.extend({
         cc.log("### led reset game")
         this.players = [];
         this.winners = [];
+        GameRoles.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
         this.Login();
     },
 	Login: function()
@@ -37,13 +38,22 @@ ControlLayer = cc.Class.extend({
             this.socket.emit(EventNetworkLED.Login, {NETWORK_CONSTANTS: this.gameId});
 		}
 	},
+	StartGameToServer: function()
+    {
+        if(!this.socket) {
+            return;
+        } else {
+            cc.log("### led emmit start game,,2");
+            this.socket.emit(EventNetworkLED.StartGame, {key: this.gameId});
+        }
+    },
 	StartGame: function()
 	{
         if(!this.socket) {
             return;
 		} else {
-            cc.log("### led emmit start game");
-            this.socket.emit(EventNetworkLED.StartGame, {key: this.gameId});
+            cc.log("### led run start game scene,,1");
+            //this.socket.emit(EventNetworkLED.StartGame, {key: this.gameId});
             var nextScene = new MainScene();
             cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
 		}
@@ -82,9 +92,25 @@ ControlLayer = cc.Class.extend({
                 var playerId = data[NETWORK_CONSTANTS.USER_ID];
                 var playerObj = data;
                 controlLevel.players[playerId] = playerObj;
+                var mapCount = function(map){
+                    var count = 0;
+                    for(var k in map){
+                        count = count + 1;
+                    }
+                    return count;
+                };
+
+                cc.log(playerObj);
+
+                var playerCount = mapCount(controlLevel.players);
+                var idx = playerCount-1;
+                idx = idx <= 0 ? 0 : idx;
+                controlLevel.players[playerId][NETWORK_CONSTANTS.USER_ROLE] = GameRoles[playerCount-1];
+
+                cc.log("player role", controlLevel.players[playerId][NETWORK_CONSTANTS.USER_ROLE]);
 
 				if(controlLevel.sceneName == EnumSceneName.ePrepare) {
-					controlLevel.scene.registerPlayer(playerId, playerObj);
+					controlLevel.scene.registerPlayer(playerId, controlLevel.players[playerId]);
 				}
 			});
 
@@ -126,9 +152,14 @@ ControlLayer = cc.Class.extend({
         this.winners[idx] = this.players[playerId];
     },
     // utilities
+    getRandomRole: function()
+    {
+        GameRoles.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
+        return GameRoles[0];
+    },
     getMaskSprite: function(spriteRes)
     {
-        var stencil = new cc.Sprite();   //sprite or DrawNode
+        var stencil = new cc.Sprite(s_PhotoMask);   //sprite or DrawNode
 
         //1.create clipping node
         var clipper = new cc.ClippingNode();
@@ -151,6 +182,40 @@ ControlLayer = cc.Class.extend({
 
         return clipper;
     },
+    getImgSpriteWithData: function(imgData){
+        var logoData = imgData;
+        //var logoData = "data:image/jpg;base64,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";
+        var logoTexture = new Image();
+        logoTexture.src = logoData;
+        logoTexture.width = NETWORK_CONSTANTS.IMAGE_SIZE;
+        logoTexture.height = NETWORK_CONSTANTS.IMAGE_SIZE;
+        return new cc.Sprite(logoTexture);
+    },
+    getMaskSpriteWithData: function(imgData)
+    {
+        var stencil = new cc.Sprite(s_PhotoMask);   //sprite or DrawNode
+
+        //1.create clipping node
+        var clipper = new cc.ClippingNode();
+        clipper.setInverted(false);
+
+        //2.set template
+        clipper.setStencil(stencil);
+
+        // alpha threshold：pixel transparency
+        // if alpha of pixel in template(stencil) > Threshold, pixel will be rendered
+        // alpha threshold: [0,1]. default 1
+        // default 1, alpha test is closed, all pixels will be rendered
+        // if not 1, alpha > threshold, pixel will be rendered
+        clipper.setAlphaThreshold(0.1);
+
+        //3. create sprite
+        var sprite = this.getImgSpriteWithData(imgData);
+        // add template
+        clipper.addChild(sprite);
+
+        return clipper;
+    },
     setPlayerPhotoName: function(layer, name, sPhoto, gender, c, type)
     {
         var x_offset = 0;
@@ -166,10 +231,10 @@ ControlLayer = cc.Class.extend({
         var sGender = "award_head_gender2"+gender+".png";
 
         // photo
-        var photoBox = new cc.Sprite(sPhoto);
+        var photoBox = new cc.Sprite(s_PhotoBox);
         photoBox.setPosition(cc.p(xOffset[0],y_offset));
         layer.addChild(photoBox);
-        var photo = this.getMaskSprite(s_Photo);
+        var photo = this.getMaskSpriteWithData(sPhoto);
         photo.setPosition(cc.p(xOffset[0],y_offset));
         layer.addChild(photo);
 
@@ -183,7 +248,7 @@ ControlLayer = cc.Class.extend({
         nameLabel.setAnchorPoint(cc.p(0,0.5));
         nameLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
         nameLabel.setPosition(cc.p(xOffset[2], y_offset));
-        nameLabel.setColor(c);
+        nameLabel.setColor(c, 700);
         layer.addChild(nameLabel);
     }
 });

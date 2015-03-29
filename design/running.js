@@ -13,3 +13,26 @@ GameDefinition = {
     SpeedEffectLimit: 2      // speed effect
 };
 
+GameRoles = [
+    "bean",
+    "bird",
+    "bluebear",
+    "bluebird",
+    "bluehat",
+    "dog",
+    "dragon",
+    "fox",
+    "griffin",
+    "hamerbear",
+    "icecream",
+    "leafgirl",
+    "leopard",
+    "monstor",
+    "pinkfish",
+    "redbear",
+    "squirrel",
+    "thunder",
+    "tortoise",
+    "wolf"
+];
+

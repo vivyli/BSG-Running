@@ -25,9 +25,8 @@ var WaitRunner = cc.Node.extend({
 
         // set for debug
         //TODO: del
-        photo = new cc.Sprite(s_Photo);
-
-
+        //photo = new cc.Sprite(s_Photo);
+        photo = ControlLayer._getInstance().getImgSpriteWithData(photo);
         this.photo = photo;
         this.photo.setPosition(cc.p(3,3));
         //this.photo.setScale(0.5,0.5)

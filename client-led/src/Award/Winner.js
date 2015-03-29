@@ -27,12 +27,12 @@ var Winner = cc.Node.extend({
         this.addChild(rank);
 
         // photo name gender
-        ControlLayer._getInstance().setPlayerPhotoName(this, name, s_PhotoBox, gender, c, 2);
+        ControlLayer._getInstance().setPlayerPhotoName(this, name, photo, gender, c, 2);
 
         // sprite
         var cache = cc.spriteFrameCache;
-        cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
-        this.sprite = new cc.Sprite(cache.getSpriteFrame("qk_7_001.png"));
+        cache.addSpriteFrames("runner_"+runnerRole+".plist","runner_"+runnerRole+".png");
+        this.sprite = new cc.Sprite(cache.getSpriteFrame("1.png"));
         this.sprite.setPosition(cc.p(xOffset[1],0));
         this.addChild(this.sprite);
         this.name = name;
@@ -40,14 +40,12 @@ var Winner = cc.Node.extend({
         var animation = animationCache.getAnimation("runner");
         if (animation == null) {
             animation = new cc.Animation;
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_001.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_002.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_003.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_004.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_005.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_006.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_007.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("qk_7_008.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("1.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("2.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("3.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("4.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame("5.png"));
+
             animation.setDelayPerUnit(0.1);
             animation.setRestoreOriginalFrame(false);
             animationCache.addAnimation(animation, "runner");

@@ -34,7 +34,9 @@ var PrepareScene = cc.Scene.extend({
     registerPlayer: function(playerId, playerObj)
     {
         this.preparedPlayers[playerId] = true;
-        this.controlLayer.addWaiter(playerId,s_Photo,playerId.toString());
+        var photo = playerObj[NETWORK_CONSTANTS.USER_PHOTO];
+        var name = playerObj[NETWORK_CONSTANTS.USER_NAME];
+        this.controlLayer.addWaiter(playerId, photo, name);
     },
     unRegisterPlayer: function(playerId, playerObj)
     {
