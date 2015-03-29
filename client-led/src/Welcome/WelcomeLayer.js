@@ -2,7 +2,8 @@
  * Created by Xinsheng Yang on 2015/3/14.
  */
 var WelcomeLayer = cc.Layer.extend({
-
+    runners:null,
+    counter:1,
     ctor:function () {
         this._super();
         this.init();
@@ -11,6 +12,8 @@ var WelcomeLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
             var size = cc.director.getWinSize();
+
+            this.runners = new Array();
 
             var background = new cc.Sprite(s_MainBackground);
             background.setAnchorPoint(cc.p(0,0));
@@ -47,6 +50,48 @@ var WelcomeLayer = cc.Layer.extend({
             menu.setPosition(0, 0);
             this.addChild(menu, 10, 101);
             beginItem.setPosition(size.width - 20, 20);
+
+            this.scheduleUpdate();
+        }
+    },
+    addRunner:function(){
+        var nextRunner = new WelcomeRunner();
+        var randomSpeed =  Math.floor(Math.random() * 5 + 1);
+
+        nextRunner.init(this.counter,this.counter,"leopard",randomSpeed);
+        //var idx = this.runners.length+1;
+        var idx = 0;
+        for (var runner in this.runners) {
+            idx++;
+        }
+        var xOffset = 50;
+        var randomY = Math.floor(Math.random() * 500 + 50);
+        nextRunner.setPosition(cc.p(xOffset,randomY));
+        this.runners[this.counter] = nextRunner;
+        this.addChild(nextRunner,1000-randomY,this.counter);
+        this.counter++;
+    },
+    update:function(dt)
+    {
+        var size = cc.director.getWinSize();
+        var randomNum100 = Math.floor(Math.random() * 100 + 1);
+        if(randomNum100 > 97)
+        {
+            cc.log("add runner");
+            this.addRunner();
+        }
+        for (var id in this.runners) {
+            var runner = this.runners[id];
+
+            if(runner.getPosition().x >= size.width)
+            {
+                if(!runner.isFinish) {
+                   //TODO: finish running
+                    this.removeChildByTag(runner.tag);
+                }
+            } else {
+                runner.update();
+            }
         }
     }
 

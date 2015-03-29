@@ -23,6 +23,7 @@
 
         "src/Welcome/WelcomeScene.js",
         "src/Welcome/WelcomeLayer.js",
+        "src/Welcome/WelcomeRunner.js",
 
         "src/Prepare/PrepareScene.js",
         "src/Prepare/PrepareLayer.js",
