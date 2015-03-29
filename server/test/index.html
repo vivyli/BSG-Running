@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    $appid = 'wx5500943fdd543ff5';
+    document.write($appid);
+    $redirect_uri   = urlencode('http://192.168.10.102:8888/test');
+    $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$appid.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_userinfo&state='.rand().'&connect_redirect=1#wechat_redirect';
+    header('location:'.$url);
+</script>
+</body>
+</html>
+

@@ -18,6 +18,9 @@ RUNNER_STATE = {
 
 module.exports = function Runner(user_id){
     this.id = user_id;
+    this.img_base64 = null;
+    this.gender = 0;    // 1 for Male, 2 for Female
+    this.username = '';
     this.speed_sum = 0;
     this.update_times = 0;
     this.dis_to_dest = GameDefinition.RunwayLength;

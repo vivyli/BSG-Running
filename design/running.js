@@ -7,7 +7,7 @@ GameDefinition = {
 
     SpeedBufferSize : 2,
 
-    HeadCountLimit: 1,
+    HeadCountLimit: 10,
 
     WinnerCountLimit: 1,     // winner limit
     SpeedEffectLimit: 2      // speed effect

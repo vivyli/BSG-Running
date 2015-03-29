@@ -8,6 +8,7 @@ var Runner = require('../objects/runner.js');
 var log = require('../log.js');
 var colors = require('colors');
 var config = require('../config.js');
+var util = require('../util.js');
 
 // Calculate runner's speed via shake_data.
 function calculateRunnerSpeed(shake_data) {
@@ -64,12 +65,20 @@ function register_runner(user_id, game_id) {
     var runner = new Runner(user_id);
     game.runners[user_id] = runner;
 
-    game.socket_handler.emit(EventNetworkLED.PrepareState, {user_id : user_id});
+    util.encode_image('', function(data) {
+        runner.img_base64 = data;
+        runner.gender = 2;
+        runner.username = 'SB_ZZM';
 
-    if (__DEBUG__ == 1)
-        log.log_with_color('[Player Login] user id: ' + user_id, Log_Config.uc_log_default_color);
+        game.socket_handler.emit(EventNetworkLED.PrepareState, {user_id : user_id, user_gender: runner.gender,
+            user_name: runner.username, user_photo:runner.img_base64});
+
+        if (__DEBUG__ == 1)
+            log.log_with_color('[Player Login] user id: ' + user_id, Log_Config.uc_log_default_color);
+    });
 
     return true;
+
 }
 
 exports.process = process;

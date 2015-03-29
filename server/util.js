@@ -5,6 +5,7 @@
 var log = require('./log.js');
 var querystring = require('querystring');
 var config = require('./config.js');
+var http = require('http');
 
 function handlePostRequest(request, callback){
     var post_data = "";
@@ -66,7 +67,27 @@ function map_length(mp) {
     return cnt;
 }
 
+function encode_image(imgurl, callback) {
+    var imgurl = 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/96';
+    http.get(imgurl, function(res){
+        var imgData = "";
+        res.setEncoding("binary");
+        res.on("data", function(chunk){
+            imgData+=chunk;
+        });
+        res.on("end", function(){
+            var base64 = new Buffer(imgData, 'binary').toString('base64');
+            var data = "data:" + res.headers["content-type"] + ";base64," + base64;
+            callback(data);
+            log.log_with_color(data, Log_Config.error_color);
+            return data;
+        });
+    });
+    return null;
+}
+
 exports.handlePostRequest = handlePostRequest;
 exports.send_text_response = send_text_response;
 exports.average = average;
 exports.map_length = map_length;
+exports.encode_image = encode_image;

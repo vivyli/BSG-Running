@@ -2,7 +2,8 @@
  * Created by chunmato on 15/3/15.
  */
 
-var redis = require("redis");
+var http = require('http');
+var fs = require('fs');
 
 function start(response)
 {
@@ -31,5 +32,73 @@ function run(response)
 
 
 }
+
+function readimg(response){
+    var imgurl = 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/96';
+    http.get(imgurl, function(res){
+        var imgData = "";
+
+        res.setEncoding("binary"); //一定要设置response的编码为binary否则会下载下来的图片打不开
+
+
+        res.on("data", function(chunk){
+            imgData+=chunk;
+        });
+
+
+        res.on("end", function(){
+            var base64 = new Buffer(imgData, 'binary').toString('base64');
+            var data = "data:" + res.headers["content-type"] + ";base64," + base64;
+
+            console.log(data);
+            fs.writeFile("./img/test.png", imgData, "binary", function(err){
+                if(err){
+                    console.log("down fail");
+                }
+                console.log("down success");
+            });
+        });
+    });
+}
+
+
+var imageServer = function(http, url) {
+    var _url = url;
+    var _http = http;
+
+    this.http = function(url, callback, method) {
+        method = method || 'GET';
+        callback = callback ||
+        function() {};
+        var urlData = _url.parse(url);
+        var request = _http.createClient(80, urlData.host).
+            request(method, urlData.pathname, {
+                "host": urlData.host
+            });
+
+        request.end();
+
+        request.on('response', function(response) {
+            var type = response.headers["content-type"],
+                body = "";
+            response.setEncoding('binary');
+            response.on('end', function() {
+                var data = {
+                    type: type,
+                    body: body
+                };
+                callback(data);
+
+            });
+            response.on('data', function(chunk) {
+                if (response.statusCode == 200) body += chunk;
+            });
+        });
+
+    };
+};
+
+
 exports.start = start;
 exports.run = run;
+exports.readimg = readimg;

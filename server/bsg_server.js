@@ -33,11 +33,15 @@ server.listen(NETWORK_CONSTANTS.SERVER_PORT);
 // Start SC_Server
 sc_server.start(io);
 
+
 // Add listener for UC_Server
 server.addListener('request', function (request, response) {
     if (__TEST__ == 1) {
         if (request.url == '/test') {
             test.write_test_page(response);
+        }
+        else if (request.url == '/') {
+            test.write_test_index_page(response);
         }
         else
             uc_server.route(request, response);

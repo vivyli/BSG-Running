@@ -5,6 +5,7 @@
 Log_Config = {
     sc_log_default_color : 'white',
     uc_log_default_color : 'green',
+    image_log_default_color : 'yellow',
     error_color : 'red'
 };
 

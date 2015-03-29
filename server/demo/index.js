@@ -11,6 +11,7 @@ var handler = {};
 handler["/"] = requestHandler.start;
 handler["/start"] = requestHandler.start;
 handler["/run"] = requestHandler.run;
+handler["/readimg"] = requestHandler.readimg;
 
 server.start(route.route, handler);
 
