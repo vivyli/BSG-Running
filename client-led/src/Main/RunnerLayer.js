@@ -4,6 +4,7 @@
 var RunnerLayer = cc.Layer.extend({
     runners:null,
     gap:60,
+    winnerCount:0,
     ctor:function () {
         this._super();
         this.init();
@@ -61,12 +62,28 @@ var RunnerLayer = cc.Layer.extend({
         for (var id in this.runners) {
             var runner = this.runners[id];
 
-            if(runner.getPosition().x >= size.width-20)
+            if(runner.getPosition().x >= size.width-30)
             {
                 if(!runner.isFinish) {
                     //TODO: finish running
                     cc.log(id+" finish run! ");
                     runner.setFinish();
+
+                    var countLimit = GameDefinition.WinnerCountLimit;
+                    ControlLayer._getInstance().addWinner(this.winnerCount, id);
+                    this.winnerCount = this.winnerCount + 1;
+                    var getMapCount = function(map){
+                        var count = 0;
+                        for(var k in map){
+                            count = count + 1;
+                        }
+                        return count;
+                    }
+                    var runnersCount = getMapCount(this.runners);
+                    if(this.winnerCount>=countLimit || this.winnerCount>=runnersCount) {
+                        // end game
+                        ControlLayer._getInstance().EndGame();
+                    }
                 }
             } else {
                 runner.update();

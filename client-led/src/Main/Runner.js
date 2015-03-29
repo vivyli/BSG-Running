@@ -87,11 +87,6 @@ var Runner = cc.Node.extend({
         var speed = this.speed;
         var speedAnimation = this.sprite.getActionByTag(10);
         speedAnimation.setSpeed(2);
-        if(speed >= 1) {
-            this.startFire();
-        } else {
-            this.stopFire();
-        }
     },
     setFinish: function()
     {
@@ -106,7 +101,8 @@ var Runner = cc.Node.extend({
         if(speedAnimation){
             speedAnimation.setSpeed(3);
         }
-        if(speed >= 3) {
+        if(speed >= GameDefinition.SpeedEffectLimit) {
+            cc.log("### set fire speed", speed);
             this.startFire();
         } else {
             this.stopFire();

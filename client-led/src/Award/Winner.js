@@ -56,9 +56,5 @@ var Winner = cc.Node.extend({
         var speedAnimation = new cc.Speed(cc.repeatForever(action),1);
         speedAnimation.tag = 10;
         this.sprite.runAction(speedAnimation);
-    },
-
-
-
-
+    }
 });

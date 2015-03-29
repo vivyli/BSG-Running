@@ -11,24 +11,8 @@ var AwardLayer = cc.Layer.extend({
     init:function () {
         var size = cc.director.getWinSize();
         this.winners = new Array();
-        //this.backgroundLabel = new cc.LabelTTF("Award", "Impact", 38);
-        // position the label on the center of the screen
-        //this.backgroundLabel.setPosition(size.width / 2, size.height - 40);
-        // add the label as a child to this layer
-        //this.addChild(this.backgroundLabel, 5,204);
 
         var awardBackgroup = new cc.Sprite(s_awardBackground);
-        var xScale = size.width / awardBackgroup.width;
-        var yScale = size.height / awardBackgroup.height;
-
-        cc.log(size.width, size.height, awardBackgroup.width, awardBackgroup.height);
-        cc.log(awardBackgroup.getContentSize());
-
-        //cc.log(xScale.toString());
-        //cc.log(yScale.toString());
-        //cc.log(awardBackgroup.getTexture().height.toString());
-        //cc.log(awardBackgroup.height.toString());
-
         awardBackgroup.attr({
             anchorX : 0.5,
             anchorY : 0.5,
@@ -38,10 +22,21 @@ var AwardLayer = cc.Layer.extend({
 
 
         //TODO: test add runner del
-        this.addWinner(1,"num111111111111111111111111111",s_Photo,1,"yello");
-        this.addWinner(2,"num2",s_Photo,2,"yello");
-        this.addWinner(3,"num3",s_Photo,1,"yello");
+        //this.addWinner(1,"num111111111111111111111111111",s_Photo,1,"yello");
+        //this.addWinner(2,"num2",s_Photo,2,"yello");
+        //this.addWinner(3,"num3",s_Photo,1,"yello");
         //awardBackgroup.setScale(xScale,yScale);
+
+        var winners = ControlLayer._getInstance().winners;
+        var order = 0;
+        for(var idx in winners){
+            order = order+1;
+            var name = winners[idx][NETWORK_CONSTANTS.USER_ID];
+            var photo = s_Photo;
+            var gender = idx%2+1;
+            var color = "yello";
+            this.addWinner(order, name, photo, gender, color);
+        }
 
         this.addChild(awardBackgroup);
         var startItem = new cc.MenuItemImage(
@@ -58,6 +53,7 @@ var AwardLayer = cc.Layer.extend({
 
     addWinner:function(order,name,photo,gender,color)
     {
+        cc.log("order", order.toString());
         var newWinner = new Winner();
         newWinner.init(order,name,photo,gender,color);
         this.winners[order] = newWinner;

@@ -12,6 +12,7 @@
 
     "jsList" : [
         "../common/commonDefs.js",
+        "../design/running.js",
 
         "lib/socket.io-1.3.5.js",
         "src/Config/Defs.js",

@@ -10,9 +10,11 @@ ControlLayer = cc.Class.extend({
 	
 	gameId:"",
     players:[],
+    winners:[],
     init:function()
     {
         this.players = [];
+        this.winners = [];
         this.socket = io(NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT);
         this.registerSocketEvent();
 
@@ -22,6 +24,7 @@ ControlLayer = cc.Class.extend({
     {
         cc.log("### led reset game")
         this.players = [];
+        this.winners = [];
         this.Login();
     },
 	Login: function()
@@ -118,10 +121,14 @@ ControlLayer = cc.Class.extend({
         this.scene = scene;
         this.sceneName = sceneName;
     },
+    addWinner: function(idx, playerId)
+    {
+        this.winners[idx] = this.players[playerId];
+    },
     // utilities
     getMaskSprite: function(spriteRes)
     {
-        var stencil = new cc.Sprite("head_mask.png");   //sprite or DrawNode
+        var stencil = new cc.Sprite();   //sprite or DrawNode
 
         //1.create clipping node
         var clipper = new cc.ClippingNode();
