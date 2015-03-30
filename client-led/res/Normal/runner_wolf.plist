@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>1.png</key>
+            <key>wolf_1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,291},{107,89}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{115,115}</string>
             </dict>
-            <key>2.png</key>
+            <key>wolf_2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,198},{107,91}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{115,115}</string>
             </dict>
-            <key>3.png</key>
+            <key>wolf_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{109,91}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{115,115}</string>
             </dict>
-            <key>4.png</key>
+            <key>wolf_4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,479},{103,95}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{115,115}</string>
             </dict>
-            <key>5.png</key>
+            <key>wolf_5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,382},{105,95}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{115,115}</string>
             </dict>
-            <key>6.png</key>
+            <key>wolf_6.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,95},{107,101}}</string>

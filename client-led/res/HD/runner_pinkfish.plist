@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>1.png</key>
+            <key>pinkfish_1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,98},{74,92}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>2.png</key>
+            <key>pinkfish_2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{72,94}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>3.png</key>
+            <key>pinkfish_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{76,2},{70,92}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>4.png</key>
+            <key>pinkfish_4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{78,154},{74,80}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>5.png</key>
+            <key>pinkfish_5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{148,78},{74,80}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>6.png</key>
+            <key>pinkfish_6.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{148,2},{74,82}}</string>

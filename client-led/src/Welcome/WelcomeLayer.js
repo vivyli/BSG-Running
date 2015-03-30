@@ -57,8 +57,8 @@ var WelcomeLayer = cc.Layer.extend({
     addRunner:function(){
         var nextRunner = new WelcomeRunner();
         var randomSpeed =  Math.floor(Math.random() * 5 + 1);
-
-        nextRunner.init(this.counter,this.counter,"leopard",randomSpeed);
+        var randomRole = ControlLayer._getInstance().getRandomRole();
+        nextRunner.init(this.counter,this.counter,randomRole,randomSpeed);
         //var idx = this.runners.length+1;
         var idx = 0;
         for (var runner in this.runners) {

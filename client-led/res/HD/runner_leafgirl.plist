@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>1.png</key>
+            <key>leafgirl_1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{72,78}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>2.png</key>
+            <key>leafgirl_2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{76,2},{74,76}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>3.png</key>
+            <key>leafgirl_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{152,2},{76,74}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>4.png</key>
+            <key>leafgirl_4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,82},{82,74}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>5.png</key>
+            <key>leafgirl_5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{86,82},{82,76}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>6.png</key>
+            <key>leafgirl_6.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{170,82},{76,76}}</string>

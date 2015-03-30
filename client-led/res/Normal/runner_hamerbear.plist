@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>1.png</key>
+            <key>hamerbear_1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{72,70}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>2.png</key>
+            <key>hamerbear_2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{76,2},{66,74}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>3.png</key>
+            <key>hamerbear_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{144,2},{60,72}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>4.png</key>
+            <key>hamerbear_4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,78},{62,70}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>5.png</key>
+            <key>hamerbear_5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{66,78},{64,74}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>6.png</key>
+            <key>hamerbear_6.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{132,78},{66,72}}</string>

@@ -11,8 +11,9 @@ var WelcomeRunner = cc.Node.extend({
     id:0,
     init:function (tag,id,runnerRole,speed) {
         var cache = cc.spriteFrameCache;
+
         cache.addSpriteFrames("runner_"+runnerRole+".plist","runner_"+runnerRole+".png");
-        this.sprite = new cc.Sprite(cache.getSpriteFrame("1.png"));
+        this.sprite = new cc.Sprite(cache.getSpriteFrame(runnerRole+"_1.png"));
         this.addChild(this.sprite);
         this.tag = tag;
         this.id = id;
@@ -56,11 +57,11 @@ var WelcomeRunner = cc.Node.extend({
         var animation = animationCache.getAnimation(runnerRole);
         if (animation == null) {
             animation = new cc.Animation;
-            animation.addSpriteFrame(cache.getSpriteFrame("1.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("2.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("3.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("4.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("5.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_1.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_2.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_3.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_4.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_5.png"));
 
             animation.setDelayPerUnit(0.1);
             animation.setRestoreOriginalFrame(false);

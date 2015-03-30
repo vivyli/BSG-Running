@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>1.png</key>
+            <key>thunder_1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{64,84}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>2.png</key>
+            <key>thunder_2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{68,2},{64,86}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>3.png</key>
+            <key>thunder_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{134,2},{62,84}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>4.png</key>
+            <key>thunder_4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,90},{64,84}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>5.png</key>
+            <key>thunder_5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{68,90},{64,86}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{100,100}</string>
             </dict>
-            <key>6.png</key>
+            <key>thunder_6.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{134,90},{60,84}}</string>

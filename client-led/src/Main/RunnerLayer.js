@@ -27,10 +27,10 @@ var RunnerLayer = cc.Layer.extend({
 
         this.gap = (size.height - 120) / runnersCount;
 
-        //this.addRunner("hello","yello","yxsh",s_Photo,1);
-        //this.addRunner("hello1","yello","yxsh1",s_Photo,2);
-        //this.addRunner("hello2","yello","yxsh2",s_Photo,1);
-        //this.addRunner("hello3","yello","yxsh3",s_Photo,2);
+        this.addRunner("hello","bird","yxsh",s_CloseNormal,1);
+        this.addRunner("hello1","dog","yxsh1",s_CloseNormal,2);
+        this.addRunner("hello2","pinkfish","yxsh2",s_CloseNormal,1);
+        this.addRunner("hello3","griffin","yxsh3",s_CloseNormal,2);
 
         //end
 

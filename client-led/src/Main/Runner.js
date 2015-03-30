@@ -15,7 +15,7 @@ var Runner = cc.Node.extend({
         cc.log("init of runner", runnerRole);
         var cache = cc.spriteFrameCache;
         cache.addSpriteFrames("runner_"+runnerRole+".plist","runner_"+runnerRole+".png");
-        this.sprite = new cc.Sprite(cache.getSpriteFrame("1.png"));
+        this.sprite = new cc.Sprite(cache.getSpriteFrame(runnerRole+"_1.png"));
         this.addChild(this.sprite);
         this.name = name;
 
@@ -39,18 +39,18 @@ var Runner = cc.Node.extend({
 
         // animation
         var animationCache = cc.animationCache;
-        var animation = animationCache.getAnimation("runner");
+        var animation = animationCache.getAnimation(runnerRole);
         if (animation == null) {
             animation = new cc.Animation;
-            animation.addSpriteFrame(cache.getSpriteFrame("1.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("2.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("3.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("4.png"));
-            animation.addSpriteFrame(cache.getSpriteFrame("5.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_1.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_2.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_3.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_4.png"));
+            animation.addSpriteFrame(cache.getSpriteFrame(runnerRole+"_5.png"));
 
             animation.setDelayPerUnit(0.1);
             animation.setRestoreOriginalFrame(false);
-            animationCache.addAnimation(animation, "runner");
+            animationCache.addAnimation(animation, runnerRole);
         }
         var action = cc.animate(animation);
         var speedAnimation = new cc.Speed(cc.repeatForever(action),1);
