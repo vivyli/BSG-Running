@@ -1,8 +1,5 @@
 var res = {
-    s_Background : "res/bg640.jpg",
-    s_Background2 : "res/bg2.jpg",
-    s_Shake : "res/shake.png",
-    s_Sprite : "res/sprite.png"
+    s_Background2 : "res/bg2.jpg"
 };
 
 var g_resources = [];

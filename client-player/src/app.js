@@ -20,22 +20,6 @@ var GameControllerLayer = cc.Layer.extend({
         });
         this.addChild(this.background, 0);
 
-        /*
-        // sprite
-        this._initSprite();
-
-        // shake
-        this.shake = new cc.Sprite(res.s_Shake);
-        this.shake.setPosition(cc.p(size.width/2, size.height/2));
-        this.addChild(this.shake, 100);
-
-        var pointL = cc.p(this.shake.x-3, this.shake.y);
-        var pointR = cc.p(this.shake.x+3, this.shake.y);
-        var moveLeft = cc.moveTo(0.08, pointL);
-        var moveRight = cc.moveTo(0.08, pointR);
-        var actionShake = cc.sequence(moveLeft, moveRight).repeatForever();
-        this.shake.runAction(actionShake);*/
-
         this.login();
 
         // test
@@ -44,28 +28,6 @@ var GameControllerLayer = cc.Layer.extend({
         //this.startSendingSensorData();
 
         return true;
-    },
-    _initSprite : function(){
-        this.sprite = new cc.Sprite(res.s_Sprite);
-        this.addChild(this.sprite);
-        this.sprite.x = Math.random() * GC_w;
-        this.sprite.y = 0;
-
-        this.sprite.runAction(cc.moveBy(3, cc.p(Math.random() * GC_w, this.sprite.y + GC_h + 100)));
-
-        this.schedule(this._updateSprite, 0.1);
-
-    },
-    _updateSprite:function () {
-        if (this.sprite.y > GC_h) {
-            this.sprite.x = Math.random() * GC_w;
-            this.sprite.y = 10;
-            this.sprite.runAction(cc.moveBy(
-                //parseInt(3 * Math.random(), 10),
-                3,
-                cc.p(Math.random() * GC_w, this.sprite.y + GC_h)
-            ));
-        }
     },
     login: function()
     {
