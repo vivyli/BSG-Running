@@ -4,7 +4,7 @@ console.log(server);
 
 server.deploy(
     {
-        port:8000,
+        port:80,
         root:'../'
     }
 );
