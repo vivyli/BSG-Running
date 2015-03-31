@@ -1,7 +1,6 @@
 var s_HelloWorld = "HelloWorld.jpg";
 var s_CloseNormal = "CloseNormal.png";
 var s_CloseSelected = "CloseSelected.png";
-//var s_Photo = "96.jpg";
 var s_PhotoBox = "head_box.png";
 var s_PhotoMask = "head_mask.png";
 var s_RunnerPlist ="runner.plist";

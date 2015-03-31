@@ -8,26 +8,29 @@ var GameControllerLayer = cc.Layer.extend({
     _valueFrequency: 7,
     ctor:function () {
         this._super();
-        var size = cc.winSize;
+        this.init();
+    },
+    init: function(){
+        if(this._super()){
+            var size = cc.winSize;
 
-        // background
-        this.background = new cc.Sprite(res.s_Background2);
-        this.background.attr({
-            anchorX : 0.5,
-            anchorY : 0.5,
-            x: GC_w/2,
-            y: GC_h/2
-        });
-        this.addChild(this.background, 0);
+            // background
+            this.background = new cc.Sprite(res.s_Background2);
+            this.background.attr({
+                anchorX : 0.5,
+                anchorY : 0.5,
+                x: GC_w/2,
+                y: GC_h/2
+            });
+            this.addChild(this.background, 0);
 
-        this.login();
+            this.login();
 
-        // test
-        // TODO
-        //CLIENT_GAME_STATE = 4;
-        //this.startSendingSensorData();
-
-        return true;
+            // test
+            // TODO
+            //CLIENT_GAME_STATE = 4;
+            //this.startSendingSensorData();
+        }
     },
     login: function()
     {
@@ -63,6 +66,7 @@ var GameControllerLayer = cc.Layer.extend({
     _realSendSensorData: function()
     {
         cc.log("_realSendSensorData");
+
         if(this._sensorDatas.length < this._valueFrequency)
         {
             return;
@@ -80,11 +84,32 @@ var GameControllerLayer = cc.Layer.extend({
         data[NETWORK_CONSTANTS.SHAKE_DATA] = ret;
         data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
         this.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
-            //cc.log(responseData);
+            cc.log(responseData);
         });
 
         if(CLIENT_GAME_STATE && (GAME_STATE.RUNNING > CLIENT_GAME_STATE || CLIENT_GAME_STATE >= GAME_STATE.FINISHED)) {
             this.stopSendingSensorData();
+        }
+    },
+    _cc_setAccelerometerInterval: function(interval){
+        var _p = cc.inputManager;
+        if (_p._accelInterval !== interval) {
+            _p._accelInterval = interval;
+        }
+    },
+    _cc_setAccelerometerEnabled: function(isEnable){
+        var _t = cc.inputManager;
+        if(_t._accelEnabled === isEnable)
+            return;
+
+        _t._accelEnabled = isEnable;
+        var scheduler = cc.director.getScheduler();
+        if(_t._accelEnabled){
+            _t._accelCurTime = 0;
+            scheduler.scheduleUpdateForTarget(_t);
+        } else {
+            _t._accelCurTime = 0;
+            scheduler.unscheduleUpdateForTarget(_t);
         }
     },
 	_startSendingSensorData: function()
@@ -94,7 +119,9 @@ var GameControllerLayer = cc.Layer.extend({
 			// call is called 30 times per second
             var idx = 0;
 			cc.inputManager.setAccelerometerInterval(1/this._frequency);
+			//this._cc_setAccelerometerInterval(1/this._frequency);
 			cc.inputManager.setAccelerometerEnabled(true);
+			//this._cc_setAccelerometerEnabled(true);
 			cc.eventManager.addListener({
 				event: cc.EventListener.ACCELERATION,
 				callback: function(accelEvent, event){
