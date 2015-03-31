@@ -51,7 +51,7 @@ var WelcomeLayer = cc.Layer.extend({
                 },this);
             var menu = new cc.Menu(beginItem);
             menu.setPosition(0, 0);
-            this.addChild(menu, 10, 101);
+            this.addChild(menu, 100000, 101);
             beginItem.setPosition(size.width - 20, 20);
 
             this.scheduleUpdate();
@@ -70,7 +70,7 @@ var WelcomeLayer = cc.Layer.extend({
         var xOffset = 50;
         var randomY = Math.floor(Math.random() * 500 + 50);
         nextRunner.setPosition(cc.p(xOffset,randomY));
-        this.runners[this.counter] = nextRunner;
+        this.runners[this.counter] = true;
         this.addChild(nextRunner,1000-randomY,this.counter);
         this.counter++;
     },
@@ -84,17 +84,18 @@ var WelcomeLayer = cc.Layer.extend({
             this.addRunner();
         }
         for (var id in this.runners) {
-            var runner = this.runners[id];
+            if(this.runners[id] == true) {
+                var runner = this.getChildByTag(id);
 
-            if(runner.getPosition().x >= size.width)
-            {
-                if(!runner.isFinish) {
-                   //TODO: finish running
-                    this.removeChildByTag(runner.tag);
-                    delete this.runners[id];
+                if (runner.getPosition().x >= size.width) {
+                    if (!runner.isFinish) {
+                        //TODO: finish running
+                        this.removeChildByTag(runner.tag);
+                        this.runners[id] = false;
+                    }
+                } else {
+                    runner.update();
                 }
-            } else {
-                runner.update();
             }
         }
     }
