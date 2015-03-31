@@ -79,7 +79,6 @@ function encode_image(imgurl, callback) {
             var base64 = new Buffer(imgData, 'binary').toString('base64');
             var data = "data:" + res.headers["content-type"] + ";base64," + base64;
             callback(data);
-            log.log_with_color(data, Log_Config.error_color);
             return data;
         });
     });

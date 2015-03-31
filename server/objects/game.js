@@ -11,6 +11,8 @@ module.exports = function Game(socket_handler){
     this.runners = {};
     this.game_state = GAME_STATE.RESERVED;
 
+    this.user_id_seed = 1;
+
     // Led socket handler
     this.socket_handler = socket_handler;
 
@@ -32,6 +34,13 @@ module.exports = function Game(socket_handler){
             return true;
         else
             return false;
+    }
+
+    this.new_user_id = function() {
+        var user_id = this.user_id_seed;
+        this.user_id_seed ++;
+
+        return user_id;
     }
 }
 

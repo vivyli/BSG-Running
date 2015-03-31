@@ -20,34 +20,37 @@ var test = require('./test/test.js');
 //var sc_port = 9999;
 
 // A global game manager. Can access game_manager from everywhere.
-game_manager = new GameManager();
+//game_manager = new GameManager();
 
 //uc_server.start(uc_port);
 //sc_server.start(sc_port);
 
+function start() {
+    var server = http.createServer();
+    var io = socket(server);
+    server.listen(NETWORK_CONSTANTS.SERVER_PORT);
 
-var server = http.createServer();
-var io = socket(server);
-server.listen(NETWORK_CONSTANTS.SERVER_PORT);
-
-// Start SC_Server
-sc_server.start(io);
+    // Start SC_Server
+    sc_server.start(io);
 
 
-// Add listener for UC_Server
-server.addListener('request', function (request, response) {
-    if (__TEST__ == 1) {
-        if (request.url == '/test') {
-            test.write_test_page(response);
-        }
-        else if (request.url == '/') {
-            test.write_test_index_page(response);
+    // Add listener for UC_Server
+    server.addListener('request', function (request, response) {
+        if (__TEST__ == 1) {
+            if (request.url == '/test') {
+                test.write_test_page(response);
+            }
+            else if (request.url == '/') {
+                test.write_test_index_page(response);
+            }
+            else
+                uc_server.route(request, response);
         }
         else
             uc_server.route(request, response);
-    }
-    else
-        uc_server.route(request, response);
 
-});
-log.log_with_color("uc server started with port " + NETWORK_CONSTANTS.SERVER_PORT, Log_Config.uc_log_default_color);
+    });
+    log.log_with_color("uc server started with port " + NETWORK_CONSTANTS.SERVER_PORT, Log_Config.uc_log_default_color);
+}
+
+exports.start = start;
