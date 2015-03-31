@@ -40,11 +40,14 @@ var WelcomeLayer = cc.Layer.extend({
                 s_CloseSelected,
                 function () {
                     // test
-                    var fakeId = "123"
+                    var fakeId = "1"
                     this.gameId = fakeId;
-                    cc.log("### fake gameId, go to prepare scene");
-                    var nextScene = new PrepareScene();
-                    cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
+                    //cc.log("### fake gameId, go to prepare scene");
+                    //var nextScene = new PrepareScene();
+                    //cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
+
+                    cc.log("### led emit login");
+                    ControlLayer._getInstance().Login();
                 },this);
             var menu = new cc.Menu(beginItem);
             menu.setPosition(0, 0);
@@ -75,7 +78,7 @@ var WelcomeLayer = cc.Layer.extend({
     {
         var size = cc.director.getWinSize();
         var randomNum100 = Math.floor(Math.random() * 100 + 1);
-        if(randomNum100 > 97)
+        if(randomNum100 > 93)
         {
             cc.log("add runner");
             this.addRunner();
@@ -88,6 +91,7 @@ var WelcomeLayer = cc.Layer.extend({
                 if(!runner.isFinish) {
                    //TODO: finish running
                     this.removeChildByTag(runner.tag);
+                    delete this.runners[id];
                 }
             } else {
                 runner.update();
