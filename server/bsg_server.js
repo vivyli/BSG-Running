@@ -51,6 +51,12 @@ function start() {
 
     });
     log.log_with_color("uc server started with port " + NETWORK_CONSTANTS.SERVER_PORT, Log_Config.uc_log_default_color);
+
+    //Error handler
+    process.on('uncaughtException', function (exception) {
+        // handle or ignore error
+       log.log_with_color(exception, Log_Config.error_color);
+    });
 }
 
 exports.start = start;

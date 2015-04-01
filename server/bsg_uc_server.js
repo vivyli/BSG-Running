@@ -99,18 +99,19 @@ uc_events.actions[EventNetworkPlayer.HeartBeat] = function(request, response) {
 // PL_login: Need parameters {user_id: uid, game_id: gid}
 // When received a new user's login request, register this user to the game.
 uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
+    log.log_with_color('[Req][Player] Login', Log_Config.request_color);
     if (request.method == "POST") {
         util.handlePostRequest(request, function(object_post_data){
-            var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
             var game_id = object_post_data[NETWORK_CONSTANTS.GAME_ID];
             var game = game_manager.get_game(game_id);
             //console.log('[Login][game_state]' + game.game_state);
             if (game != null && workflow.check_accept_event(game.game_state, EventNetworkPlayer.Login) && game.can_join()) {
+                var user_id = game.new_user_id();
                 runner_processor.register_runner(user_id, game_id);
                 var game_state = GAME_STATE.RESERVED;
                 if (game != null)
                     game_state = game.game_state;
-                util.send_text_response(response, (''+ game_state));
+                util.send_text_response(response, (''+ user_id));
             }
             else{
                 // TODO Notify not accept this event

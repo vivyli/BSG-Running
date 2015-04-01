@@ -25,6 +25,7 @@ module.exports = function Game(socket_handler){
         this.runners = {};
         // Reset game state.
         this.game_state = GAME_STATE.RESERVED;
+        this.user_id_seed = 1;
     }
 
     this.can_join = function(){

@@ -60,9 +60,13 @@ function start(io/* port*/) {
         var check_alive_interval_id = 0;
         var game = null;
         socket.on(EventNetworkLED.Login, function (data) {
+            log.log_with_color('[Req][LED] Login', Log_Config.request_color);
             if (workflow.check_accept_event(game == null? null: game.game_state, EventNetworkLED.Login)) {
-                if (game != null)
+                if (game != null){
+                    game.reset();
                     game_manager.update_game(game);
+                }
+
                 else
                     game = game_manager.new_game(socket);
 
@@ -84,6 +88,7 @@ function start(io/* port*/) {
         // 2. Start sent runners' speed to LED client per Interval time.
         var interval_id = 0;
         socket.on(EventNetworkLED.StartGame, function (data){
+            log.log_with_color('[Req][LED] Start Game', Log_Config.request_color);
            // log.log_with_color('start received', 'yellow');
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.StartGame)) {
                 if (game != null) {
@@ -109,6 +114,7 @@ function start(io/* port*/) {
         // 1. Stop trying sending runners' speed to LED client.
         // 2. reset game. That is to clear runners and reset game state here.
         socket.on(EventNetworkLED.EndGame, function (data){
+            log.log_with_color('[Req][LED] End Game', Log_Config.request_color);
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.EndGame)) {
                 if (interval_id)
                     clearInterval(interval_id);

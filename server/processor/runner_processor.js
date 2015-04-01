@@ -68,7 +68,7 @@ function register_runner(user_id, game_id) {
     util.encode_image('', function(data) {
         runner.img_base64 = data;
         runner.gender = 2;
-        runner.username = 'SB_ZZM';
+        runner.username = user_id;
 
         game.socket_handler.emit(EventNetworkLED.PrepareState, {user_id : user_id, user_gender: runner.gender,
             user_name: runner.username, user_photo:runner.img_base64});
