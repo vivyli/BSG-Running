@@ -67,7 +67,17 @@ var Runner = cc.Node.extend({
 
         var speed = this.speed;
         var speedAnimation = this.sprite.getActionByTag(10);
-        speedAnimation.setSpeed(2);
+
+        speedAnimation.setSpeed(this._convertAnimationSpeed(speed));
+    },
+    _convertAnimationSpeed: function(speed)
+    {
+        var min = 0.2;
+        var max = 8;
+        var aSpeed = speed/3;
+        aSpeed = Math.max(min, aSpeed);
+        aSpeed = Math.min(max, aSpeed);
+        return aSpeed;
     },
     setFinish: function()
     {
@@ -80,10 +90,9 @@ var Runner = cc.Node.extend({
         this.speed = speed;
         var speedAnimation = this.sprite.getActionByTag(10);
         if(speedAnimation){
-            speedAnimation.setSpeed(3);
+            speedAnimation.setSpeed(this._convertAnimationSpeed(speed));
         }
         if(speed >= GameDefinition.SpeedEffectLimit) {
-            cc.log("### set fire speed", speed);
             this.startFire();
         } else {
             this.stopFire();
@@ -92,9 +101,14 @@ var Runner = cc.Node.extend({
     startFire: function()
     {
         if(this._emitter && this._emitter.isActive()) return 0;
-        //this._emitter = new cc.ParticleSun();
-        this._emitter = new cc.ParticleGalaxy();
-        //this._emitter = new cc.ParticleSystem("comet.plist");
+        if(this.speed > GameDefinition.SpeedEffectLimit2)
+        {
+            this._emitter = new cc.ParticleSun();
+        }
+        else
+        {
+            this._emitter = new cc.ParticleGalaxy();
+        }
         this._emitter.setPosition(cc.p(-30,-10));
         this.addChild(this._emitter);
         this._emitter.texture = cc.textureCache.addImage(s_Fire);

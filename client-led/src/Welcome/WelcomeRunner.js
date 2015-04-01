@@ -100,7 +100,7 @@ var WelcomeRunner = cc.Node.extend({
         }
         if(speed >= GameDefinition.SpeedEffectLimit) {
         //if(speed >= 100) {
-            cc.log("### set fire speed", speed);
+            //cc.log("### set fire speed", speed);
             this.startFire();
         } else {
             this.stopFire();

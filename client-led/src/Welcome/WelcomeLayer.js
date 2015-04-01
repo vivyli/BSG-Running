@@ -46,7 +46,6 @@ var WelcomeLayer = cc.Layer.extend({
                     //var nextScene = new PrepareScene();
                     //cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
 
-                    cc.log("### led emit login");
                     ControlLayer._getInstance().Login();
                 },this);
             var menu = new cc.Menu(beginItem);
@@ -80,7 +79,7 @@ var WelcomeLayer = cc.Layer.extend({
         var randomNum100 = Math.floor(Math.random() * 100 + 1);
         if(randomNum100 > 93)
         {
-            cc.log("add runner");
+            //cc.log("add runner");
             this.addRunner();
         }
         for (var id in this.runners) {

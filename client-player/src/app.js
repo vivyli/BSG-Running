@@ -32,6 +32,14 @@ var GameControllerLayer = cc.Layer.extend({
             //this.startSendingSensorData();
         }
     },
+    showPlayerId: function()
+    {
+        cc.log("show Player id");
+        var size = cc.winSize;
+        var idLable = new cc.LabelTTF(PLAYER_ID.toString(), "Impact", 160);
+        idLable.setPosition(size.width / 2, size.height * 0.8);
+        this.addChild(idLable);
+    },
     login: function()
     {
         var data = {};
@@ -40,9 +48,13 @@ var GameControllerLayer = cc.Layer.extend({
         data[NETWORK_CONSTANTS.GAME_ID] = CLIENT_GAME_ID;
         var controller = this;
         this.sendData(data, EventNetworkPlayer.Login, function(responseData){
+
             cc.log("### login recv, start hb");
             cc.log(responseData);
 
+            PLAYER_ID = parseInt(responseData);
+            cc.log("player id", PLAYER_ID);
+            controller.showPlayerId();
             controller.startSendingHeartBeatData();
         });
     },

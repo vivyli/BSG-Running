@@ -30,7 +30,7 @@ var CountDown = cc.Node.extend({
         // position the label on the center of the screen
         this.displayLable.setPosition(cc.p(size.width / 2+130, size.height - 40));
         this.addChild(this.displayLable);
-        cc.log(this.displayLable.label);
+        //cc.log(this.displayLable.label);
         this.scheduleUpdate();
     },
 
