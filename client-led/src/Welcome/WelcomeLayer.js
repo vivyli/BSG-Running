@@ -28,7 +28,7 @@ var WelcomeLayer = cc.Layer.extend({
             backgrond_water.setPosition(cc.p(0,size.height-308));
             this.addChild(backgrond_water,4);
 
-            this.weilcomeLabel = new cc.LabelTTF("Welcome", "Impact", 38);
+            this.weilcomeLabel = new cc.LabelTTF("开心摇摇乐", "黑体", 50);
             // position the label on the center of the screen
             this.weilcomeLabel.setPosition(size.width / 2, size.height - 40);
             //this.setColor(cc.c(253,253,253));
@@ -36,8 +36,8 @@ var WelcomeLayer = cc.Layer.extend({
             this.addChild(this.weilcomeLabel, 15,201);
 
             var beginItem = new cc.MenuItemImage(
-                s_CloseNormal,
-                s_CloseSelected,
+                s_StartGameUp,
+                s_StartGameDown,
                 function () {
                     // test
                     var fakeId = "1"
@@ -51,7 +51,7 @@ var WelcomeLayer = cc.Layer.extend({
             var menu = new cc.Menu(beginItem);
             menu.setPosition(0, 0);
             this.addChild(menu, 100000, 101);
-            beginItem.setPosition(size.width - 20, 20);
+            beginItem.setPosition(size.width/2, size.height/2-150);
 
             this.scheduleUpdate();
         }

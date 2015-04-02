@@ -1,6 +1,11 @@
 var s_HelloWorld = "HelloWorld.jpg";
 var s_CloseNormal = "CloseNormal.png";
 var s_CloseSelected = "CloseSelected.png";
+
+var s_StartGameUp = "buttonUp.png";
+var s_StartGameDown = "buttonDown.png";
+
+
 var s_PhotoBox = "head_box.png";
 var s_PhotoMask = "head_mask.png";
 var s_RunnerPlist ="runner.plist";
@@ -109,7 +114,10 @@ var g_resources = [
 
 
     s_StartCountDownPng,
-    s_StartCountDownPlist
+    s_StartCountDownPlist,
+
+    s_StartGameUp,
+    s_StartGameDown
 
     //plist
 

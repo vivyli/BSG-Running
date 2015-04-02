@@ -82,7 +82,7 @@ var WelcomeRunner = cc.Node.extend({
 
         var speed = this.speed;
         var speedAnimation = this.sprite.getActionByTag(10);
-        speedAnimation.setSpeed(2);
+        speedAnimation.setSpeed(speed);
     },
     setFinish: function()
     {
@@ -96,7 +96,7 @@ var WelcomeRunner = cc.Node.extend({
         this.speed = speed;
         var speedAnimation = this.sprite.getActionByTag(10);
         if(speedAnimation){
-            speedAnimation.setSpeed(3);
+            speedAnimation.setSpeed(speed);
         }
         if(speed >= GameDefinition.SpeedEffectLimit) {
         //if(speed >= 100) {
