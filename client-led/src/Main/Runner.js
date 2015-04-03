@@ -93,6 +93,7 @@ var Runner = cc.Node.extend({
             speedAnimation.setSpeed(this._convertAnimationSpeed(speed));
         }
         if(speed >= GameDefinition.SpeedEffectLimit) {
+            this.stopFire();
             this.startFire();
         } else {
             this.stopFire();
