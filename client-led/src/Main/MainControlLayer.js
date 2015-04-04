@@ -19,8 +19,8 @@ var MainControlLayer = cc.Layer.extend({
             var size = cc.director.getWinSize();
 
             var startItem = new cc.MenuItemImage(
-                s_CloseNormal,
-                s_CloseSelected,
+                s_ButtonNextUp,
+                s_ButtonNextDown,
                 this.finish,
                 this
             );
@@ -28,7 +28,7 @@ var MainControlLayer = cc.Layer.extend({
             var menu = new cc.Menu(startItem);
             menu.setPosition(0, 0);
             this.addChild(menu, 1,103);
-            startItem.setPosition(size.width - 20, 20);
+            startItem.setPosition(size.width - 30, size.height - 30);
         }
 
     }

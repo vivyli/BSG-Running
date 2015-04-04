@@ -2,6 +2,7 @@
  * Created by Xinsheng Yang on 2015/3/14.
  */
 var WelcomeLayer = cc.Layer.extend({
+    logo:null,
     runners:null,
     counter:1,
     ctor:function () {
@@ -20,24 +21,23 @@ var WelcomeLayer = cc.Layer.extend({
             background.setPosition(cc.p(0,0));
             this.addChild(background,5);
 
-
-
             var backgrond_water = new cc.Sprite(s_MainBackground_water);
             backgrond_water.setScale(2);
             backgrond_water.setAnchorPoint(cc.p(0,0));
             backgrond_water.setPosition(cc.p(0,size.height-308));
             this.addChild(backgrond_water,4);
 
-            this.weilcomeLabel = new cc.LabelTTF("开心摇摇乐", "黑体", 50);
-            // position the label on the center of the screen
-            this.weilcomeLabel.setPosition(size.width / 2, size.height - 40);
-            //this.setColor(cc.c(253,253,253));
-            // add the label as a child to this layer
-            this.addChild(this.weilcomeLabel, 15,201);
+            //this.weilcomeLabel = new cc.LabelTTF("开心摇摇乐", "黑体", 50);
+            //this.weilcomeLabel.setPosition(size.width / 2, size.height - 40);
+            //this.addChild(this.weilcomeLabel, 15,201);
+
+            this.logo = new cc.Sprite(s_Logo);
+            this.logo.setPosition(cc.p(size.width / 2 + 30, size.height - 90));
+            this.addChild(this.logo, 15000, 2001);
 
             var beginItem = new cc.MenuItemImage(
-                s_StartGameUp,
-                s_StartGameDown,
+                s_ButtonYaoUp,
+                s_ButtonYaoDown,
                 function () {
                     // test
                     var fakeId = "1"
@@ -51,7 +51,7 @@ var WelcomeLayer = cc.Layer.extend({
             var menu = new cc.Menu(beginItem);
             menu.setPosition(0, 0);
             this.addChild(menu, 100000, 101);
-            beginItem.setPosition(size.width/2, size.height/2-150);
+            beginItem.setPosition(size.width/2, size.height/2-300);
 
             this.scheduleUpdate();
         }

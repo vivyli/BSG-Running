@@ -27,16 +27,19 @@ var PrepareLayer = cc.Layer.extend({
             var background = new cc.Sprite(s_prepareBackground);
             background.setPosition(cc.p(size.width/2,size.height/2));
             this.addChild(background);
-            this.prepareLabel = new cc.LabelTTF("等待阶段", "Impact", 38);
-            // position the label on the center of the screen
-            this.prepareLabel.setPosition(size.width / 2+130, size.height - 55);
-            // add the label as a child to this layer
+
+            //this.prepareLabel = new cc.LabelTTF("等待阶段", "Impact", 38);
+            //this.prepareLabel.setPosition(size.width / 2+130, size.height - 55);
+            //this.addChild(this.prepareLabel, 5,202);
+
+            this.prepareLabel = new cc.Sprite(s_TimeLeft);
+            this.prepareLabel.setPosition(size.width / 2+160, size.height - 60);
             this.addChild(this.prepareLabel, 5,202);
 
 
             var startItem = new cc.MenuItemImage(
-                s_StartGameUp,
-                s_StartGameDown,
+                s_StartGameUp2,
+                s_StartGameDown2,
                 function () {
                     ControlLayer._getInstance().StartGame();
                 },this);
@@ -46,7 +49,7 @@ var PrepareLayer = cc.Layer.extend({
             this.addChild(menu, 1,102);
 
             startItem.setPosition(cc.p(750,50));
-            startItem.setScale(0.5);
+            startItem.setScale(0.8);
 
 
             var qrCode = new cc.Sprite(s_Qrcode);

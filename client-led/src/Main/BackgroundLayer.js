@@ -11,11 +11,21 @@ var BackgroundLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
             var size = cc.director.getWinSize();
-            this.backgroundLabel = new cc.LabelTTF("Game\nBackground", "Impact", 38);
-            // position the label on the center of the screen
+            //this.backgroundLabel = new cc.LabelTTF("Game\nBackground", "Impact", 38);
+            //this.backgroundLabel.setPosition(size.width / 2, size.height - 40);
+            //this.addChild(this.backgroundLabel, 5,203);
+
+            this.backgroundLabel = new cc.Sprite(s_Go);
             this.backgroundLabel.setPosition(size.width / 2, size.height - 40);
-            // add the label as a child to this layer
             this.addChild(this.backgroundLabel, 5,203);
+            var pointL = cc.p(this.backgroundLabel.x-8, this.backgroundLabel.y);
+            var pointR = cc.p(this.backgroundLabel.x+8, this.backgroundLabel.y);
+            var moveLeft = cc.moveTo(1, pointL);
+            var moveRight = cc.moveTo(1, pointR);
+            var actionShake = cc.sequence(moveLeft, moveRight).repeatForever();
+            this.backgroundLabel.runAction(actionShake);
+
+
             var background = new cc.Sprite(s_MainBackground);
             background.setAnchorPoint(cc.p(0,0));
             background.setPosition(cc.p(0,0));

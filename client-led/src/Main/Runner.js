@@ -77,7 +77,7 @@ var Runner = cc.Node.extend({
         var aSpeed = speed/3;
         aSpeed = Math.max(min, aSpeed);
         aSpeed = Math.min(max, aSpeed);
-        return aSpeed;
+        return 1.5*aSpeed;
     },
     setFinish: function()
     {
