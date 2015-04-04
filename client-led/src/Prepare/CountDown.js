@@ -25,10 +25,10 @@ var CountDown = cc.Node.extend({
         this.minute = Math.floor(totalSec / 60).toString();
         this.sceond = this.formatNumber(Math.floor(totalSec % 60));
 
-        this.displayLable = new cc.LabelTTF(this.minute+":"+this.sceond, "Impact", 40);
+        this.displayLable = new cc.LabelTTF(this.minute+":"+this.sceond, "Impact", 80);
         this.displayLable.setColor(cc.color(255,97,0));
         // position the label on the center of the screen
-        this.displayLable.setPosition(cc.p(size.width / 2+130, size.height - 40));
+        this.displayLable.setPosition(cc.p(size.width / 2+350, size.height - 60));
         this.addChild(this.displayLable);
         //cc.log(this.displayLable.label);
         this.scheduleUpdate();
