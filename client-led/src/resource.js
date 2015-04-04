@@ -21,6 +21,8 @@ var s_MainBackground_water = "water.png";
 var s_StartCountDownPng = "start_count_down.png";
 var s_StartCountDownPlist = "start_count_down.plist";
 
+var s_Qrcode = "qrcode.png";
+
 
 var s_RunnerPlist_bean = "runner_bean.plist";
 var s_RunnerPng_dragon = "runner_dragon.png";
@@ -117,7 +119,9 @@ var g_resources = [
     s_StartCountDownPlist,
 
     s_StartGameUp,
-    s_StartGameDown
+    s_StartGameDown,
+
+    s_Qrcode
 
     //plist
 

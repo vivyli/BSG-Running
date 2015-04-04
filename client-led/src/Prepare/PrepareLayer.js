@@ -27,25 +27,38 @@ var PrepareLayer = cc.Layer.extend({
             var background = new cc.Sprite(s_prepareBackground);
             background.setPosition(cc.p(size.width/2,size.height/2));
             this.addChild(background);
-            this.prepareLabel = new cc.LabelTTF("Prepare", "Impact", 38);
+            this.prepareLabel = new cc.LabelTTF("等待阶段", "Impact", 38);
             // position the label on the center of the screen
-            this.prepareLabel.setPosition(size.width / 2, size.height - 40);
+            this.prepareLabel.setPosition(size.width / 2+130, size.height - 55);
             // add the label as a child to this layer
             this.addChild(this.prepareLabel, 5,202);
+
+
             var startItem = new cc.MenuItemImage(
-                s_CloseNormal,
-                s_CloseSelected,
+                s_StartGameUp,
+                s_StartGameDown,
                 function () {
                     ControlLayer._getInstance().StartGame();
                 },this);
+
             var menu = new cc.Menu(startItem);
             menu.setPosition(0, 0);
             this.addChild(menu, 1,102);
-            startItem.setPosition(size.width - 20, 20);
+
+            startItem.setPosition(cc.p(750,50));
+            startItem.setScale(0.5);
+
+
+            var qrCode = new cc.Sprite(s_Qrcode);
+            qrCode.setAnchorPoint(cc.p(0,0))
+            qrCode.setPosition(cc.p(550,100));
+            qrCode.setScale(1.5,2);
+            this.addChild(qrCode);
+
 
             this.waiterArr = new Array();
             this.hasWaiter = new Array();
-            for(i = 0; i < this.height;i++)
+            for(i = 0; i < this.heightIdx;i++)
             {
                 this.hasWaiter[i] = new Array();
                 for( j =0 ; j < this.widthIdx;j++)
@@ -91,16 +104,18 @@ var PrepareLayer = cc.Layer.extend({
             addItem.setPosition(100,200);
 
 
-            this.xGap = size.width/this.widthIdx;
-            this.yGap = size.height/this.heightIdx;
+            this.xGap = 500 /this.widthIdx;
+            this.yGap = (size.height-10)/this.heightIdx;
         }
 
 
      },
+
+
     addWaiter:function(id, photo,name){
-        var newWaitRunner = new WaitRunner();
+
         var size = cc.director.getWinSize();
-        newWaitRunner.init(id,photo,name);
+
         var x = 0;
         var y = 0;
         var mark = false;
@@ -119,13 +134,18 @@ var PrepareLayer = cc.Layer.extend({
         }
         cc.log(x.toString());
         cc.log(y.toString());
+        if(x >= this.heightIdx || y >= this.widthIdx)
+            return false;
+        var newWaitRunner = new WaitRunner();
+        newWaitRunner.init(id,photo,name);
         var size = cc.director.getWinSize();
         newWaitRunner.xIdx = x;
         newWaitRunner.yIdx = y;
-        newWaitRunner.setPosition(cc.p(x*this.xGap+ 50,size.height - y *this.yGap - 90));
+        newWaitRunner.setPosition(cc.p(x*this.xGap+ 60,size.height - y *this.yGap - 100));
         this.hasWaiter[x][y] = true;
         this.addChild(newWaitRunner);
         this.waiterArr[id] = newWaitRunner;
+        return true;
     },
 
     delWaiter:function(id)

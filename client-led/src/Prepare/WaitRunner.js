@@ -34,8 +34,9 @@ var WaitRunner = cc.Node.extend({
 
 
         this.name = name;
-        this.nameLabel = new cc.LabelTTF(name, "Impact", 20);
-        this.nameLabel.setPosition(cc.p(5,60));
+        this.nameLabel = new cc.LabelTTF(name, "Impact", 50);
+        this.nameLabel.setPosition(cc.p(5,75));
+        this.nameLabel.setColor(cc.color(255,0,0));
         this.addChild(this.nameLabel);
 
         //this.sprite.stopAction();
