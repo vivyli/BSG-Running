@@ -27,11 +27,15 @@ var RunnerLayer = cc.Layer.extend({
 
         this.gap = (size.height - 120) / runnersCount;
 
-        //this.addRunner("hello","bird","yxsh",s_CloseNormal,1);
-        //this.addRunner("hello1","dog","yxsh1",s_CloseNormal,2);
-        //this.addRunner("hello2","pinkfish","yxsh2",s_CloseNormal,1);
-        //this.addRunner("hello3","griffin","yxsh3",s_CloseNormal,2);
+        this.addRunner("hello","bird","yxsh",s_CloseNormal,1);
+        this.addRunner("hello1","dog","yxsh1",s_CloseNormal,2);
+        this.addRunner("hello2","pinkfish","yxsh2",s_CloseNormal,1);
+        this.addRunner("hello3","griffin","yxsh3",s_CloseNormal,2);
 
+        this.runners["hello"].setFinish();
+        this.runners["hello1"].setFinish();
+        this.runners["hello2"].setFinish();
+        this.runners["hello3"].setFinish();
         //end
 
         var controlLevel = ControlLayer._getInstance();

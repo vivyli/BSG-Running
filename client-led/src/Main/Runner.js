@@ -11,6 +11,7 @@ var Runner = cc.Node.extend({
     isFinish:null,
     _emitter:null,
     runnerRole:null,
+
     init:function (id, photo,name,gender,runnerRole) {
         cc.log("init of runner", runnerRole);
         var cache = cc.spriteFrameCache;
@@ -18,8 +19,8 @@ var Runner = cc.Node.extend({
         this.sprite = new cc.Sprite(cache.getSpriteFrame(runnerRole+"_1.png"));
         this.addChild(this.sprite);
         this.name = name;
-
-
+        this.runnerRole = runnerRole;
+        this.isFinish = false;
         cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
 
         // photo frame
@@ -62,13 +63,15 @@ var Runner = cc.Node.extend({
     },
     update: function()
     {
-        var runner = this;
-        runner.setPosition(cc.pAdd(runner.getPosition(),cc.p(runner.speed,0)));
+        if(this.isFinish == false) {
+            var runner = this;
+            runner.setPosition(cc.pAdd(runner.getPosition(), cc.p(runner.speed, 0)));
 
-        var speed = this.speed;
-        var speedAnimation = this.sprite.getActionByTag(10);
+            var speed = this.speed;
+            var speedAnimation = this.sprite.getActionByTag(10);
 
-        speedAnimation.setSpeed(this._convertAnimationSpeed(speed));
+            speedAnimation.setSpeed(this._convertAnimationSpeed(speed));
+        }
     },
     _convertAnimationSpeed: function(speed)
     {
@@ -84,9 +87,20 @@ var Runner = cc.Node.extend({
         this.isFinish = true;
         this.stopFire();
         this.sprite.stopAllActions();
+        var cache = cc.spriteFrameCache;
+        cache.addSpriteFrames("front.plist","front.png");
+        this.sprite.setSpriteFrame(cache.getSpriteFrame("front_"+this.runnerRole+".png"));
+
+        /*
+        var finishAcc = new cc.JumpBy(0.7,cc.p(0,0),1,10,1);
+        var sequenceAnimation =new cc.Sequence(finishAcc);
+        this.runAction(cc.repeatForever(sequenceAnimation,0));
+        */
     },
     setSpeed: function(speed)
     {
+        if(this.isFinish == true)
+            return;
         this.speed = speed;
         var speedAnimation = this.sprite.getActionByTag(10);
         if(speedAnimation){
