@@ -73,6 +73,9 @@ var s_RunnerPlist_dragon = "runner_dragon.plist";
 var s_RunnerPng_leopard = "runner_leopard.png";
 var s_RunnerPlist_wolf = "runner_wolf.plist";
 
+var s_frontPlist = "front.plist";
+var s_frontPng = "front.png";
+
 var g_resources = [
     //image
     s_HelloWorld,
@@ -139,7 +142,10 @@ var g_resources = [
     s_Qrcode,
     s_Go,
     s_TimeLeft,
-    s_Logo
+    s_Logo,
+
+    s_frontPlist,
+    s_frontPng
 
     //plist
 
