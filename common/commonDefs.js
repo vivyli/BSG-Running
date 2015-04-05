@@ -36,7 +36,7 @@ NETWORK_CONSTANTS = {
     QRCODE_DATA : "qrcode_data",
 
     IMAGE_SIZE : 96,
-    QRCODE_SIZE : 128
+    QRCODE_SIZE : 98
 };
 
 GAME_STATE = {

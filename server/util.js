@@ -87,7 +87,7 @@ function encode_image(imgurl, callback) {
 }
 
 function gen_qrcode_base64(url) {
-    var data = "data:png;base64," + qrcode.toBase64(url, 4);
+    var data = "data:png;base64," + qrcode.toBase64(url, 6);
     return data;
 }
 
