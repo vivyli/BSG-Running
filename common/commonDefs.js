@@ -33,8 +33,10 @@ NETWORK_CONSTANTS = {
     USER_PHOTO : "user_photo",
     USER_GENDER : "user_gender",
     USER_ROLE : "user_role",
+    QRCODE_DATA : "qrcode_data",
 
-    IMAGE_SIZE : 96
+    IMAGE_SIZE : 96,
+    QRCODE_SIZE : 128
 };
 
 GAME_STATE = {

@@ -9,7 +9,7 @@ var PrepareScene = cc.Scene.extend({
 
         //gGameData.initData();
         var layer = new PrepareLayer();
-        layer.init(5,5);
+        layer.init(5,5,ControlLayer._getInstance().qrcode);
         this.addChild(layer);
         this.controlLayer = layer;
         ControlLayer._getInstance().updateScene(this, EnumSceneName.ePrepare);

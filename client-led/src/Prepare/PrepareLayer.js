@@ -16,7 +16,7 @@ var PrepareLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
     },
-    init:function (width,height) {
+    init:function (width,height,qrcode) {
 
         var bRet = false;
         this.widthIdx = width;
@@ -52,7 +52,8 @@ var PrepareLayer = cc.Layer.extend({
             startItem.setScale(0.8);
 
 
-            var qrCode = new cc.Sprite(s_Qrcode);
+            //var qrCode = new cc.Sprite(s_Qrcode);
+            var qrCode = ControlLayer._getInstance().getImgSpriteWithData(qrcode);
             qrCode.setAnchorPoint(cc.p(0,0))
             qrCode.setPosition(cc.p(550,100));
             qrCode.setScale(1.5,2);

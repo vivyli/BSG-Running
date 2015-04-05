@@ -11,6 +11,8 @@ ControlLayer = cc.Class.extend({
 	gameId:"",
     players:[],
     winners:[],
+
+    qrcode:"",
     init:function()
     {
         this.players = [];
