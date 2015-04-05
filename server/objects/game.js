@@ -43,5 +43,13 @@ module.exports = function Game(socket_handler){
 
         return user_id;
     }
+
+    this.get_game_url = function () {
+        var u = 'http://' + SERVER_HOST;
+        if (WEB_SERVER_PORT != 80)
+            u = u + ':' + WEB_SERVER_PORT;
+        u = u + '/client-player/login?game_id=' + this.id;
+        return u;
+    }
 }
 

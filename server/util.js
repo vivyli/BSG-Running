@@ -6,6 +6,7 @@ var log = require('./log.js');
 var querystring = require('querystring');
 var config = require('./config.js');
 var http = require('http');
+var qrcode = require('qrcode-js');
 
 function handlePostRequest(request, callback){
     var post_data = "";
@@ -85,8 +86,13 @@ function encode_image(imgurl, callback) {
     return null;
 }
 
+function gen_qrcode_64(url) {
+    return qrcode.toBase64(url, 4);
+}
+
 exports.handlePostRequest = handlePostRequest;
 exports.send_text_response = send_text_response;
 exports.average = average;
 exports.map_length = map_length;
 exports.encode_image = encode_image;
+exports.gen_qrcode_64 = gen_qrcode_64;

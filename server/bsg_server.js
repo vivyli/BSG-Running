@@ -55,7 +55,7 @@ function start() {
     //Error handler
     process.on('uncaughtException', function (exception) {
         // handle or ignore error
-       log.log_with_color(exception, Log_Config.error_color);
+       log.log_with_color(exception.toString(), Log_Config.error_color);
     });
 }
 
