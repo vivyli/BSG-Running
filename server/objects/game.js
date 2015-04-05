@@ -45,10 +45,11 @@ module.exports = function Game(socket_handler){
     }
 
     this.get_game_url = function () {
-        var u = 'http://' + SERVER_HOST;
-        if (WEB_SERVER_PORT != 80)
-            u = u + ':' + WEB_SERVER_PORT;
+        var u = 'http://' + NETWORK_CONSTANTS.SERVER_HOST;
+        if (NETWORK_CONSTANTS.WEB_SERVER_PORT != 80)
+            u = u + ':' + NETWORK_CONSTANTS.WEB_SERVER_PORT;
         u = u + '/client-player/login?game_id=' + this.id;
+        console.log(u);
         return u;
     }
 }

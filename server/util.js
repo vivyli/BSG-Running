@@ -86,7 +86,7 @@ function encode_image(imgurl, callback) {
     return null;
 }
 
-function gen_qrcode_64(url) {
+function gen_qrcode_base64(url) {
     return qrcode.toBase64(url, 4);
 }
 
@@ -95,4 +95,4 @@ exports.send_text_response = send_text_response;
 exports.average = average;
 exports.map_length = map_length;
 exports.encode_image = encode_image;
-exports.gen_qrcode_64 = gen_qrcode_64;
+exports.gen_qrcode_base64 = gen_qrcode_base64;

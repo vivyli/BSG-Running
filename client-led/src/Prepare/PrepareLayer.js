@@ -53,7 +53,7 @@ var PrepareLayer = cc.Layer.extend({
 
 
             //var qrCode = new cc.Sprite(s_Qrcode);
-            var qrCode = ControlLayer._getInstance().getImgSpriteWithData(qrcode);
+            var qrCode = ControlLayer._getInstance().getImgSpriteWithData(qrcode, true);
             qrCode.setAnchorPoint(cc.p(0,0))
             qrCode.setPosition(cc.p(550,100));
             qrCode.setScale(1.5,2);

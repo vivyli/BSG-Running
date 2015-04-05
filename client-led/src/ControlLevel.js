@@ -77,13 +77,13 @@ ControlLayer = cc.Class.extend({
             return;
         } else {
 			// recv gameId
+            var self = this;
             this.socket.on(EventNetworkLED.GameID, function(data){
-                this.gameId = data[NETWORK_CONSTANTS.GAME_ID];
-                this.qrcode = data[NETWORK_CONSTANTS.QRCODE_DATA];
+                self.gameId = data[NETWORK_CONSTANTS.GAME_ID];
+                self.qrcode = data[NETWORK_CONSTANTS.QRCODE_DATA];
 
 				// run prepare scene
 				cc.log("### server send prepare game");
-                cc.log(data);
 				var nextScene = new PrepareScene();
 				cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
             });
