@@ -46,6 +46,7 @@ var GameControllerLayer = cc.Layer.extend({
         // TODO, fake player id
         data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
         data[NETWORK_CONSTANTS.GAME_ID] = CLIENT_GAME_ID;
+        cc.log("send game id to server", CLIENT_GAME_ID);
         var controller = this;
         this.sendData(data, EventNetworkPlayer.Login, function(responseData){
 
@@ -155,7 +156,7 @@ var GameControllerLayer = cc.Layer.extend({
 	},
     startSendingHeartBeatData: function()
     {
-        this.schedule(this._startSendingHeartBeatData, 1);
+        this.schedule(this._startSendingHeartBeatData, 2);
     },
     _startSendingHeartBeatData: function()
     {

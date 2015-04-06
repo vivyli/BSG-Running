@@ -1,5 +1,5 @@
 PLAYER_ID = Date.now();
-CLIENT_GAME_ID = 1;
+//CLIENT_GAME_ID = CLIENT_GAME_ID || 0;
 CLIENT_GAME_STATE = 0;
 
 // config

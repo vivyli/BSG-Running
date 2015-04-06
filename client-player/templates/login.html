@@ -22,12 +22,14 @@
 </head>
 <body style="padding:0; margin: 0; background: #000;">
 <canvas id="gameCanvas" width="640" height="960"></canvas>
-<script src="../frameworks/player/cocos2d-js-v3.3.js"></script>
+<!--script src="../frameworks/player/cocos2d-js-v3.3.js"></script-->
+<script src="../frameworks/cocos2d-html5/CCBoot.js"></script>
 <script>
     //PLAYER_ID = {{ player_id }};
     CLIENT_GAME_ID = {{game_id}};
+
+    cc.log(CLIENT_GAME_ID);
 </script>
-<!--script src="../frameworks/cocos2d-html5/CCBoot.js"></script-->
 <script src="main.js"></script>
 </body>
 </html>

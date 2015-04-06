@@ -48,6 +48,7 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
             }
             else {
                 // TODO Notify not accept this event
+                log.log_with_color('[Error] Sensor data not accepted!', Log_Config.error_color);
             }
         });
     }
