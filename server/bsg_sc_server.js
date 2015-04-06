@@ -62,13 +62,13 @@ function start(io/* port*/) {
         socket.on(EventNetworkLED.Login, function (data) {
             log.log_with_color('[Req][LED] Login', Log_Config.request_color);
             if (workflow.check_accept_event(game == null? null: game.game_state, EventNetworkLED.Login)) {
-                if (game != null){
+               /* if (game != null){
                     game.reset();
                     game_manager.update_game(game);
                 }
 
-                else
-                    game = game_manager.new_game(socket);
+                else*/
+                game = game_manager.new_game(socket);
 
                 game.game_state = GAME_STATE.READY_TO_START;//GAME_STATE.WAITING_FOR_PLAYERS;
                 // Notify Led client the created game id.
@@ -82,6 +82,8 @@ function start(io/* port*/) {
             }
             else {
                 // TODO Notify didn't accept this event for now.
+                console.log(game.game_state);
+                log.log_with_color(EventNetworkLED.Login + ' is not accepted!', Log_Config.error_color);
             }
         });
 
@@ -117,6 +119,7 @@ function start(io/* port*/) {
         // 2. reset game. That is to clear runners and reset game state here.
         socket.on(EventNetworkLED.EndGame, function (data){
             log.log_with_color('[Req][LED] End Game', Log_Config.request_color);
+            console.log(game.game_state);
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.EndGame)) {
                 if (interval_id)
                     clearInterval(interval_id);
@@ -126,6 +129,7 @@ function start(io/* port*/) {
             }
             else {
                 // TODO Notify didn't accept this event for now.
+                log.log_with_color(EventNetworkLED.EndGame + ' is not accepted', Log_Config.error_color);
             }
         });
 

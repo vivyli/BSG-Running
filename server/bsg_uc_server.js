@@ -104,6 +104,7 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
     if (request.method == "POST") {
         util.handlePostRequest(request, function(object_post_data){
             var game_id = object_post_data[NETWORK_CONSTANTS.GAME_ID];
+            console.log('game_id = ' + game_id);
             var game = game_manager.get_game(game_id);
             //console.log('[Login][game_state]' + game.game_state);
             if (game != null && workflow.check_accept_event(game.game_state, EventNetworkPlayer.Login) && game.can_join()) {
@@ -116,6 +117,7 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
             }
             else{
                 // TODO Notify not accept this event
+                console.log(game.game_state);
                 log.log_with_color(EventNetworkPlayer.Login + ' not accept!', Log_Config.error_color);
             }
         });
