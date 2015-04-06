@@ -25,7 +25,7 @@ NETWORK_CONSTANTS = {
     //SERVER_HOST : "http://192.168.10.105",
     LOCAL_HOST: "http://192.168.10.108",
     SERVER_PORT : 8888,
-    WEB_SERVER_PORT: 8000,
+    WEB_SERVER_PORT: 80,
     SHAKE_DATA : "data",
     USER_ID : "user_id",
     GAME_ID : "game_id",

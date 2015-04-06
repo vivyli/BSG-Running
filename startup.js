@@ -11,7 +11,7 @@ game_manager = new GameManager();
 
 function startup() {
     bsg_server.start();
-    bsg_web_server.start();
+   // bsg_web_server.start();
 
     var rl = readline.createInterface({
         input: process.stdin,

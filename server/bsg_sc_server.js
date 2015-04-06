@@ -74,7 +74,7 @@ function start(io/* port*/) {
                 // Notify Led client the created game id.
                 // Format: {game_id: 1}
                 var qrbase64 = util.gen_qrcode_base64(game.get_game_url());
-                console.log(qrbase64);
+                //console.log(qrbase64);
                 this.emit(EventNetworkLED.GameID, {game_id: game.id, qrcode_data: qrbase64});
 
                 check_alive_interval_id = setInterval(check_runners_alive(game.id), EventNetworkLED.Interval);

@@ -48,7 +48,9 @@ module.exports = function Game(socket_handler){
         var u = NETWORK_CONSTANTS.SERVER_HOST;
         if (NETWORK_CONSTANTS.WEB_SERVER_PORT != 80)
             u = u + ':' + NETWORK_CONSTANTS.WEB_SERVER_PORT;
-        u = u + '/client-player/pl_login?game_id=' + this.id;
+        u = u + '/client-player/?game_id=' + this.id;
+
+        //var u = 'http://192.168.10.108/BSG-Running/client-player/?game_id=' + this.id;
         console.log(u);
         return u;
     }
