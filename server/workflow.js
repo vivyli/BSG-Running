@@ -11,7 +11,8 @@ require('../common/commonDefs.js');
 // FINISHED             ->  LED.Login
 function check_accept_event(game_state, event) {
 
-   // return true;
+    if (__TEST__ == 2)
+        return true;
 
     if (game_state == null || game_state == undefined){
         if (event == EventNetworkLED.Login)

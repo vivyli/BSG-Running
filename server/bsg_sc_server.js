@@ -81,8 +81,6 @@ function start(io/* port*/) {
                 log.log_with_color('[LED LOGIN] game id: ' + game.id, Log_Config.sc_log_default_color);
             }
             else {
-                // TODO Notify didn't accept this event for now.
-                console.log(game.game_state);
                 log.log_with_color(EventNetworkLED.Login + ' is not accepted!', Log_Config.error_color);
             }
         });
@@ -119,7 +117,6 @@ function start(io/* port*/) {
         // 2. reset game. That is to clear runners and reset game state here.
         socket.on(EventNetworkLED.EndGame, function (data){
             log.log_with_color('[Req][LED] End Game', Log_Config.request_color);
-            console.log(game.game_state);
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.EndGame)) {
                 if (interval_id)
                     clearInterval(interval_id);
@@ -132,6 +129,14 @@ function start(io/* port*/) {
                 log.log_with_color(EventNetworkLED.EndGame + ' is not accepted', Log_Config.error_color);
             }
         });
+
+        // TEST!
+        socket.on('test', function (data) {
+            console.log(data);
+            socket.emit('test', {data: data});
+
+        });
+        // END TEST!
 
         // LED client disconnect.
         socket.on('disconnect', function (data){

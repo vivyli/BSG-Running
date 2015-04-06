@@ -12,4 +12,4 @@ Log_Config = {
 _Heart_Beat_Time_Out = 10000;
 
 __DEBUG__ = 1;
-__TEST__ = 0;
+__TEST__ = 2;
