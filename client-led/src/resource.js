@@ -31,6 +31,7 @@ var s_Qrcode = "qrcode.png";
 var s_Go = "go.png";
 var s_TimeLeft = "timeleft.png";
 var s_Logo = "logo.png";
+var s_Loading = "loading.gif";
 
 
 var s_RunnerPlist_bean = "runner_bean.plist";
@@ -143,6 +144,7 @@ var g_resources = [
     s_Go,
     s_TimeLeft,
     s_Logo,
+    s_Loading,
 
     s_frontPlist,
     s_frontPng

@@ -25,6 +25,11 @@ var GameControllerLayer = cc.Layer.extend({
             });
             this.addChild(this.background, 0);
 
+            // game id
+            var idLable = new cc.LabelTTF("gId:"+CLIENT_GAME_ID.toString(), "Impact", 48);
+            idLable.setPosition(size.width / 2, size.height * 0.2);
+            this.addChild(idLable);
+
             this.login();
 
             // test
@@ -55,7 +60,6 @@ var GameControllerLayer = cc.Layer.extend({
             cc.log(responseData);
 
             PLAYER_ID = parseInt(responseData);
-            cc.log("player id", PLAYER_ID);
             controller.showPlayerId();
             controller.startSendingHeartBeatData();
         });
@@ -105,28 +109,7 @@ var GameControllerLayer = cc.Layer.extend({
             this.stopSendingSensorData();
         }
     },
-    _cc_setAccelerometerInterval: function(interval){
-        var _p = cc.inputManager;
-        if (_p._accelInterval !== interval) {
-            _p._accelInterval = interval;
-        }
-    },
-    _cc_setAccelerometerEnabled: function(isEnable){
-        var _t = cc.inputManager;
-        if(_t._accelEnabled === isEnable)
-            return;
-
-        _t._accelEnabled = isEnable;
-        var scheduler = cc.director.getScheduler();
-        if(_t._accelEnabled){
-            _t._accelCurTime = 0;
-            scheduler.scheduleUpdateForTarget(_t);
-        } else {
-            _t._accelCurTime = 0;
-            scheduler.unscheduleUpdateForTarget(_t);
-        }
-    },
-	_startSendingSensorData: function()
+    _startSendingSensorData: function()
 	{
         cc.log("_startSendingSensorData");
 		if( 'accelerometer' in cc.sys.capabilities ) {
@@ -189,27 +172,30 @@ var GameControllerLayer = cc.Layer.extend({
         cc.log("### stop hb func");
         this.unschedule(this._startSendingHeartBeatData);
     },
-	sendData: function(data, serverEvent, callback)
+	sendData: function(data, serverEvent, callback, istest, testhost)
 	{
-		var xhr = cc.loader.getXMLHttpRequest();
-        var url = NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT+"/"+serverEvent;
-		xhr.open("POST", url);
-		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status <= 207)) {
+        var url = NETWORK_CONSTANTS.SERVER_HOST + ":" + NETWORK_CONSTANTS.SERVER_PORT + "/" + serverEvent;
+        if(istest) {
+            url = testhost+":8888" + "/" + serverEvent;
+        }
+
+        var xhr = cc.loader.getXMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status <= 207)) {
                 callback(xhr.response);
             }
         };
         var dataString = "";
         var isFirst = true;
-        for(var key in data)
-        {
-            if(!isFirst){
+        for (var key in data) {
+            if (!isFirst) {
                 dataString += "&";
             } else {
                 isFirst = false;
             }
-            dataString += key+"="+data[key];
+            dataString += key + "=" + data[key];
         }
         xhr.send(dataString);
 	}
