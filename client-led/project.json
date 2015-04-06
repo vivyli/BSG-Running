@@ -20,7 +20,6 @@
 
         "src/ControlLevel.js",
         "src/resource.js",
-        "src/myApp.js",
 
         "src/Welcome/WelcomeScene.js",
         "src/Welcome/WelcomeLayer.js",

@@ -1,9 +1,3 @@
-var s_HelloWorld = "HelloWorld.jpg";
-var s_CloseNormal = "CloseNormal.png";
-var s_CloseSelected = "CloseSelected.png";
-
-var s_StartGameUp = "buttonUp.png";
-var s_StartGameDown = "buttonDown.png";
 var s_StartGameUp2 = "button1.png";
 var s_StartGameDown2 = "button2.png";
 var s_ButtonYaoUp = "button_yao1.png";
@@ -27,7 +21,6 @@ var s_MainBackground_water = "water.png";
 var s_StartCountDownPng = "start_count_down.png";
 var s_StartCountDownPlist = "start_count_down.plist";
 
-var s_Qrcode = "qrcode.png";
 var s_Go = "go.png";
 var s_TimeLeft = "timeleft.png";
 var s_Logo = "logo.png";
@@ -79,9 +72,6 @@ var s_frontPng = "front.png";
 
 var g_resources = [
     //image
-    s_HelloWorld,
-    s_CloseNormal,
-    s_CloseSelected,
     s_RunnerPlist,
     s_RunnerPng,
     s_MainBackground,
@@ -131,16 +121,13 @@ var g_resources = [
     s_StartCountDownPng,
     s_StartCountDownPlist,
 
-    s_StartGameUp,
     s_StartGameUp2,
-    s_StartGameDown,
     s_StartGameDown2,
     s_ButtonYaoUp,
     s_ButtonYaoDown,
     s_ButtonNextUp,
     s_ButtonNextDown,
 
-    s_Qrcode,
     s_Go,
     s_TimeLeft,
     s_Logo,

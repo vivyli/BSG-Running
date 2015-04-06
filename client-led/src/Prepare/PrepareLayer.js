@@ -78,7 +78,7 @@ var PrepareLayer = cc.Layer.extend({
 
 
             //TODO: del test data
-            var addItem = new cc.MenuItemImage(
+            /*var addItem = new cc.MenuItemImage(
                 s_CloseNormal,
                 s_CloseSelected,
                 function () {
@@ -105,7 +105,7 @@ var PrepareLayer = cc.Layer.extend({
             var delMenu = new cc.Menu(delItem);
             delMenu.setPosition(100, 70);
             this.addChild(delMenu);
-            addItem.setPosition(100,200);
+            addItem.setPosition(100,200);*/
 
 
             this.xGap = 500 /this.widthIdx;
