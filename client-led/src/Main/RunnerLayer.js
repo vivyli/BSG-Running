@@ -13,6 +13,8 @@ var RunnerLayer = cc.Layer.extend({
     init:function () {
         this.runners = new Array();
         var size = cc.director.getWinSize();
+        var controlLevel = ControlLayer._getInstance();
+        var players = controlLevel.players;
         var runnersCount = 0;
         for(var playerId in players)
         {
@@ -23,11 +25,11 @@ var RunnerLayer = cc.Layer.extend({
         // TODO remove test code
         //test code:
         // TODO remove test code
-         runnersCount = 4;
+        //runnersCount = 4;
 
         this.gap = (size.height - 120) / runnersCount;
 
-        this.addRunner("hello","bird","yxsh",s_CloseNormal,1);
+        /*this.addRunner("hello","bird","yxsh",s_CloseNormal,1);
         this.addRunner("hello1","dog","yxsh1",s_CloseNormal,2);
         this.addRunner("hello2","pinkfish","yxsh2",s_CloseNormal,1);
         this.addRunner("hello3","griffin","yxsh3",s_CloseNormal,2);
@@ -35,11 +37,10 @@ var RunnerLayer = cc.Layer.extend({
         this.runners["hello"].setFinish();
         this.runners["hello1"].setFinish();
         this.runners["hello2"].setFinish();
-        this.runners["hello3"].setFinish();
+        this.runners["hello3"].setFinish();*/
         //end
 
-        var controlLevel = ControlLayer._getInstance();
-        var players = controlLevel.players;
+
         for(var playerId in players)
         {
             var playerObj = players[playerId];
