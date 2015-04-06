@@ -35,16 +35,15 @@ var WelcomeLayer = cc.Layer.extend({
             this.logo.setPosition(cc.p(size.width / 2 + 30, size.height - 90));
             this.addChild(this.logo, 15000, 2001);
 
+            var self = this;
             var beginItem = new cc.MenuItemImage(
                 s_ButtonYaoUp,
                 s_ButtonYaoDown,
                 function () {
-                    // test
-                    var fakeId = "1"
-                    this.gameId = fakeId;
-                    //cc.log("### fake gameId, go to prepare scene");
-                    //var nextScene = new PrepareScene();
-                    //cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
+                    // loading gif
+                    var loading = new cc.Sprite(s_Loading);
+                    loading.setPosition(cc.p(size.width/2, size.height/2));
+                    self.addChild(loading, 100000, 200);
 
                     ControlLayer._getInstance().Login();
                 },this);

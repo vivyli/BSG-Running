@@ -23,13 +23,6 @@ var Runner = cc.Node.extend({
         this.isFinish = false;
         cache.addSpriteFrames(s_RunnerPlist,s_RunnerPng);
 
-        // photo frame
-        //var frameStr = "waitFrame_1.png";
-        //var photoFrame = new cc.Sprite(cache.getSpriteFrame(frameStr));
-        //photoFrame.setScale(0.5);
-        //photoFrame.setPosition(cc.p(0,90));
-        //this.addChild(photoFrame);
-
         var c = cc.color(cc.color(139, 90, 0, 200));
         if(gender<=1){
             c = cc.color(cc.color(39, 64, 139, 200));
