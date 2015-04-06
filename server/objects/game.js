@@ -38,7 +38,7 @@ module.exports = function Game(socket_handler){
     }
 
     this.new_user_id = function() {
-        var user_id = this.user_id_seed;
+        var user_id = this.id * HeadCountLimit + this.user_id_seed;
         this.user_id_seed ++;
 
         return user_id;
