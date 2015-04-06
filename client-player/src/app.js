@@ -6,6 +6,7 @@ var GameControllerLayer = cc.Layer.extend({
     _sensorDatas: [],
     _frequency: 30,
     _valueFrequency: 7,
+    hbIndex:0,
     ctor:function () {
         this._super();
         this.init();
@@ -160,6 +161,8 @@ var GameControllerLayer = cc.Layer.extend({
     },
     _startSendingHeartBeatData: function()
     {
+        cc.log("hb index", this.hbIndex);
+        this.hbIndex = this.hbIndex+1;
         if(PLAYER_ID==undefined || !PLAYER_ID)  {
             return;
         }
