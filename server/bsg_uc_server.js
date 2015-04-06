@@ -130,6 +130,17 @@ uc_events.actions[EventNetworkPlayer.Login] = function(request, response) {
 
 };
 
+// TEST!
+uc_events.actions['testa'] = function(request, response) {
+    console.log('testa');
+    if (request.method == "POST") {
+        util.handlePostRequest(request, function(object_post_data){
+            console.log(object_post_data['data']);
+            util.send_text_response(response, object_post_data['data']);
+        });
+    }
+};
+// TEST
 
 function route(request, response) {
     if (!uc_events.route(request, response)) {

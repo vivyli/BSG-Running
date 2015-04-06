@@ -133,7 +133,7 @@ function start(io/* port*/) {
         // TEST!
         socket.on('test', function (data) {
             console.log(data);
-            socket.emit('test', {data: data});
+            socket.emit('test', data);
 
         });
         // END TEST!
