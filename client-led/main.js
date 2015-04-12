@@ -9,7 +9,7 @@ cc.game.onStart = function(){
     }else{
         designSize = cc.size(1024, 768);
 
-        
+
         cc.loader.resPath = "res/HD";
     }
     cc.log("designSize.width"+designSize.width);
