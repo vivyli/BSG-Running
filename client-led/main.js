@@ -9,6 +9,11 @@ cc.game.onStart = function(){
     }else{
         cc.loader.resPath = "res/HD";
     }
+    cc.log("designSize.width"+designSize.width);
+    cc.log("designSize.height"+designSize.height);
+    cc.log("screenSize.width"+screenSize.width);
+    cc.log("screenSize.height"+screenSize.height);
+
     cc.view.setDesignResolutionSize(designSize.width, designSize.height, cc.ResolutionPolicy.EXACT_FIT);
 
     //load resources
