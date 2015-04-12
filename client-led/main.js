@@ -2,13 +2,7 @@ cc.game.onStart = function(){
     //var designSize = cc.size(480, 800);
     var screenSize = cc.view.getFrameSize();
     var designSize = screenSize;
-    if(!cc.sys.isNative && screenSize.height < 800){
-        designSize = cc.size(1024, 768);
-        //designSize = screenSize;
-        cc.loader.resPath = "res/Normal";
-    }else{
-        cc.loader.resPath = "res/HD";
-    }
+    designSize = cc.size(1024, 768);
     cc.log("designSize.width"+designSize.width);
     cc.log("designSize.height"+designSize.height);
     cc.log("screenSize.width"+screenSize.width);
