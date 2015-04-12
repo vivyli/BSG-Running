@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <?php
 		
@@ -174,6 +175,6 @@
 </head>
 
 <body style="padding:0; margin: 0; background: #000;">
-<canvas id="gameCanvas" width="1024" height="768"></canvas>
+<canvas id="gameCanvas" width="10000" height="10000"></canvas>
 </body>
 </html>
