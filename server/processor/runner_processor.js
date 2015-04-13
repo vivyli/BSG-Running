@@ -21,7 +21,10 @@ function process(user_id, shake_data, is_iphone) {
         log.log_with_color('[runner_processor:process]: user_id = ' + user_id + ', shake_data = ' + Math.sqrt(shake_data), 'yellow');
     var runner = game_manager.get_runner(user_id);
     if (runner != null) {
-        runner.update_speed(calculateRunnerSpeed(shake_data) * 5);
+        var speed = calculateRunnerSpeed(shake_data);
+        if (is_iphone == 0)
+            speed = speed * 5;
+        runner.update_speed(speed);
         return true;
     }
 
