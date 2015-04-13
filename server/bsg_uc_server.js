@@ -40,10 +40,14 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
         util.handlePostRequest(request, function(object_post_data){
             var shake_data = object_post_data[NETWORK_CONSTANTS.SHAKE_DATA];
             var user_id = object_post_data[NETWORK_CONSTANTS.USER_ID];
+            var user_agent_str = request.headers['user-agent'];
+            var user_agent = 0;
+            if (user_agent_str.indexOf('iPhone') != -1)
+                user_agent = 1;
             var game = game_manager.get_game_by_user_id(user_id);
             log.log_with_color('sensor data received! shake_data=' + shake_data + ' user_id=' + user_id, 'yellow');
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkPlayer.Sensor)) {
-                runner_processor.process(user_id, shake_data);
+                runner_processor.process(user_id, shake_data, user_agent);
                 util.send_text_response(response, 'OK');
             }
             else {

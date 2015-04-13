@@ -16,12 +16,12 @@ function calculateRunnerSpeed(shake_data) {
     return Math.max(0, ((data - 1) / GameDefinition.ShakeData2SpeedFactor));
 }
 
-function process(user_id, shake_data) {
+function process(user_id, shake_data, is_iphone) {
     if (__DEBUG__ == 1)
         log.log_with_color('[runner_processor:process]: user_id = ' + user_id + ', shake_data = ' + Math.sqrt(shake_data), 'yellow');
     var runner = game_manager.get_runner(user_id);
     if (runner != null) {
-        runner.update_speed(calculateRunnerSpeed(shake_data));
+        runner.update_speed(calculateRunnerSpeed(shake_data) * 5);
         return true;
     }
 

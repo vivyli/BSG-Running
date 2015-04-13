@@ -28,6 +28,8 @@ module.exports = function Runner(user_id){
     this.last_updated_time = Date.parse(new Date());
     this.speed_buffer = new Array();
 
+    this.user_agent = -1;
+
     this.update_speed = function (speed) {
         this.speed_sum = this.speed_sum + speed;
         this.update_times = this.update_times + 1;
