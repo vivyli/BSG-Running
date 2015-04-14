@@ -27,8 +27,7 @@ module.exports = function Runner(user_id){
     this.state = RUNNER_STATE.RESERVED;
     this.last_updated_time = Date.parse(new Date());
     this.speed_buffer = new Array();
-
-    this.user_agent = -1;
+    this.user_agent = DEVICE_TYPE.RESERVED;
 
     this.update_speed = function (speed) {
         this.speed_sum = this.speed_sum + speed;

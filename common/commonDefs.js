@@ -49,4 +49,9 @@ GAME_STATE = {
 
 };
 
+DEVICE_TYPE = {
+    RESERVED    :   0,
+    IPHONE      :   1,
+    ANDROID     :   2
 
+};

@@ -22,8 +22,8 @@ function process(user_id, shake_data, is_iphone) {
     var runner = game_manager.get_runner(user_id);
     if (runner != null) {
         var speed = calculateRunnerSpeed(shake_data);
-        if (is_iphone == 0)
-            speed = speed * 5;
+       // if (is_iphone == 0)
+       //     speed = speed * 5;
         runner.update_speed(speed);
         return true;
     }
