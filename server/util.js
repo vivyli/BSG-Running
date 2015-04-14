@@ -70,6 +70,7 @@ function map_length(mp) {
 
 function encode_image(imgurl, callback) {
     var imgurl = 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/96';
+    log.log_with_color('[----------- DEBUG -----------] Start Encoding!', 'blue');
     http.get(imgurl, function(res){
         var imgData = "";
         res.setEncoding("binary");
@@ -79,6 +80,7 @@ function encode_image(imgurl, callback) {
         res.on("end", function(){
             var base64 = new Buffer(imgData, 'binary').toString('base64');
             var data = "data:" + res.headers["content-type"] + ";base64," + base64;
+            log.log_with_color('[----------- DEBUG -----------] End sending!', 'blue');
             callback(data);
             return data;
         });

@@ -73,9 +73,10 @@ function register_runner(user_id, game_id) {
         runner.gender = 2;
         runner.username = user_id;
 
+        log.log_with_color('[----------- DEBUG -----------] Start sending!', 'blue');
         game.socket_handler.emit(EventNetworkLED.PrepareState, {user_id : user_id, user_gender: runner.gender,
             user_name: runner.username, user_photo:runner.img_base64});
-
+        log.log_with_color('[----------- DEBUG -----------] End sending!', 'blue');
         if (__DEBUG__ == 1)
             log.log_with_color('[Player Login] user id: ' + user_id, Log_Config.uc_log_default_color);
     });
