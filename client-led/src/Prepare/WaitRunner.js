@@ -21,8 +21,6 @@ var WaitRunner = cc.Node.extend({
         this.sprite.setScale(0.5);
         this.addChild(this.sprite);
 
-
-
         // set for debug
         //TODO: del
         //photo = new cc.Sprite(s_Photo);
