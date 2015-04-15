@@ -3,7 +3,7 @@
  */
 var Runner = cc.Node.extend({
     sprite:null,
-    speed:0,
+    speed:1,
     name:"",
     photo:null,
     gender:1,

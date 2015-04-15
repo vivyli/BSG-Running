@@ -5,6 +5,7 @@ var RunnerLayer = cc.Layer.extend({
     runners:null,
     gap:60,
     winnerCount:0,
+    receiveData:false,
     ctor:function () {
         this._super();
         this.init();
@@ -52,8 +53,16 @@ var RunnerLayer = cc.Layer.extend({
             this.addRunner(playerId, role, name, photo, gender);
         }
 
-        this.schedule(this.update,0);
+        this.schedule(this.update,0,null,3);
+        this.scheduleOnce(this.enableSetSpeed,5.5);
     },
+
+    enableSetSpeed:function()
+    {
+        this.receiveData = true;
+
+    },
+
 
     addRunner:function(id,role,name,photo,gender){
         var nextRunner = new Runner();
@@ -104,6 +113,8 @@ var RunnerLayer = cc.Layer.extend({
     },
 
     updateRunnerSpeed: function(runnerId, speed){
+        if( this.receiveData == false)
+            return;
         var runner = this.runners[runnerId];
         if(runner)
         {
