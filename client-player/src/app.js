@@ -26,9 +26,9 @@ var GameControllerLayer = cc.Layer.extend({
             this.addChild(this.background, 0);
 
             // game id
-            var idLable = new cc.LabelTTF("gId:"+CLIENT_GAME_ID.toString(), "Impact", 48);
-            idLable.setPosition(size.width / 2, size.height * 0.2);
-            this.addChild(idLable);
+            //var idLable = new cc.LabelTTF("gId:"+CLIENT_GAME_ID.toString(), "Impact", 48);
+            //idLable.setPosition(size.width / 2, size.height * 0.2);
+            //this.addChild(idLable);
 
             this.login();
 

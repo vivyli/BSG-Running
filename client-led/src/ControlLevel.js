@@ -11,6 +11,7 @@ ControlLayer = cc.Class.extend({
 	gameId:"",
     players:[],
     winners:[],
+    roleIdx:0,
 
     qrcode:"",
     init:function()
@@ -28,6 +29,7 @@ ControlLayer = cc.Class.extend({
         this.players = [];
         this.winners = [];
         GameRoles.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
+        this.roleIdx = 0;
         //this.Login();
     },
 	Login: function()
@@ -96,22 +98,14 @@ ControlLayer = cc.Class.extend({
                 var playerId = data[NETWORK_CONSTANTS.USER_ID];
                 var playerObj = data;
                 controlLevel.players[playerId] = playerObj;
-                var mapCount = function(map){
-                    var count = 0;
-                    for(var k in map){
-                        count = count + 1;
-                    }
-                    return count;
-                };
 
                 cc.log(playerObj);
 
-                var playerCount = mapCount(controlLevel.players);
-                var idx = playerCount-1;
-                idx = idx <= 0 ? 0 : idx;
-                controlLevel.players[playerId][NETWORK_CONSTANTS.USER_ROLE] = GameRoles[playerCount-1];
+                var playerCount = controlLevel.roleIdx;
+                controlLevel.roleIdx = (controlLevel.roleIdx+1)%GameRoles.length;
+                controlLevel.players[playerId][NETWORK_CONSTANTS.USER_ROLE] = GameRoles[playerCount];
 
-                cc.log("player role", controlLevel.players[playerId][NETWORK_CONSTANTS.USER_ROLE]);
+                cc.log("player role", controlLevel.roleIdx, controlLevel.players[playerId][NETWORK_CONSTANTS.USER_ROLE]);
 
 				if(controlLevel.sceneName == EnumSceneName.ePrepare) {
 					controlLevel.scene.registerPlayer(playerId, controlLevel.players[playerId]);
