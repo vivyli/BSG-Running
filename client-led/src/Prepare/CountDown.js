@@ -2,7 +2,7 @@
  * Created by Xinsheng Yang on 2015/3/22.
  */
 var CountDown = cc.Node.extend({
-    timeCounter:120,
+    timeCounter:300,
     displayLable:null,
     minute:"",
     sceond:"",

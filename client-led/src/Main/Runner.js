@@ -58,7 +58,7 @@ var Runner = cc.Node.extend({
     {
         if(this.isFinish == false) {
             var runner = this;
-            runner.setPosition(cc.pAdd(runner.getPosition(), cc.p(runner.speed, 0)));
+            runner.setPosition(cc.pAdd(runner.getPosition(), cc.p(runner.speed*GameDefinition.SpeedRate, 0)));
 
             var speed = this.speed;
             var speedAnimation = this.sprite.getActionByTag(10);

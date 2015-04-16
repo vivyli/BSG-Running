@@ -121,6 +121,7 @@ ControlLayer = cc.Class.extend({
                 var playerObj = data;
                 delete controlLevel.players[playerId];
 
+                cc.log("unregister id", playerId);
                 if(controlLevel.sceneName == EnumSceneName.ePrepare) {
                     controlLevel.scene.unRegisterPlayer(playerId, playerObj);
                 }
@@ -221,8 +222,13 @@ ControlLayer = cc.Class.extend({
     },
     setPlayerPhotoName: function(layer, name, sPhoto, gender, c, type)
     {
-        var x_offset = 0;
-        var y_offset = 80;
+        // type 1: runner
+        //var x_offset = 0;
+        //var y_offset = 80;
+        var x_offset = 80;
+        var y_offset = 0;
+
+        // type 2: award
         if(type==2)
         {
             x_offset = 280;

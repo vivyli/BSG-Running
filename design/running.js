@@ -11,7 +11,8 @@ GameDefinition = {
 
     WinnerCountLimit: 3,     // winner limit
     SpeedEffectLimit: 3,      // speed effect galaxy
-    SpeedEffectLimit2: 4      // speed effect fire
+    SpeedEffectLimit2: 4,      // speed effect fire
+    SpeedRate:0.5
 };
 
 GameRoles = [

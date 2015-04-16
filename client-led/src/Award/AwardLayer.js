@@ -30,6 +30,9 @@ var AwardLayer = cc.Layer.extend({
             var winners = ControlLayer._getInstance().winners;
             var order = 0;
             for(var idx in winners){
+                if(winners[idx]==undefined || winners[idx]==null){
+                    continue;
+                }
                 order = order+1;
                 var name = winners[idx][NETWORK_CONSTANTS.USER_NAME];
                 var photo = winners[idx][NETWORK_CONSTANTS.USER_PHOTO];
