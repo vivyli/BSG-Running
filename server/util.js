@@ -69,7 +69,8 @@ function map_length(mp) {
 }
 
 function encode_image(imgurl, callback) {
-    var imgurl = 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/96';
+    //var imgurl = 'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/96';
+    var imgurl = 'http://localhost/tx.png';
     log.log_with_color('[----------- DEBUG -----------] Start Encoding!', 'blue');
     http.get(imgurl, function(res){
         var imgData = "";
