@@ -10,8 +10,8 @@ GameDefinition = {
     HeadCountLimit: 10,
 
     WinnerCountLimit: 3,     // winner limit
-    SpeedEffectLimit: 3,      // speed effect galaxy
-    SpeedEffectLimit2: 4,      // speed effect fire
+    SpeedEffectLimit: 2,      // speed effect galaxy
+    SpeedEffectLimit2: 3.5,      // speed effect fire
     SpeedRate:0.5
 };
 
