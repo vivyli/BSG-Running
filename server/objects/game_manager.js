@@ -15,6 +15,8 @@ module.exports = function GameManager() {
         if (__TEST__ == 1)
             return 1;
         else {
+            if (this.game_id_seed >= 100)
+                this.game_id_seed = 1;
             var game_id = this.game_id_seed;
             this.game_id_seed = this.game_id_seed + 1;
             return game_id;
