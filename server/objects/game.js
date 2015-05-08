@@ -45,13 +45,13 @@ module.exports = function Game(socket_handler){
     }
 
     this.get_game_url = function () {
-        var u = NETWORK_CONSTANTS.SERVER_HOST;
+        /*var u = NETWORK_CONSTANTS.SERVER_HOST;
         if (NETWORK_CONSTANTS.WEB_SERVER_PORT != 80)
             u = u + ':' + NETWORK_CONSTANTS.WEB_SERVER_PORT;
         u = u + '/client-player/?game_id=' + this.id;
 
-        //var u = 'http://192.168.10.108/BSG-Running/client-player/?game_id=' + this.id;
-        console.log(u);
+        console.log(u);*/
+        var u = 'http://bigscreengame.com/qrcode/' + this.id + '.png';
         return u;
     }
 }

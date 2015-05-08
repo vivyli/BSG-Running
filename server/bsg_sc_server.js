@@ -73,9 +73,9 @@ function start(io/* port*/) {
                 game.game_state = GAME_STATE.READY_TO_START;//GAME_STATE.WAITING_FOR_PLAYERS;
                 // Notify Led client the created game id.
                 // Format: {game_id: 1}
-                var qrbase64 = util.gen_qrcode_base64(game.get_game_url());
+                //var qrbase64 = util.gen_qrcode_base64(game.get_game_url());
                 //console.log(qrbase64);
-                this.emit(EventNetworkLED.GameID, {game_id: game.id, qrcode_data: qrbase64});
+                this.emit(EventNetworkLED.GameID, {game_id: game.id, qrcode_data: game.get_game_url()/*qrbase64*/});
 
                 check_alive_interval_id = setInterval(check_runners_alive(game.id), EventNetworkLED.Interval);
                 log.log_with_color('[LED LOGIN] game id: ' + game.id, Log_Config.sc_log_default_color);
