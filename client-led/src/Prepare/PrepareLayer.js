@@ -87,7 +87,7 @@ var PrepareLayer = cc.Layer.extend({
             var qrCode = new cc.Sprite(texture);
             qrCode.setAnchorPoint(cc.p(0,0));
             qrCode.setPosition(cc.p(550,200));
-            //qrCode.setScale(4,4);
+            qrCode.setScale(2.8,2.8);
             this.addChild(qrCode);
         }
     },
