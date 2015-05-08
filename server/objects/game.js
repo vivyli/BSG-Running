@@ -51,7 +51,7 @@ module.exports = function Game(socket_handler){
         u = u + '/client-player/?game_id=' + this.id;
 
         console.log(u);*/
-        var u = 'http://bigscreengame.com/qrcode/' + this.id + '.png';
+        var u = 'qrcode/' + this.id + '.png';
         return u;
     }
 }
