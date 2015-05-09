@@ -68,7 +68,11 @@ ControlLayer = cc.Class.extend({
             return;
 		} else {
             cc.log("### led emmit end game");
-            this.socket.emit(EventNetworkLED.EndGame, {key: this.gameId, rankInfo: this.winners});
+            var rankInfo = [];
+            for(var i in this.winners) {
+                rankInfo[i] = this.winners[i][NETWORK_CONSTANTS.USER_ID];
+            }
+            this.socket.emit(EventNetworkLED.EndGame, {key: this.gameId, rankInfo: rankInfo});
             var nextScene = new AwardScene();
             cc.director.runScene(new cc.TransitionSlideInR(0.4, nextScene));
 		}
