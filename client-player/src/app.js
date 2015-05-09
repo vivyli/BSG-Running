@@ -114,6 +114,8 @@ var GameControllerLayer = cc.Layer.extend({
         data[NETWORK_CONSTANTS.SHAKE_DATA] = ret;
         data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
         var self = this;
+        // debug
+        this.rankLabel.setString("sensor:"+sensorData.toString());
         this.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
             cc.log(responseData);
             self.showWinnerRank(responseData);
