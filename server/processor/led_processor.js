@@ -92,8 +92,9 @@ function update_rank (game, ranks) {
     for (var i = 0; i < ranks.length; ++ i) {
         var runner_id = ranks[i];
         var runner = game.runners[runner_id];
+        log.log_with_color('[Rank] runner_id = ' + runner_id + ' rank = ' + (i + 1), 'red');
         if (runner) {
-            log.log_with_color('[Rank] runner_id = ' + runner_id + ' rank = ' + (i + 1), 'red');
+
             runner.rank = i + 1;
         }
 
