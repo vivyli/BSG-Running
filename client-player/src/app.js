@@ -41,6 +41,9 @@ var GameControllerLayer = cc.Layer.extend({
     showWinnerRank: function(rank)
     {
         rank = parseInt(rank);
+        if(rank == null || rank == undefined){
+            return;
+        }
         var rankStr = "真遗憾";
         if(rank <= 0){
             rankStr = "第"+rank+"名";
