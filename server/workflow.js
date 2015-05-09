@@ -3,6 +3,7 @@
  */
 
 require('../common/commonDefs.js');
+var log = require('log.js');
 
 // Game State -> Opened event
 // WAITING_FOR_PLAYER   ->  Player.Login, Player.HeartBeat
@@ -43,6 +44,7 @@ function check_accept_event(game_state, event) {
             break;
     }
 
+    log.log_with_color('[WORKFLOW-CONTROL] FAILED: state = ' + game_state + ' event = ' + event);
     return false;
 }
 
