@@ -19,7 +19,7 @@ function calculateRunnerSpeed(shake_data) {
 function send_rank(user_id, response) {
     var runner = game_manager.get_runner(user_id);
     if (runner != null) {
-        util.send_text_response(response, runner.rank);
+        util.send_text_response(response, '' + runner.rank);
     }
 }
 
