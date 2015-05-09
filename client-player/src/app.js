@@ -44,6 +44,9 @@ var GameControllerLayer = cc.Layer.extend({
         if(rank == null || rank == undefined){
             return;
         }
+        if(rank == 0) {
+            return;
+        }
         var rankStr = "真遗憾";
         if(rank > 0){
             rankStr = "第"+rank+"名";
@@ -114,8 +117,6 @@ var GameControllerLayer = cc.Layer.extend({
         data[NETWORK_CONSTANTS.SHAKE_DATA] = ret;
         data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
         var self = this;
-        // debug
-        this.rankLabel.setString("sensor:"+sensorData.toString());
         this.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
             cc.log(responseData);
             self.showWinnerRank(responseData);
