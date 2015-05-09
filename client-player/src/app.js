@@ -45,7 +45,7 @@ var GameControllerLayer = cc.Layer.extend({
             return;
         }
         var rankStr = "真遗憾";
-        if(rank <= 0){
+        if(rank > 0){
             rankStr = "第"+rank+"名";
         }
         this.rankLabel.setString(rankStr);
