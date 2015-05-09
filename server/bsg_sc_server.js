@@ -118,10 +118,13 @@ function start(io/* port*/) {
         socket.on(EventNetworkLED.EndGame, function (data){
             log.log_with_color('[Req][LED] End Game', Log_Config.request_color);
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkLED.EndGame)) {
+                var ranks = data['rankInfo'];
+                led_processor.update_rank(game, ranks);
                 if (interval_id)
                     clearInterval(interval_id);
                 if (game != null)
-                    game.reset();
+                    game.finish();
+                    //game.reset();
                 log.log_with_color('======== [End GAME]! =========', Log_Config.sc_log_default_color);
             }
             else {

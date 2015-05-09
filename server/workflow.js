@@ -38,7 +38,7 @@ function check_accept_event(game_state, event) {
                 return true;
             break;
         case GAME_STATE.FINISHED:
-            if (event == EventNetworkLED.Login)
+            if (event == EventNetworkLED.Login || event == EventNetworkPlayer.Sensor)
                 return true;
             break;
     }

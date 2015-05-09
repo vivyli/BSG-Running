@@ -47,8 +47,11 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
             var game = game_manager.get_game_by_user_id(user_id);
             log.log_with_color('sensor data received! shake_data=' + shake_data + ' user_id=' + user_id, 'yellow');
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkPlayer.Sensor)) {
-                runner_processor.process(user_id, shake_data, user_agent);
-                util.send_text_response(response, 'OK');
+                if (game.game_state == GAME_STATE.FINISHED) // If game is finished, send back runner's rank.
+                    runner_processor.send_rank(user_id, response);
+                else
+                    runner_processor.process(user_id, shake_data, user_agent);
+                //util.send_text_response(response, 'OK');
             }
             else {
                 // TODO Notify not accept this event
