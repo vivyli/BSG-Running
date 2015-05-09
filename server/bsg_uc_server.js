@@ -51,7 +51,7 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
                     runner_processor.send_rank(user_id, response);
                 else {
                     runner_processor.process(user_id, shake_data, user_agent);
-                    util.send_text_response(response, '-1');
+                    util.send_text_response(response, '0');
                 }
             }
             else {
