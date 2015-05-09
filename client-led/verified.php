@@ -169,8 +169,8 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
     </style>
-    <!--script src="../frameworks/led/cocos2d-js-v3.3.js"></script-->
-    <script src="../frameworks/cocos2d-html5/CCBoot.js"></script>
+    <script src="../frameworks/led/cocos2d-js-v3.3.js"></script>
+    <!--script src="../frameworks/cocos2d-html5/CCBoot.js"></script-->
     <script src="main.js"></script>
 </head>
 
