@@ -3,6 +3,7 @@ var GameControllerLayer = cc.Layer.extend({
     background:null,
     sprite:null,
     shake:null,
+    rankLabel:null,
     _sensorDatas: [],
     _frequency: 30,
     _valueFrequency: 7,
@@ -25,10 +26,9 @@ var GameControllerLayer = cc.Layer.extend({
             });
             this.addChild(this.background, 0);
 
-            // game id
-            //var idLable = new cc.LabelTTF("gId:"+CLIENT_GAME_ID.toString(), "Impact", 48);
-            //idLable.setPosition(size.width / 2, size.height * 0.2);
-            //this.addChild(idLable);
+            this.rankLabel = new cc.LabelTTF("", "Impact", 48);
+            this.rankLabel.setPosition(size.width / 2, size.height * 0.2);
+            this.addChild(this.rankLabel);
 
             this.login();
 
@@ -37,6 +37,15 @@ var GameControllerLayer = cc.Layer.extend({
             //CLIENT_GAME_STATE = 4;
             //this.startSendingSensorData();
         }
+    },
+    showWinnerRank: function(rank)
+    {
+        rank = parseInt(rank);
+        var rankStr = "真遗憾";
+        if(rank <= 0){
+            rankStr = "第"+rank+"名";
+        }
+        this.rankLabel.setString(rankStr);
     },
     showPlayerId: function()
     {
@@ -101,8 +110,10 @@ var GameControllerLayer = cc.Layer.extend({
         var ret = sensorData;
         data[NETWORK_CONSTANTS.SHAKE_DATA] = ret;
         data[NETWORK_CONSTANTS.USER_ID] = PLAYER_ID;
+        var self = this;
         this.sendData(data, EventNetworkPlayer.Sensor, function (responseData) {
             cc.log(responseData);
+            self.showWinnerRank(responseData);
         });
 
         if(CLIENT_GAME_STATE && (GAME_STATE.RUNNING > CLIENT_GAME_STATE || CLIENT_GAME_STATE >= GAME_STATE.FINISHED)) {
