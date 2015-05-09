@@ -18,6 +18,7 @@ function check_accept_event(game_state, event) {
     if (game_state == null || game_state == undefined){
         if (event == EventNetworkLED.Login)
             return true;
+        log.log_with_color('[WORKFLOW-CONTROL] FAILED: game state is null', 'red');
         return false;
     }
 
