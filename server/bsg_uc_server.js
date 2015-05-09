@@ -49,9 +49,10 @@ uc_events.actions[EventNetworkPlayer.Sensor] = function(request, response) {
             if (workflow.check_accept_event(game == null ? null : game.game_state, EventNetworkPlayer.Sensor)) {
                 if (game.game_state == GAME_STATE.FINISHED) // If game is finished, send back runner's rank.
                     runner_processor.send_rank(user_id, response);
-                else
+                else {
                     runner_processor.process(user_id, shake_data, user_agent);
-                //util.send_text_response(response, 'OK');
+                    util.send_text_response(response, '-1');
+                }
             }
             else {
                 // TODO Notify not accept this event
