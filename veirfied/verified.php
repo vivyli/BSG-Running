@@ -89,7 +89,7 @@
 		echo $decreTokenStr;
 		echo '<br />';
 		 */	
-		list($user,$passwd,$dateStr) = split("_",$decreTokenStr);
+		list($user,$passwd,$dateStr,$expiry) = split("_",$decreTokenStr);
 		if(empty($user) || $user != 'yxsh01')
 		{
 			return false;
@@ -121,7 +121,16 @@
 		echo '<br />';
 		 */
 		$span = $dateNow-$dateInToken;
-		if($span < 0 || $span > 86400*10)
+		if(empty($expiry))
+		{
+			return false;
+		}
+		$expiryInt = intval($expiry);
+		if($expiryInt <= 0)
+		{
+			return false;
+		}
+		if($span < 0 || $span > 86400*($expiryInt))
 			return false;
 		return true;
 	}
@@ -136,7 +145,7 @@
 	if(empty($tokenOrStr))
 	{
 		header("Content-type:text/html; charset=UTF-8");
-		die("输入唯一码有效");
+		die("输入唯一码无效");
 	}
 	$tokenEnStr = $tokenOrStr;//encrypt($tokenOrStr, 'E', 'fuckyou');
 	//$tokenDeStr = encrypt($tokenEnStr, 'D', 'fuckyou')
@@ -146,7 +155,7 @@
 	if($isValidRet != true)
 	{
 		header("Content-type:text/html; charset=UTF-8");
-		die("用户名密码错误");
+		die("用户名密码错误或者已经超期");
 	}
 
 ?>
@@ -160,6 +169,16 @@
     <meta name="screen-orientation" content="portrait"/>
     <meta name="x5-fullscreen" content="true"/>
     <meta name="360-fullscreen" content="true"/>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c9fa753c984a2fcaa63e64a846fe40cf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+	
     <style>
         body, canvas, div {
             -moz-user-select: none;
@@ -169,8 +188,8 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
     </style>
-    <!--script src="../frameworks/led/cocos2d-js-v3.3.js"></script-->
-    <script src="../frameworks/cocos2d-html5/CCBoot.js"></script>
+    <script src="../frameworks/led/cocos2d-js-v3.3.js"></script>
+    <!--script src="../frameworks/cocos2d-html5/CCBoot.js"></script-->
     <script src="main.js"></script>
 </head>
 

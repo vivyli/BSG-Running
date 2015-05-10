@@ -70,9 +70,10 @@ foreach ($posts as $key => $value) {
 $user = $posts["account"];
 $password = $posts["password"];
 $dateStr = date("Y-m-d");
-$tokenOrStr = $user."_".$password."_".$dateStr;
-//echo $tokenOrStr;
-//echo "<br/>";
+$expiry = $posts["expiry"];
+$tokenOrStr = $user."_".$password."_".$dateStr."_".$expiry;
+echo $tokenOrStr;
+echo "<br/>";
 echo encrypt($tokenOrStr, 'E', 'fuckyou'); 
 echo "<br/>";
 ?>
