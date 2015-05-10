@@ -3,6 +3,7 @@
  */
 
 require('../common/commonDefs.js');
+var log = require('./log.js');
 
 // Game State -> Opened event
 // WAITING_FOR_PLAYER   ->  Player.Login, Player.HeartBeat
@@ -17,6 +18,7 @@ function check_accept_event(game_state, event) {
     if (game_state == null || game_state == undefined){
         if (event == EventNetworkLED.Login)
             return true;
+        log.log_with_color('[WORKFLOW-CONTROL] FAILED: game state is null', 'red');
         return false;
     }
 
@@ -38,11 +40,12 @@ function check_accept_event(game_state, event) {
                 return true;
             break;
         case GAME_STATE.FINISHED:
-            if (event == EventNetworkLED.Login)
+            if (event == EventNetworkLED.Login || event == EventNetworkPlayer.Sensor)
                 return true;
             break;
     }
 
+    log.log_with_color('[WORKFLOW-CONTROL] FAILED: state = ' + game_state + ' event = ' + event, 'red');
     return false;
 }
 

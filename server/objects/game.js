@@ -26,7 +26,7 @@ module.exports = function Game(socket_handler){
         // Reset game state.
         this.game_state = GAME_STATE.RESERVED;
         this.user_id_seed = 1;
-    }
+    };
 
     this.can_join = function(){
         var map_len = util.map_length(this.runners) + 1;
@@ -35,14 +35,14 @@ module.exports = function Game(socket_handler){
             return true;
         else
             return false;
-    }
+    };
 
     this.new_user_id = function() {
         var user_id = this.id * GameDefinition.HeadCountLimit + this.user_id_seed;
         this.user_id_seed ++;
 
         return user_id;
-    }
+    };
 
     this.get_game_url = function () {
         /*var u = NETWORK_CONSTANTS.SERVER_HOST;
@@ -53,6 +53,10 @@ module.exports = function Game(socket_handler){
         console.log(u);*/
         var u = 'qrcode/' + this.id + '.png';
         return u;
-    }
-}
+    };
+
+    this.finish = function() {
+        this.game_state = GAME_STATE.FINISHED;
+    };
+};
 

@@ -87,5 +87,20 @@ function check_runners_alive(game_id){
 
 }
 
+function update_rank (game, ranks) {
+    if (game == null) return false;
+    for (var i = 0; i < ranks.length; ++ i) {
+        var runner_id = ranks[i];
+        var runner = game.runners[runner_id];
+        log.log_with_color('[Rank] runner_id = ' + runner_id + ' rank = ' + (i + 1), 'red');
+        if (runner) {
+
+            runner.rank = i + 1;
+        }
+
+    }
+}
+
 exports.process = process;
 exports.check_runners_alive = check_runners_alive;
+exports.update_rank = update_rank;

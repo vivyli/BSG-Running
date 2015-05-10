@@ -16,6 +16,13 @@ function calculateRunnerSpeed(shake_data) {
     return Math.max(0, ((data - 1) / GameDefinition.ShakeData2SpeedFactor));
 }
 
+function send_rank(user_id, response) {
+    var runner = game_manager.get_runner(user_id);
+    if (runner != null) {
+        util.send_text_response(response, '' + runner.rank);
+    }
+}
+
 function process(user_id, shake_data, is_iphone) {
     if (__DEBUG__ == 1)
         log.log_with_color('[runner_processor:process]: user_id = ' + user_id + ', shake_data = ' + Math.sqrt(shake_data), 'yellow');
@@ -89,3 +96,4 @@ function register_runner(user_id, game_id) {
 exports.process = process;
 exports.heart_beat = heart_beat;
 exports.register_runner = register_runner;
+exports.send_rank = send_rank;
