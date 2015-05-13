@@ -26,7 +26,7 @@ var GameControllerLayer = cc.Layer.extend({
             });
             this.addChild(this.background, 0);
 
-            this.rankLabel = new cc.LabelTTF("", "Impact", 48);
+            this.rankLabel = new cc.LabelTTF("", "Impact", 64);
             this.rankLabel.setPosition(size.width / 2, size.height * 0.2);
             this.addChild(this.rankLabel);
 
@@ -38,6 +38,15 @@ var GameControllerLayer = cc.Layer.extend({
             //this.startSendingSensorData();
         }
     },
+    _shake: function(node)
+    {
+        var pointL = cc.p(node.x-3, node.y);
+        var pointR = cc.p(node.x+3, node.y);
+        var moveLeft = cc.moveTo(0.08, pointL);
+        var moveRight = cc.moveTo(0.08, pointR);
+        var actionShake = cc.sequence(moveLeft, moveRight).repeatForever();
+        node.runAction(actionShake);
+    },
     showWinnerRank: function(rank)
     {
         rank = parseInt(rank);
@@ -47,11 +56,15 @@ var GameControllerLayer = cc.Layer.extend({
         if(rank == 0) {
             return;
         }
-        var rankStr = "真遗憾";
+
         if(rank > 0){
             rankStr = "第"+rank+"名";
+            this.rankLabel.setString(rankStr);
+            this._shake(this.rankLabel);
+        } else {
+            var rankStr = "真遗憾";
+            this.rankLabel.setString(rankStr);
         }
-        this.rankLabel.setString(rankStr);
     },
     showPlayerId: function()
     {
