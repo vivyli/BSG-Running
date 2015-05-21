@@ -95,7 +95,7 @@ function gen_qrcode_base64(url) {
 }
 
 function get_wx_qrcode_url(wxaccount) {
-    var url = SERVER_HOST + '/v2/client-led/wxqrcode/' + wxaccount + '.png';
+    var url = NETWORK_CONSTANTS.SERVER_HOST + '/v2/client-led/wxqrcode/' + wxaccount + '.png';
     return url;
 }
 
