@@ -89,7 +89,7 @@
 		echo $decreTokenStr;
 		echo '<br />';
 		 */	
-		list($user,$passwd,$dateStr,$expiry) = split("_",$decreTokenStr);
+		list($user,$passwd, $wxaccount, $dateStr,$expiry) = split("_",$decreTokenStr);
 		if(empty($user) || $user != 'yxsh01')
 		{
 			return false;
