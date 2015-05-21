@@ -52,6 +52,13 @@ function start(io/* port*/) {
 
     io.on('connection', function (socket) {
         log.log_with_color('[INFO] New connection!', Log_Config.sc_log_default_color);
+        socket.on(EventNetworkLED.WXqrcode, function (data) {
+            log.log_with_color('[Req][LED] WxqrcodeResult', Log_Config.request_color);
+            var wxaccount = data["SC_WX_qrcode"];
+            var url = util.get_wx_qrcode_url(wxaccount);
+            log.log_with_color('[SC_WX_qrcode]url is ' + url, Log_Config.sc_log_default_color)
+            this.emit(EventNetworkLED.WXqrcodeResult, {qrcode_data: url});
+        });
 
         // Receive Login event:
         // If game is null means that we can reuse game instance.

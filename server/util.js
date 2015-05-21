@@ -94,9 +94,15 @@ function gen_qrcode_base64(url) {
     return data;
 }
 
+function get_wx_qrcode_url(wxaccount) {
+    var url = SERVER_HOST + '/v2/client-led/wxqrcode/' + wxaccount + '.png';
+    return url;
+}
+
 exports.handlePostRequest = handlePostRequest;
 exports.send_text_response = send_text_response;
 exports.average = average;
 exports.map_length = map_length;
 exports.encode_image = encode_image;
 exports.gen_qrcode_base64 = gen_qrcode_base64;
+exports.get_wx_qrcode_url = get_wx_qrcode_url;
