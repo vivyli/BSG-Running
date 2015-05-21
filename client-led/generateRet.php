@@ -121,8 +121,8 @@ $dateStr = date("Y-m-d");
 $expiry = $posts["expiry"];
 
 // Download image
-echo "start download image"
-$url = "http://open.weixin.qq.com/qr/code/?username=".$wxaccount
+echo "start download image";
+$url = "http://open.weixin.qq.com/qr/code/?username=".$wxaccount;
 echo getImage($url, 'wxqrcode', $wxaccount.".png");
 // End download
 
