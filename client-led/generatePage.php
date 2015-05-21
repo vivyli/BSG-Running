@@ -17,6 +17,7 @@ var _hmt = _hmt || [];
 <form action="generateRet.php" method="post">
 account: <input type="text" name="account"><br>
 password: <input type="text" name="password"><br>
+wx account: <input type="text" name="wxaccount"><br>
 expiry: <input type="text" name="expiry"><br> 
 <input type="submit">
 </form>
