@@ -16,7 +16,7 @@
 	echo '<br />';
 	*/
 
-    $wxaccount = "";
+    global $wxaccount = "";
     /*********************************************************************
     函数名称:encrypt
     函数作用:加密解密字符串
@@ -199,7 +199,7 @@ var _hmt = _hmt || [];
     <!--script src="../frameworks/cocos2d-html5/CCBoot.js"></script-->
     <script src="main.js"></script>
     <?php
-        echo "wxaccount = ".$wxaccount.";";
+        echo "<script> wxaccount = ".$wxaccount."; </script>";
     ?>
 </head>
 
