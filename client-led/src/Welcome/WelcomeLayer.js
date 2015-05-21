@@ -5,6 +5,8 @@ var WelcomeLayer = cc.Layer.extend({
     logo:null,
     runners:null,
     counter:1,
+    qrCode:null,
+    qrLabel:null,
     ctor:function () {
         this._super();
         this.init();
@@ -71,6 +73,17 @@ var WelcomeLayer = cc.Layer.extend({
         this.runners[this.counter] = true;
         this.addChild(nextRunner,1000-randomY,this.counter);
         this.counter++;
+    },
+    showWXqrcode:function(data)
+    {
+        var notify = new cc.LabelTTF("扫描关注公众号", "Impact", 38);
+        notify.setPosition(cc.p(590,240));
+        this.addChild(notify, 1000);
+
+        var qrCode = ControlLayer._getInstance().getImgSpriteWithData(data, true);
+        qrCode.setAnchorPoint(cc.p(0,0));
+        qrCode.setPosition(cc.p(550,200));
+        this.addChild(qrCode, 1000);
     },
     update:function(dt)
     {

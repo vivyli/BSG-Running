@@ -22,6 +22,11 @@ ControlLayer = cc.Class.extend({
         this.registerSocketEvent();
 
         cc.log("server:", NETWORK_CONSTANTS.SERVER_HOST+":"+NETWORK_CONSTANTS.SERVER_PORT);
+
+        if (QRCODE_ID != undefined && QRCODE_ID != null) {
+            this.socket.emit(EventNetworkLED.WXqrcode, {"SC_WX_qrcode": QRCODE_ID});
+            cc.log("### server emit qrcode id", QRCODE_ID);
+        }
     },
     ResetGame: function ()
     {
@@ -142,6 +147,16 @@ ControlLayer = cc.Class.extend({
                         controlLevel.scene.updateRunnerSpeed(playerId, data[playerId]);
                     }
 				}
+            });
+
+            // recv wx qrcode data
+            this.socket.on(EventNetworkLED.WXqrcodeResult, function(data){
+                QRCODE_DATA = data;
+                var controlLevel = ControlLayer._getInstance();
+                if(controlLevel.sceneName == EnumSceneName.eWelcome) {
+                    cc.log("### wx qrcode received.", QRCODE_DATA);
+                    controlLevel.scene.onWXqrcodeReceived();
+                }
             });
         }
     },

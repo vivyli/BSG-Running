@@ -61,7 +61,13 @@ var GameControllerLayer = cc.Layer.extend({
     {
         cc.log("show Player id");
         var size = cc.winSize;
-        var idLable = new cc.LabelTTF(PLAYER_ID.toString(), "Impact", 160);
+        var idStr = PLAYER_ID.toString();
+        var fontSize = 160;
+        if(PLAYER_ID <= 0) {
+            idStr = "人数已满, 稍候再试"
+            fontSize = 48;
+        }
+        var idLable = new cc.LabelTTF(idStr, "Impact", fontSize);
         idLable.setPosition(size.width / 2, size.height * 0.8);
         this.addChild(idLable);
     },

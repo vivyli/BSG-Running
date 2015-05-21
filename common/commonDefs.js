@@ -10,6 +10,8 @@ EventNetworkLED = {
     GameState : "SC_game_state", // server send player speed to led
     EndGame : "SC_end_game", // led send game over to server
     UnPrepareState: "SC_un_prepare_state",
+    WXqrcode: "SC_WX_qrcode", // led send wx qrcode id to server
+    WXqrcodeResult: "SC_WX_qrcode_result", // server send wx qrcode server
 
     Interval : 500
 };
@@ -36,7 +38,7 @@ NETWORK_CONSTANTS = {
     QRCODE_DATA : "qrcode_data",
 
     IMAGE_SIZE : 96,
-    QRCODE_SIZE : 98
+    QRCODE_SIZE : 430
 };
 
 GAME_STATE = {

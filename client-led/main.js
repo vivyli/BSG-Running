@@ -1,3 +1,5 @@
+QRCODE_DATA = -1;
+
 cc.game.onStart = function(){
     //var designSize = cc.size(480, 800);
     var screenSize = cc.view.getFrameSize();
