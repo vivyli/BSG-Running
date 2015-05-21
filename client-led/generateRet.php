@@ -116,7 +116,7 @@ foreach ($posts as $key => $value) {
 }
 $user = $posts["account"];
 $password = $posts["password"];
-$wxaccount = $post["wxaccount"];
+$wxaccount = $posts["wxaccount"];
 $dateStr = date("Y-m-d");
 $expiry = $posts["expiry"];
 

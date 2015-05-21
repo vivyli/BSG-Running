@@ -16,7 +16,6 @@
 	echo '<br />';
 	*/
 
-    global $wxaccount = "";
     /*********************************************************************
     函数名称:encrypt
     函数作用:加密解密字符串
@@ -100,10 +99,9 @@
 			return false;
 		}
 
-		if (!empty($wxaccount))
-		{
-		    $wxaccount = $wxacc;
-		}
+
+        echo "<script> wxaccount = ".$wxacc."; </script>";
+
 
 		/*
 		echo $user;
@@ -198,9 +196,6 @@ var _hmt = _hmt || [];
     <script src="../frameworks/led/cocos2d-js-v3.3.js"></script>
     <!--script src="../frameworks/cocos2d-html5/CCBoot.js"></script-->
     <script src="main.js"></script>
-    <?php
-        echo "<script> wxaccount = ".$wxaccount."; </script>";
-    ?>
 </head>
 
 <body style="padding:0; margin: 0; background: #000;">
