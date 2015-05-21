@@ -100,7 +100,7 @@
 		}
 
 
-        echo "<script> wxaccount = ".$wxacc."; </script>";
+        echo "<script> wxaccount = \'".$wxacc."\'; </script>";
 
 
 		/*
