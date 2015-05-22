@@ -121,9 +121,16 @@ $dateStr = date("Y-m-d");
 $expiry = $posts["expiry"];
 
 // Download image
-echo "start download image";
+echo "start download image<br>";
 $url = "http://open.weixin.qq.com/qr/code/?username=".$wxaccount;
-echo getImage($url, "/www/v2/client-led/res/Normal/wxqrcode/", ''.$wxaccount.".png");
+$res = getImage($url, "/www/v2/client-led/res/Normal/wxqrcode/", ''.$wxaccount.".png");
+if (copy('/www/v2/client-led/res/Normal/wxqrcode/'.$wxaccount.'.png', '/www/v2/client-led/res/HD/wxqrcode/'.$wxaccount.'.png')) {
+    echo "Copied Success!<br>";
+} else {
+    echo "Copied Failed!<br>";
+}
+echo "Download WX qrcode finished! <br>";
+//echo "filename:" .$res['file_name'] ." save_path: ".$res['save_path'] ." error: " .$res['error'] . "<br>";
 // End download
 
 $tokenOrStr = $user."_".$password."_".$wxaccount."_".$dateStr."_".$expiry;
