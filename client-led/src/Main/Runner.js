@@ -94,6 +94,7 @@ var Runner = cc.Node.extend({
     {
         if(this.isFinish == true)
             return;
+        speed = speed > 0.5 ? speed : 0.5;
         this.speed = speed;
         var speedAnimation = this.sprite.getActionByTag(10);
         if(speedAnimation){
