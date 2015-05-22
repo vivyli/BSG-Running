@@ -76,9 +76,10 @@ var WelcomeLayer = cc.Layer.extend({
     },
     showWXqrcode:function(data)
     {
-        var notify = new cc.LabelTTF("扫描关注公众号", "Impact", 38);
-        notify.setPosition(cc.p(590,240));
-        this.addChild(notify, 1000);
+        var notify = new cc.LabelTTF("扫描关注公众号", "Impact", 24);
+        notify.fillStyle = cc.color("#3d4d75");
+        notify.setPosition(cc.p(820,600));
+        this.addChild(notify, 10000);
 
         cc.textureCache.addImage(data, this.texLoaded, this);
     },
@@ -89,7 +90,7 @@ var WelcomeLayer = cc.Layer.extend({
             qrCode.setAnchorPoint(cc.p(0,0));
             qrCode.setPosition(cc.p(550,200));
             qrCode.setScale(1,1);
-            this.addChild(qrCode);
+            this.addChild(qrCode, 10000);
         }
     },
 
