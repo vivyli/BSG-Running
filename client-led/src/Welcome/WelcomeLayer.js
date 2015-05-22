@@ -80,11 +80,19 @@ var WelcomeLayer = cc.Layer.extend({
         notify.setPosition(cc.p(590,240));
         this.addChild(notify, 1000);
 
-        var qrCode = ControlLayer._getInstance().getImgSpriteWithData(data, true);
-        qrCode.setAnchorPoint(cc.p(0,0));
-        qrCode.setPosition(cc.p(550,200));
-        this.addChild(qrCode, 1000);
+        cc.textureCache.addImage(data, this.texLoaded, this);
     },
+
+    texLoaded: function (texture) {
+        if (texture instanceof cc.Texture2D) {
+            var qrCode = new cc.Sprite(texture);
+            qrCode.setAnchorPoint(cc.p(0,0));
+            qrCode.setPosition(cc.p(550,200));
+            qrCode.setScale(1,1);
+            this.addChild(qrCode);
+        }
+    },
+
     update:function(dt)
     {
         var size = cc.director.getWinSize();

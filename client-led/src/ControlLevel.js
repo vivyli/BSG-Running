@@ -151,7 +151,7 @@ ControlLayer = cc.Class.extend({
 
             // recv wx qrcode data
             this.socket.on(EventNetworkLED.WXqrcodeResult, function(data){
-                QRCODE_DATA = data;
+                QRCODE_DATA = data['qrcode_data'];
                 var controlLevel = ControlLayer._getInstance();
                 if(controlLevel.sceneName == EnumSceneName.eWelcome) {
                     cc.log("### wx qrcode received.", QRCODE_DATA);
