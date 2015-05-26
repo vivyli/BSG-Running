@@ -93,7 +93,10 @@
             $img=ob_get_contents();
             ob_end_clean();
         }
-        //$size=strlen($img);
+        $size=strlen($img);
+        if ($size == 0) {
+            return array('file_name'=>$filename,'save_path'=>$save_dir.$filename,'error'=>6);
+        }
         //文件大小
         $fp2=@fopen($save_dir.$filename,'a');
         fwrite($fp2,$img);
@@ -124,6 +127,10 @@ $expiry = $posts["expiry"];
 //echo "start download image<br>";
 $url = "http://open.weixin.qq.com/qr/code/?username=".$wxaccount;
 $res = getImage($url, "/www/v2/client-led/res/Normal/wxqrcode/", ''.$wxaccount.".png");
+if ($res['error'] != 0) {
+    die("微信二维码未下载成功，可能账号不对哦~<br>");
+}
+
 if (copy('/www/v2/client-led/res/Normal/wxqrcode/'.$wxaccount.'.png', '/www/v2/client-led/res/HD/wxqrcode/'.$wxaccount.'.png')) {
     //echo "Copied Success!<br>";
 } else {
